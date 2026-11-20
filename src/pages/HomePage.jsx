@@ -1,7 +1,6 @@
 import React from 'react';
-import { CardContainer, CardBody, CardItem } from '../components/ui/3d-card-effect';
 import { Link } from 'react-router-dom';
-import { ArrowUpRight, ArrowRight, Clock, Layers, ShoppingBag, Palette, Server, Code2, Cpu, Cloud, Smartphone, ShieldCheck } from 'lucide-react';
+import { ArrowUpRight, ArrowRight, ArrowLeft, Clock, Layers, ShoppingBag, Palette, Server, Code2, Cpu, Cloud, Smartphone, ShieldCheck } from 'lucide-react';
 import { insightsArticles } from '../data/insightsArticles';
 import { provisions, industries, whyPillars, projects } from '../data/siteData';
 import TechStackShowcase from '../components/TechStackShowcase';
@@ -10,6 +9,46 @@ import TrustedByFlowShowcase from '../components/TrustedByFlowShowcase';
 import { DestinationCard } from '../components/ui/card-21';
 
 const capabilityIcons = [Server, Code2, Cpu, Cloud, Smartphone, ShieldCheck];
+
+const latestThinkingCards = [
+  {
+    to: '/insights/ai-machine-learning',
+    image: '/assets/insights/1.png',
+    title: 'From AI Adoption to AI Advantage',
+    tall: true,
+  },
+  {
+    to: '/insights/software-engineering',
+    image: '/assets/insights/2.png',
+    title: 'Next-Gen AI Pipelines & Enterprise Foundation Models',
+  },
+  {
+    to: '/insights/business-technology',
+    image: '/assets/insights/3.png',
+    title: 'Open Banking at an Inflection Point: Why Banks Must Act Now',
+  },
+  {
+    to: '/insights/cloud-infrastructure',
+    image: '/assets/insights/4.png',
+    title: 'Security by Design: A GenAI Model for Trust and Growth',
+  },
+  {
+    to: '/insights/digital-platforms',
+    image: '/assets/insights/5.png',
+    title: 'Modern Omnichannel Infrastructure for Global Teams',
+  },
+  {
+    to: '/insights/technology-consulting',
+    image: '/assets/insights/6.png',
+    title: 'Agentic AI for Oil and Gas Upstream Operations',
+  },
+  {
+    to: '/insights/software-engineering',
+    image: '/assets/insights/7.png',
+    title: 'Autonomous Enterprise Platforms: Modular Architecture for Scale',
+    tall: true,
+  },
+];
 
 const globalServedMarkets = [
   {
@@ -66,6 +105,70 @@ const trustedLogos = [
 
 export default function HomePage({ onOpenModal }) {
   const heroVideoRef = React.useRef(null);
+  const marketsTrackRef = React.useRef(null);
+  const marketsSectionRef = React.useRef(null);
+  const insightsTrackRef = React.useRef(null);
+  const insightsSectionRef = React.useRef(null);
+  const lastScrollYRef = React.useRef(typeof window !== 'undefined' ? window.scrollY : 0);
+  const marketsScrollLockRef = React.useRef(false);
+  const insightsScrollLockRef = React.useRef(false);
+
+  const scrollTrack = React.useCallback((trackRef, lockRef, direction = 1) => {
+    const track = trackRef.current;
+    if (!track || lockRef.current) return;
+
+    const card = track.querySelector('[data-slide-card]');
+    const step = card ? card.offsetWidth + 24 : Math.min(track.clientWidth * 0.85, 360);
+    const maxScroll = track.scrollWidth - track.clientWidth;
+    if (maxScroll <= 0) return;
+
+    let next = track.scrollLeft + direction * step;
+    if (next > maxScroll - 8) next = 0;
+    if (next < 0) next = maxScroll;
+
+    lockRef.current = true;
+    track.scrollTo({ left: next, behavior: 'smooth' });
+    window.setTimeout(() => {
+      lockRef.current = false;
+    }, 450);
+  }, []);
+
+  const scrollMarkets = React.useCallback(
+    (direction = 1) => scrollTrack(marketsTrackRef, marketsScrollLockRef, direction),
+    [scrollTrack]
+  );
+
+  const scrollInsights = React.useCallback(
+    (direction = 1) => scrollTrack(insightsTrackRef, insightsScrollLockRef, direction),
+    [scrollTrack]
+  );
+
+  React.useEffect(() => {
+    const onScroll = () => {
+      const y = window.scrollY;
+      const prev = lastScrollYRef.current;
+      const delta = y - prev;
+      lastScrollYRef.current = y;
+
+      // Scroll down → advance cards right-to-left; scroll up → reverse
+      if (Math.abs(delta) < 4) return;
+      const direction = delta > 0 ? 1 : -1;
+
+      const checkAndAdvance = (sectionRef, advance) => {
+        const section = sectionRef.current;
+        if (!section) return;
+        const rect = section.getBoundingClientRect();
+        const inView = rect.top < window.innerHeight * 0.85 && rect.bottom > window.innerHeight * 0.15;
+        if (inView) advance(direction);
+      };
+
+      checkAndAdvance(marketsSectionRef, scrollMarkets);
+      checkAndAdvance(insightsSectionRef, scrollInsights);
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, [scrollMarkets, scrollInsights]);
 
   React.useEffect(() => {
     const video = heroVideoRef.current;
@@ -186,16 +289,15 @@ export default function HomePage({ onOpenModal }) {
       {/* ================= CLIENT LOGO TICKER SLIDESHOW (RIGHT BELOW HERO) ================= */}
       <TrustedByFlowShowcase logos={trustedLogos} />
 
-      {/* ================= TECHNOLOGY FOR BUSINESSES WITHOUT BOUNDARIES (EDITORIAL BENTO GRID - EXACT MATCH TO IMAGE) ================= */}
-      <section className="site-section bg-white pt-6 pb-12 sm:pb-14 px-6 sm:px-8 border-y border-slate-100" id="solutions">
+      {/* ================= LATEST THINKING ================= */}
+      <section className="bg-[#f4f5f7] pt-10 pb-12 sm:pt-12 sm:pb-14 md:bg-white md:pt-6 md:pb-14 px-0 md:px-8 border-y border-slate-100" id="solutions">
         <div className="max-w-7xl mx-auto">
-          {/* Header Block matching Reference Image: Title on Left, Subtext on Right */}
-          <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6 mb-6 sm:mb-8">
+          <div className="px-5 md:px-0 flex flex-col lg:flex-row lg:items-start justify-between gap-4 md:gap-6 mb-6 sm:mb-8">
             <div className="max-w-2xl">
-              <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#004AAD] block mb-2 font-mono">
-                LATEST THINKING
+              <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#004AAD] block mb-2">
+                Latest Thinking
               </span>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#0f172a] tracking-tight font-['DM_Sans'] leading-[1.15]">
+              <h2 className="text-[1.75rem] sm:text-4xl lg:text-5xl font-extrabold text-[#0f172a] tracking-tight font-['DM_Sans'] leading-[1.15]">
                 Technology for Businesses Without <span className="accent-text">Boundaries</span>
               </h2>
             </div>
@@ -206,176 +308,161 @@ export default function HomePage({ onOpenModal }) {
             </div>
           </div>
 
-          {/* 3-Column Visual Editorial Grid exactly matching Reference Image */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 items-stretch">
-            {/* COLUMN 1: Tall Card on Top (h-[490px]) + Standard Card Below (h-[250px]) */}
-            <div className="flex flex-col gap-5">
-              {/* Card 1: Robotic Arm (Tall) */}
-              <Link
-                to="/insights/ai-machine-learning"
-                className="group relative overflow-hidden rounded-xl cursor-pointer border border-slate-200/80 bg-slate-950 shadow-sm hover:shadow-2xl transition-all duration-500 flex flex-col justify-between h-[360px] sm:h-[420px] lg:h-[490px]"
-              >
-                <img
-                  src="/assets/insights/1.png"
-                  alt="Robotic arm in manufacturing facility representing AI Adoption"
-                  className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/45 via-40% to-black/20 group-hover:via-black/35 transition-colors duration-500" />
+          {/* Mobile: TechM-style horizontal carousel */}
+          <div className="lg:hidden">
+            <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory px-5 pb-3 scrollbar-hide scroll-smooth">
+              {latestThinkingCards.map((card) => (
+                <Link
+                  key={`${card.to}-${card.title}`}
+                  to={card.to}
+                  className="group relative snap-start shrink-0 w-[85vw] max-w-[340px] h-[420px] rounded-2xl overflow-hidden bg-slate-900 shadow-md"
+                >
+                  <img
+                    src={card.image}
+                    alt={card.title}
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-active:scale-105"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-black/15" />
+                  <div className="absolute inset-x-0 bottom-0 z-10 p-5">
+                    <h3 className="text-[1.35rem] font-bold text-white leading-snug tracking-tight font-['DM_Sans'] mb-3">
+                      {card.title}
+                    </h3>
+                    <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-white">
+                      Read More
+                      <ArrowRight className="h-4 w-4" />
+                    </span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+            <div className="flex items-center justify-center gap-3 mt-4 px-5">
+              <span className="text-xs font-medium text-slate-500">Swipe for more</span>
+            </div>
+          </div>
 
-                {/* Editorial Title */}
-                <div className="relative z-10 p-5 sm:p-6 mt-auto">
-                  <h3 className="text-xl sm:text-2xl font-bold text-white leading-snug tracking-tight font-['DM_Sans'] group-hover:text-sky-300 transition-colors duration-300">
-                    From AI Adoption to AI Advantage
-                  </h3>
+          {/* Desktop: bento grid */}
+          <div className="hidden lg:grid grid-cols-3 gap-5 items-stretch">
+            <div className="flex flex-col gap-5">
+              <Link
+                to={latestThinkingCards[0].to}
+                className="group relative overflow-hidden rounded-xl cursor-pointer border border-slate-200/80 bg-slate-950 shadow-sm hover:shadow-2xl transition-all duration-500 flex flex-col justify-between h-[490px]"
+              >
+                <img src={latestThinkingCards[0].image} alt="" className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out" loading="lazy" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/45 via-40% to-black/20" />
+                <div className="relative z-10 p-6 mt-auto">
+                  <h3 className="text-2xl font-bold text-white leading-snug tracking-tight font-['DM_Sans'] group-hover:text-sky-300 transition-colors">{latestThinkingCards[0].title}</h3>
+                  <span className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-white/90">Read More <ArrowRight className="h-4 w-4" /></span>
                 </div>
               </Link>
-
-              {/* Card 2: 3D Iridescent Spheres (Standard) */}
               <Link
-                to="/insights/software-engineering"
-                className="group relative overflow-hidden rounded-xl cursor-pointer border border-slate-200/80 bg-slate-950 shadow-sm hover:shadow-2xl transition-all duration-500 flex flex-col justify-between h-[250px] sm:h-[260px] lg:h-[250px]"
+                to={latestThinkingCards[1].to}
+                className="group relative overflow-hidden rounded-xl cursor-pointer border border-slate-200/80 bg-slate-950 shadow-sm hover:shadow-2xl transition-all duration-500 flex flex-col justify-between h-[250px]"
               >
-                <img
-                  src="/assets/insights/2.png"
-                  alt="Intelligent cloud systems and 3D spheres"
-                  className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/45 via-45% to-black/20 group-hover:via-black/35 transition-colors duration-500" />
-
-                <div className="relative z-10 p-5 sm:p-6 mt-auto">
-                  <h3 className="text-lg sm:text-xl font-bold text-white leading-snug tracking-tight font-['DM_Sans'] group-hover:text-sky-300 transition-colors duration-300">
-                    Next-Gen AI Pipelines &amp; Enterprise Foundation Models
-                  </h3>
+                <img src={latestThinkingCards[1].image} alt="" className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out" loading="lazy" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/45 via-45% to-black/20" />
+                <div className="relative z-10 p-6 mt-auto">
+                  <h3 className="text-xl font-bold text-white leading-snug tracking-tight font-['DM_Sans'] group-hover:text-sky-300 transition-colors">{latestThinkingCards[1].title}</h3>
+                  <span className="mt-2 inline-flex items-center gap-1.5 text-sm font-semibold text-white/90">Read More <ArrowRight className="h-4 w-4" /></span>
                 </div>
               </Link>
             </div>
 
-            {/* COLUMN 2: Three Stacked Standard Cards (h-[233px] + h-[234px] + h-[233px]) */}
             <div className="flex flex-col gap-5">
-              {/* Card 3: Open Banking (Top) */}
-              <Link
-                to="/insights/business-technology"
-                className="group relative overflow-hidden rounded-xl cursor-pointer border border-slate-200/80 bg-slate-950 shadow-sm hover:shadow-2xl transition-all duration-500 flex flex-col justify-between h-[250px] sm:h-[260px] lg:h-[233px]"
-              >
-                <img
-                  src="/assets/insights/3.png"
-                  alt="Open Banking and Fintech Innovation"
-                  className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 via-45% to-black/20 group-hover:via-black/35 transition-colors duration-500" />
-
-                <div className="relative z-10 p-5 sm:p-6 mt-auto">
-                  <h3 className="text-lg sm:text-xl font-bold text-white leading-snug tracking-tight font-['DM_Sans'] group-hover:text-sky-300 transition-colors duration-300">
-                    Open Banking at an Inflection Point: Why Banks Must Act Now
-                  </h3>
-                </div>
-              </Link>
-
-              {/* Card 4: Security by Design / 3D Torus (Middle) */}
-              <Link
-                to="/insights/cloud-infrastructure"
-                className="group relative overflow-hidden rounded-xl cursor-pointer border border-slate-200/80 bg-slate-950 shadow-sm hover:shadow-2xl transition-all duration-500 flex flex-col justify-between h-[250px] sm:h-[260px] lg:h-[234px]"
-              >
-                <img
-                  src="/assets/insights/4.png"
-                  alt="Security by design 3D torus"
-                  className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 via-45% to-black/20 group-hover:via-black/35 transition-colors duration-500" />
-
-                <div className="relative z-10 p-5 sm:p-6 mt-auto">
-                  <h3 className="text-lg sm:text-xl font-bold text-white leading-snug tracking-tight font-['DM_Sans'] group-hover:text-sky-300 transition-colors duration-300">
-                    Security by Design: A GenAI Model for Trust and Growth
-                  </h3>
-                </div>
-              </Link>
-
-              {/* Card 5: Communications / Man on Phone (Bottom) */}
-              <Link
-                to="/insights/digital-platforms"
-                className="group relative overflow-hidden rounded-xl cursor-pointer border border-slate-200/80 bg-slate-950 shadow-sm hover:shadow-2xl transition-all duration-500 flex flex-col justify-between h-[250px] sm:h-[260px] lg:h-[233px]"
-              >
-                <img
-                  src="/assets/insights/5.png"
-                  alt="Enterprise Communications and Global Networks"
-                  className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 via-45% to-black/20 group-hover:via-black/35 transition-colors duration-500" />
-
-                <div className="relative z-10 p-5 sm:p-6 mt-auto">
-                  <h3 className="text-lg sm:text-xl font-bold text-white leading-snug tracking-tight font-['DM_Sans'] group-hover:text-sky-300 transition-colors duration-300">
-                    Modern Omnichannel Infrastructure for Global Teams
-                  </h3>
-                </div>
-              </Link>
+              {[2, 3, 4].map((i) => (
+                <Link
+                  key={latestThinkingCards[i].title}
+                  to={latestThinkingCards[i].to}
+                  className="group relative overflow-hidden rounded-xl cursor-pointer border border-slate-200/80 bg-slate-950 shadow-sm hover:shadow-2xl transition-all duration-500 flex flex-col justify-between h-[233px]"
+                >
+                  <img src={latestThinkingCards[i].image} alt="" className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out" loading="lazy" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 via-45% to-black/20" />
+                  <div className="relative z-10 p-6 mt-auto">
+                    <h3 className="text-xl font-bold text-white leading-snug tracking-tight font-['DM_Sans'] group-hover:text-sky-300 transition-colors">{latestThinkingCards[i].title}</h3>
+                    <span className="mt-2 inline-flex items-center gap-1.5 text-sm font-semibold text-white/90">Read More <ArrowRight className="h-4 w-4" /></span>
+                  </div>
+                </Link>
+              ))}
             </div>
 
-            {/* COLUMN 3: Standard Card on Top (h-[250px]) + Tall Card Below (h-[490px]) */}
             <div className="flex flex-col gap-5">
-              {/* Card 6: Agentic AI for Oil & Gas (Top) */}
               <Link
-                to="/insights/technology-consulting"
-                className="group relative overflow-hidden rounded-xl cursor-pointer border border-slate-200/80 bg-slate-950 shadow-sm hover:shadow-2xl transition-all duration-500 flex flex-col justify-between h-[250px] sm:h-[260px] lg:h-[250px]"
+                to={latestThinkingCards[5].to}
+                className="group relative overflow-hidden rounded-xl cursor-pointer border border-slate-200/80 bg-slate-950 shadow-sm hover:shadow-2xl transition-all duration-500 flex flex-col justify-between h-[250px]"
               >
-                <img
-                  src="/assets/insights/6.png"
-                  alt="Agentic AI for Oil and Gas Upstream Operations"
-                  className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 via-45% to-black/20 group-hover:via-black/35 transition-colors duration-500" />
-
-                <div className="relative z-10 p-5 sm:p-6 mt-auto">
-                  <h3 className="text-lg sm:text-xl font-bold text-white leading-snug tracking-tight font-['DM_Sans'] group-hover:text-sky-300 transition-colors duration-300">
-                    Agentic AI for Oil and Gas Upstream Operations
-                  </h3>
+                <img src={latestThinkingCards[5].image} alt="" className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out" loading="lazy" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 via-45% to-black/20" />
+                <div className="relative z-10 p-6 mt-auto">
+                  <h3 className="text-xl font-bold text-white leading-snug tracking-tight font-['DM_Sans'] group-hover:text-sky-300 transition-colors">{latestThinkingCards[5].title}</h3>
+                  <span className="mt-2 inline-flex items-center gap-1.5 text-sm font-semibold text-white/90">Read More <ArrowRight className="h-4 w-4" /></span>
                 </div>
               </Link>
-
-              {/* Card 7: 3D Cubes (Tall, Bottom) */}
               <Link
-                to="/insights/software-engineering"
-                className="group relative overflow-hidden rounded-xl cursor-pointer border border-slate-200/80 bg-slate-950 shadow-sm hover:shadow-2xl transition-all duration-500 flex flex-col justify-between h-[360px] sm:h-[420px] lg:h-[490px]"
+                to={latestThinkingCards[6].to}
+                className="group relative overflow-hidden rounded-xl cursor-pointer border border-slate-200/80 bg-slate-950 shadow-sm hover:shadow-2xl transition-all duration-500 flex flex-col justify-between h-[490px]"
               >
-                <img
-                  src="/assets/insights/7.png"
-                  alt="Autonomous Enterprise Architecture and Modular Cubes"
-                  className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/45 via-40% to-black/20 group-hover:via-black/35 transition-colors duration-500" />
-
-                <div className="relative z-10 p-5 sm:p-6 mt-auto">
-                  <h3 className="text-xl sm:text-2xl font-bold text-white leading-snug tracking-tight font-['DM_Sans'] group-hover:text-sky-300 transition-colors duration-300">
-                    Autonomous Enterprise Platforms: Modular Architecture for Scale
-                  </h3>
+                <img src={latestThinkingCards[6].image} alt="" className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out" loading="lazy" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/45 via-40% to-black/20" />
+                <div className="relative z-10 p-6 mt-auto">
+                  <h3 className="text-2xl font-bold text-white leading-snug tracking-tight font-['DM_Sans'] group-hover:text-sky-300 transition-colors">{latestThinkingCards[6].title}</h3>
+                  <span className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-white/90">Read More <ArrowRight className="h-4 w-4" /></span>
                 </div>
               </Link>
             </div>
           </div>
 
-          {/* Countries We Serve - Powered by DestinationCard (card-21) */}
-          <div className="mt-14 sm:mt-16 pt-10 border-t border-slate-100" id="global-corridors">
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
-              <div>
+          {/* Countries We Serve — slideshow on mobile + desktop */}
+          <div
+            ref={marketsSectionRef}
+            className="mt-12 sm:mt-16 pt-10 border-t border-slate-200/80 md:border-slate-100"
+            id="global-corridors"
+          >
+            <div className="px-5 md:px-0 flex flex-col lg:flex-row lg:items-end justify-between mb-6 sm:mb-8 gap-4">
+              <div className="max-w-2xl">
                 <span className="text-xs font-bold uppercase tracking-wider text-[#004AAD]">Global Delivery Corridors</span>
                 <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight font-['DM_Sans'] mt-1">
                   Countries &amp; Enterprise Markets We Serve
                 </h3>
+                <p className="text-sm text-slate-500 max-w-md leading-relaxed mt-3 lg:hidden">
+                  Delivering 24/7 mission-critical software, dedicated IIT engineering squads, and scalable cloud infrastructure across prime international tech corridors.
+                </p>
               </div>
-              <p className="text-xs sm:text-sm text-slate-500 max-w-md">
-                Delivering 24/7 mission-critical software, dedicated IIT engineering squads, and scalable cloud infrastructure across prime international tech corridors.
-              </p>
+
+              <div className="flex items-end gap-4">
+                <p className="hidden lg:block text-sm text-slate-500 max-w-md leading-relaxed">
+                  Delivering 24/7 mission-critical software, dedicated IIT engineering squads, and scalable cloud infrastructure across prime international tech corridors.
+                </p>
+                <div className="flex items-center gap-2 shrink-0">
+                  <button
+                    type="button"
+                    onClick={() => scrollMarkets(-1)}
+                    className="h-11 w-11 rounded-full bg-slate-900 text-white inline-flex items-center justify-center hover:bg-[#004AAD] transition-colors"
+                    aria-label="Previous market"
+                  >
+                    <ArrowLeft className="h-4 w-4" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => scrollMarkets(1)}
+                    className="h-11 w-11 rounded-full bg-slate-900 text-white inline-flex items-center justify-center hover:bg-[#004AAD] transition-colors"
+                    aria-label="Next market"
+                  >
+                    <ArrowRight className="h-4 w-4" />
+                  </button>
+                </div>
+              </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            <div
+              ref={marketsTrackRef}
+              className="flex gap-4 md:gap-6 overflow-x-auto snap-x snap-mandatory px-5 md:px-0 pb-2 scrollbar-hide scroll-smooth"
+            >
               {globalServedMarkets.map((market) => (
-                <div key={market.id} className="w-full h-[380px] sm:h-[420px]">
+                <div
+                  key={market.id}
+                  data-slide-card
+                  className="snap-start shrink-0 w-[82vw] max-w-[320px] md:w-[340px] md:max-w-none lg:w-[380px] h-[380px] md:h-[420px]"
+                >
                   <DestinationCard
                     imageUrl={market.imageUrl}
                     location={market.location}
@@ -393,26 +480,50 @@ export default function HomePage({ onOpenModal }) {
       </section>
 
       {/* ================= PHILOSOPHY BANNER ================= */}
-      <section className="banner-section">
+      <section className="py-10 sm:py-12 lg:py-14">
         <div className="section-container">
-          <div className="banner-content-box">
-            <span className="section-eyebrow light">OUR PHILOSOPHY</span>
-            <h2 className="banner-title">
-              We Don't Just Build Technology.<br />
-              We Enable Businesses With <span className="text-sky-400">It.</span>
-            </h2>
-            <p className="banner-subtext">
-              Technology should solve business problems, not create more of them. SkyWeb works alongside businesses to understand their goals, design the right technology strategy, build the required systems, and continuously improve them as they grow.
-            </p>
+          <div className="relative overflow-hidden rounded-2xl bg-[#070c16] border border-white/[0.06] px-6 py-10 sm:px-10 sm:py-12 lg:px-14 lg:py-14">
+            <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+              <div className="absolute -top-24 -right-16 h-64 w-64 rounded-full bg-[#004AAD]/20 blur-3xl" />
+              <div className="absolute -bottom-28 left-0 h-56 w-56 rounded-full bg-[#0066FF]/10 blur-3xl" />
+            </div>
 
-            <div className="flow-steps-row">
-              <span className="flow-chip">Business</span>
-              <span className="flow-arrow">→</span>
-              <span className="flow-chip">Strategy</span>
-              <span className="flow-arrow">→</span>
-              <span className="flow-chip">Technology</span>
-              <span className="flow-arrow">→</span>
-              <span className="flow-chip">Scale</span>
+            <div className="relative z-10 max-w-3xl">
+              <span className="inline-block text-[11px] sm:text-xs font-bold uppercase tracking-[0.2em] text-[#7dd3fc] mb-4">
+                Our Philosophy
+              </span>
+              <h2 className="font-['DM_Sans'] text-3xl sm:text-4xl lg:text-[2.65rem] font-extrabold text-white tracking-tight leading-[1.15] mb-5">
+                We Don&apos;t Just Build Technology.
+                <br />
+                We Enable Businesses With{' '}
+                <span className="text-[#38bdf8]">It.</span>
+              </h2>
+              <p className="text-[15px] sm:text-base text-slate-300/90 leading-relaxed max-w-2xl">
+                Technology should solve business problems, not create more of them. SkyWeb works alongside businesses to understand their goals, design the right technology strategy, build the required systems, and continuously improve them as they grow.
+              </p>
+            </div>
+
+            {/* Business → Strategy → Technology → Scale */}
+            <div className="relative z-10 mt-10 sm:mt-12 pt-8 border-t border-white/[0.08]">
+              <ol className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+                {[
+                  { step: '01', label: 'Business' },
+                  { step: '02', label: 'Strategy' },
+                  { step: '03', label: 'Technology' },
+                  { step: '04', label: 'Scale' },
+                ].map((item) => (
+                  <li key={item.label} className="relative min-w-0">
+                    <div className="flex flex-col gap-2 pl-3 border-l-2 border-[#38bdf8]/50">
+                      <span className="text-[11px] font-bold tracking-[0.18em] text-[#38bdf8]/75 tabular-nums">
+                        {item.step}
+                      </span>
+                      <span className="text-base sm:text-lg font-semibold text-white font-['DM_Sans'] tracking-tight">
+                        {item.label}
+                      </span>
+                    </div>
+                  </li>
+                ))}
+              </ol>
             </div>
           </div>
         </div>
@@ -438,65 +549,59 @@ export default function HomePage({ onOpenModal }) {
                 <Link
                   key={idx}
                   to={item.href || "/capabilities"}
-                  className="group relative bg-white rounded-2xl overflow-hidden border border-slate-200/90 hover:border-blue-500/50 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
+                  className="group relative block h-[420px] sm:h-[460px] rounded-2xl overflow-hidden border border-slate-800/40 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
                 >
-                  {/* Card Image Banner */}
-                  <div className="relative h-48 sm:h-52 w-full overflow-hidden bg-slate-900">
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500 ease-out"
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/15 to-transparent" />
-                    
-                    {/* Top Right Number Badge */}
-                    <div className="absolute top-4 right-4 z-10">
-                      <span className="w-7 h-7 rounded-full bg-slate-900/80 backdrop-blur-md text-white border border-white/20 flex items-center justify-center text-xs font-bold shadow-sm">
-                        {item.number || `0${idx + 1}`}
-                      </span>
-                    </div>
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500 ease-out"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/55 to-black/20" />
+
+                  <div className="absolute top-4 right-4 z-10">
+                    <span className="w-7 h-7 rounded-full bg-black/60 backdrop-blur-md text-white border border-white/25 flex items-center justify-center text-xs font-bold">
+                      {item.number || `0${idx + 1}`}
+                    </span>
                   </div>
 
-                  {/* Card Body */}
-                  <div className="p-6 sm:p-7 flex flex-col flex-grow justify-between">
-                    <div>
-                      <div className="flex items-center gap-3 mb-3">
-                        {IconComponent && (
-                          <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300">
-                            <IconComponent className="w-5 h-5" />
-                          </div>
-                        )}
-                        <h3 className="text-xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors font-['DM_Sans'] tracking-tight">
-                          {item.title}
-                        </h3>
-                      </div>
-                      <p className="text-sm text-slate-600 leading-relaxed mb-5">
-                        {item.desc}
-                      </p>
-
-                      {/* Highlights Pill Badges */}
-                      {item.highlights && item.highlights.length > 0 && (
-                        <div className="flex flex-wrap gap-1.5 mb-6">
-                          {item.highlights.map((hl, hIdx) => (
-                            <span
-                              key={hIdx}
-                              className="text-[11px] font-medium text-slate-600 bg-slate-100 group-hover:bg-blue-50 group-hover:text-blue-700 px-2.5 py-1 rounded-md transition-colors"
-                            >
-                              {hl}
-                            </span>
-                          ))}
+                  <div className="absolute inset-0 z-10 flex flex-col justify-end p-5 sm:p-6">
+                    <div className="flex items-center gap-3 mb-3">
+                      {IconComponent && (
+                        <div className="w-10 h-10 rounded-xl bg-white/15 text-white border border-white/20 backdrop-blur-sm flex items-center justify-center shrink-0">
+                          <IconComponent className="w-5 h-5" />
                         </div>
                       )}
+                      <h3 className="text-xl font-bold text-white font-['DM_Sans'] tracking-tight">
+                        {item.title}
+                      </h3>
                     </div>
 
-                    {/* Bottom Action Footer */}
-                    <div className="pt-4 border-t border-slate-100 flex items-center justify-between mt-auto">
-                      <span className="text-xs font-bold text-blue-600 group-hover:text-blue-700 tracking-wider uppercase flex items-center gap-1.5">
+                    <p className="text-sm text-white/85 leading-relaxed mb-4">
+                      {item.desc}
+                    </p>
+
+                    {item.highlights && item.highlights.length > 0 && (
+                      <div className="flex flex-wrap gap-1.5 mb-5">
+                        {item.highlights.map((hl, hIdx) => (
+                          <span
+                            key={hIdx}
+                            className="text-[11px] font-medium text-white/90 bg-white/10 border border-white/15 backdrop-blur-sm px-2.5 py-1 rounded-md"
+                          >
+                            {hl}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+
+                    <div className="pt-3 border-t border-white/15 flex items-center justify-between">
+                      <span className="text-xs font-bold text-sky-300 group-hover:text-white tracking-wider uppercase flex items-center gap-1.5 transition-colors">
                         Explore Capability
                         <ArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform" />
                       </span>
-                      <span className="text-[11px] text-slate-400 font-medium tracking-wide uppercase">Enterprise Ready</span>
+                      <span className="text-[11px] text-white/50 font-medium tracking-wide uppercase">
+                        Enterprise Ready
+                      </span>
                     </div>
                   </div>
                 </Link>
@@ -530,11 +635,11 @@ export default function HomePage({ onOpenModal }) {
           <div className="absolute top-1/4 left-10 w-80 h-80 bg-[#0066FF]/15 rounded-full blur-3xl pointer-events-none" />
         </div>
 
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-end min-h-[380px] lg:min-h-[440px]">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10 pt-12 sm:pt-14 lg:pt-16 pb-0">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-end min-h-[440px] lg:min-h-[520px]">
             
-            {/* Left Content Column (7 cols) */}
-            <div className="lg:col-span-7 py-8 sm:py-10 lg:py-12 flex flex-col justify-center">
+            {/* Left Content Column (7 cols) — padded off the floor so copy isn't cramped */}
+            <div className="lg:col-span-7 flex flex-col justify-center pb-12 sm:pb-14 lg:pb-16">
 
               {/* Bold Big Headline */}
               <h2 className="text-3xl sm:text-5xl lg:text-[54px] xl:text-[58px] font-extrabold text-white tracking-tight font-['DM_Sans'] leading-[1.08] mb-6 max-w-2xl">
@@ -568,8 +673,8 @@ export default function HomePage({ onOpenModal }) {
 
             </div>
 
-            {/* Right Column: Neat Cutout Image Touching the Bottom with Ambient Backlight (5 cols) */}
-            <div className="lg:col-span-5 flex justify-center lg:justify-end items-end h-full">
+            {/* Right Column: cutout sits on the section floor; top padding keeps head clear */}
+            <div className="lg:col-span-5 flex justify-center lg:justify-end items-end self-end">
               <div className="relative w-full max-w-[340px] sm:max-w-[400px] lg:max-w-none flex justify-center lg:justify-end items-end">
                 {/* Backlight so dark trousers and silhouette pop cleanly against blue */}
                 <div className="absolute bottom-10 right-1/2 translate-x-1/2 lg:translate-x-0 lg:right-6 w-80 h-96 bg-[#004AAD]/35 rounded-full blur-3xl pointer-events-none" />
@@ -577,7 +682,7 @@ export default function HomePage({ onOpenModal }) {
                 <img
                   src="/assets/big-thinker.png"
                   alt="Uday Kumar Sangisetti"
-                  className="relative z-10 w-auto h-[400px] sm:h-[480px] lg:h-[540px] xl:h-[580px] object-contain object-bottom drop-shadow-[0_20px_35px_rgba(0,0,0,0.6)] select-none"
+                  className="relative z-10 w-auto h-[380px] sm:h-[460px] lg:h-[520px] xl:h-[560px] object-contain object-bottom drop-shadow-[0_20px_35px_rgba(0,0,0,0.6)] select-none block"
                   loading="lazy"
                 />
               </div>
@@ -675,96 +780,75 @@ export default function HomePage({ onOpenModal }) {
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
             {projects.map((proj, idx) => (
-              <CardContainer key={idx} containerClassName="py-2 w-full" className="w-full">
-                <CardBody className="bg-white relative group/card border border-slate-200/90 hover:border-[#004AAD]/40 w-full h-auto rounded-2xl p-6 transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_45px_rgba(0,74,173,0.12)] flex flex-col justify-between">
-                  <div>
-                    <div className="flex items-center justify-between mb-4">
-                      <CardItem
-                        translateZ={30}
-                        className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#004AAD]/10 text-[#004AAD]"
-                      >
-                        {idx === 0 && <Layers className="w-3.5 h-3.5" />}
-                        {idx === 1 && <ShoppingBag className="w-3.5 h-3.5" />}
-                        {idx === 2 && <Palette className="w-3.5 h-3.5" />}
-                        <span>{proj.badge}</span>
-                      </CardItem>
-                      <CardItem
-                        translateZ={25}
-                        className="text-[11px] font-semibold tracking-wider uppercase text-slate-400"
-                      >
-                        {proj.category}
-                      </CardItem>
-                    </div>
-
-                    <CardItem
-                      translateZ={50}
-                      className="text-2xl font-extrabold text-slate-900 tracking-tight"
-                    >
-                      {proj.title}
-                    </CardItem>
-
-                    <CardItem
-                      as="p"
-                      translateZ={60}
-                      className="text-slate-600 text-sm leading-relaxed mt-2.5 min-h-[42px]"
-                    >
-                      {proj.desc}
-                    </CardItem>
-
-                    <CardItem translateZ={85} className="w-full mt-5">
-                      <div className={`relative overflow-hidden rounded-xl h-48 w-full group-hover/card:shadow-xl transition-all duration-300 border border-slate-100 flex items-center justify-center ${proj.imgClass && proj.imgClass.includes('bg-') ? '' : 'bg-slate-900'}`}>
-                        <img
-                          src={proj.image}
-                          alt={proj.title}
-                          className={`h-full w-full transform group-hover/card:scale-105 transition-transform duration-500 ${proj.imgClass || 'object-cover'}`}
-                        />
-                        {proj.imgClass && proj.imgClass.includes('object-cover') && (
-                          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent opacity-60 group-hover/card:opacity-40 transition-opacity"></div>
-                        )}
-                        <div className="absolute bottom-3 left-3 text-white text-xs font-medium px-2.5 py-1 rounded-md bg-black/60 backdrop-blur-sm shadow-sm">
-                          Case Study & Engineering Spec
-                        </div>
-                      </div>
-                    </CardItem>
+              <div
+                key={idx}
+                className="bg-white border border-slate-200 rounded-2xl p-6 shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#004AAD]/10 text-[#004AAD]">
+                      {idx === 0 && <Layers className="w-3.5 h-3.5" />}
+                      {idx === 1 && <ShoppingBag className="w-3.5 h-3.5" />}
+                      {idx === 2 && <Palette className="w-3.5 h-3.5" />}
+                      <span>{proj.badge}</span>
+                    </span>
+                    <span className="text-[11px] font-semibold tracking-wider uppercase text-slate-400">
+                      {proj.category}
+                    </span>
                   </div>
 
-                  <div className="mt-6">
-                    <CardItem translateZ={40} className="flex flex-wrap gap-1.5 mb-5 w-full">
-                      {proj.tags.map((tag, tIdx) => (
-                        <span
-                          key={tIdx}
-                          className="px-2.5 py-1 text-xs rounded-md bg-slate-100 text-slate-600 font-medium"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </CardItem>
+                  <h3 className="text-2xl font-extrabold text-slate-900 tracking-tight">
+                    {proj.title}
+                  </h3>
 
-                    <div className="flex items-center justify-between pt-4 border-t border-slate-100">
-                      <CardItem
-                        translateZ={35}
-                        as="button"
-                        type="button"
-                        onClick={onOpenModal}
-                        className="inline-flex items-center gap-1 text-xs font-semibold text-[#004AAD] hover:underline cursor-pointer"
-                      >
-                        <span>Case Study Details</span>
-                        <ArrowUpRight className="w-4 h-4" />
-                      </CardItem>
+                  <p className="text-slate-600 text-sm leading-relaxed mt-2.5 min-h-[42px]">
+                    {proj.desc}
+                  </p>
 
-                      <CardItem
-                        translateZ={40}
-                        as="button"
-                        type="button"
-                        onClick={onOpenModal}
-                        className="px-4 py-2 rounded-lg bg-[#004AAD] hover:bg-[#003B8A] text-white text-xs font-semibold shadow-sm transition-all duration-200 cursor-pointer"
-                      >
-                        View System
-                      </CardItem>
-                    </div>
+                  <div className={`relative overflow-hidden rounded-xl h-48 w-full mt-5 border border-slate-100 flex items-center justify-center ${proj.imgClass && proj.imgClass.includes('bg-') ? '' : 'bg-slate-900'}`}>
+                    <img
+                      src={proj.image}
+                      alt={proj.title}
+                      className={`h-full w-full ${proj.imgClass || 'object-cover'}`}
+                    />
+                    {proj.imgClass && proj.imgClass.includes('object-cover') && (
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent opacity-60" />
+                    )}
                   </div>
-                </CardBody>
-              </CardContainer>
+                </div>
+
+                <div className="mt-6">
+                  <div className="flex flex-wrap gap-1.5 mb-5 w-full">
+                    {proj.tags.map((tag, tIdx) => (
+                      <span
+                        key={tIdx}
+                        className="px-2.5 py-1 text-xs rounded-md bg-slate-100 text-slate-600 font-medium"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="flex items-center justify-between pt-4 border-t border-slate-100">
+                    <button
+                      type="button"
+                      onClick={onOpenModal}
+                      className="inline-flex items-center gap-1 text-xs font-semibold text-[#004AAD] cursor-pointer"
+                    >
+                      <span>Details</span>
+                      <ArrowUpRight className="w-4 h-4" />
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={onOpenModal}
+                      className="px-4 py-2 rounded-lg bg-[#004AAD] text-white text-xs font-semibold cursor-pointer"
+                    >
+                      View System
+                    </button>
+                  </div>
+                </div>
+              </div>
             ))}
           </div>
 
@@ -776,10 +860,10 @@ export default function HomePage({ onOpenModal }) {
         </div>
       </section>
 
-      {/* ================= INSIGHTS & TECHNOLOGY ARTICLES SECTION ================= */}
-      <section className="site-section bg-subtle" id="insights">
+      {/* ================= INSIGHTS — slideshow (mobile + desktop) ================= */}
+      <section ref={insightsSectionRef} className="site-section bg-subtle" id="insights">
         <div className="section-container">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-5 mb-8">
             <div className="max-w-2xl">
               <span className="section-eyebrow">TECHNOLOGY FOR BUSINESSES WITHOUT BOUNDARIES</span>
               <h2 className="section-headline">
@@ -789,45 +873,58 @@ export default function HomePage({ onOpenModal }) {
                 Explore technology insights, engineering perspectives, and digital transformation strategies from SkyWeb IT Solutions.
               </p>
             </div>
-            <div>
-              <Link 
-                to="/insights" 
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#004AAD] hover:bg-[#003B8A] text-white text-xs font-bold uppercase tracking-wider transition-all shadow-sm"
+
+            <div className="flex items-center gap-3 shrink-0">
+              <button
+                type="button"
+                onClick={() => scrollInsights(-1)}
+                className="h-11 w-11 rounded-full bg-slate-900 text-white inline-flex items-center justify-center hover:bg-[#004AAD] transition-colors"
+                aria-label="Previous insight"
               >
-                <span>View All Insights</span>
+                <ArrowLeft className="h-4 w-4" />
+              </button>
+              <button
+                type="button"
+                onClick={() => scrollInsights(1)}
+                className="h-11 w-11 rounded-full bg-slate-900 text-white inline-flex items-center justify-center hover:bg-[#004AAD] transition-colors"
+                aria-label="Next insight"
+              >
+                <ArrowRight className="h-4 w-4" />
+              </button>
+              <Link
+                to="/insights"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-[#004AAD] hover:bg-[#003B8A] text-white text-xs font-bold uppercase tracking-wider transition-all shadow-sm"
+              >
+                <span>View All</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
           </div>
 
-          {/* ================= 6 INDIVIDUAL TECHNOLOGY ARTICLE CARDS ================= */}
-          <div className="mb-6 flex items-center justify-between">
-            <h3 className="text-xl font-bold text-[#0f172a]">
-              Enterprise Technology & Practice Insights
-            </h3>
-            <span className="text-xs text-slate-500 font-medium">6 Full Articles</span>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+          <div
+            ref={insightsTrackRef}
+            className="flex gap-4 md:gap-6 overflow-x-auto snap-x snap-mandatory pb-2 scrollbar-hide scroll-smooth -mx-1 px-1"
+          >
             {insightsArticles.filter((a) => !a.isNews).map((article) => (
-              <article 
+              <article
                 key={article.slug}
-                className="overflow-hidden rounded-2xl border border-slate-200/90 bg-white flex flex-col group hover:shadow-xl hover:border-[#004AAD]/30 transition-all duration-300"
+                data-slide-card
+                className="snap-start shrink-0 w-[82vw] max-w-[320px] md:w-[340px] lg:w-[360px] overflow-hidden rounded-2xl border border-slate-200/90 bg-white flex flex-col group hover:shadow-xl hover:border-[#004AAD]/30 transition-all duration-300"
               >
-                <Link 
-                  to={`/insights/${article.slug}`} 
+                <Link
+                  to={`/insights/${article.slug}`}
                   className="block aspect-[16/10] overflow-hidden bg-slate-100 relative"
                   aria-label={`Read ${article.title}`}
                 >
-                  <img 
-                    src={article.image} 
-                    alt={article.imageAlt} 
-                    loading="lazy" 
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                  <img
+                    src={article.image}
+                    alt={article.imageAlt}
+                    loading="lazy"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                 </Link>
 
-                <div className="p-6 flex flex-col flex-1">
+                <div className="p-5 sm:p-6 flex flex-col flex-1">
                   <div className="flex items-center gap-2 text-xs text-slate-400 mb-2.5 font-medium">
                     <span>{article.publishedDate || 'October 2026'}</span>
                     <span>•</span>
@@ -843,13 +940,13 @@ export default function HomePage({ onOpenModal }) {
                     </Link>
                   </h3>
 
-                  <p className="text-slate-600 text-xs sm:text-sm leading-relaxed mb-6 flex-1 line-clamp-3">
+                  <p className="text-slate-600 text-xs sm:text-sm leading-relaxed mb-5 flex-1 line-clamp-3">
                     {article.description}
                   </p>
 
                   <div className="pt-4 border-t border-slate-100 flex items-center justify-between mt-auto">
-                    <Link 
-                      to={`/insights/${article.slug}`} 
+                    <Link
+                      to={`/insights/${article.slug}`}
                       className="inline-flex items-center gap-1.5 text-xs font-bold text-[#004AAD] hover:text-[#003B8A] transition-colors"
                     >
                       <span>Read Article</span>

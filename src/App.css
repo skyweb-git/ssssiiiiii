@@ -1,6 +1,6 @@
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 80px;
+  scroll-padding-top: 88px;
 }
 
 .app-container {
@@ -129,11 +129,11 @@ html {
 }
 
 .brand-logo-img {
-  width: 58px;
-  height: 58px;
+  width: 72px;
+  height: 72px;
   object-fit: contain;
   display: block;
-  border-radius: 9px;
+  border-radius: 12px;
   transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -571,7 +571,7 @@ html {
 
 @media (max-width: 960px) {
   .hero-enterprise-layout {
-    padding: 9.75rem 0 2rem 0;
+    padding: 5.75rem 0 2rem 0;
     min-height: auto;
   }
 
@@ -606,7 +606,7 @@ html {
 
 @media (max-width: 640px) {
   .hero-enterprise-layout {
-    padding: 7.25rem 0 1.75rem 0;
+    padding: 5.5rem 0 1.75rem 0;
   }
 
   .hero-container {
@@ -1190,11 +1190,11 @@ html {
 }
 
 .footer-brand-logo-img {
-  width: 46px;
-  height: 46px;
+  width: 72px;
+  height: 72px;
   object-fit: contain;
   display: block;
-  border-radius: 8px;
+  border-radius: 14px;
 }
 
 .footer-brand-title:hover {

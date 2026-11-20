@@ -288,6 +288,14 @@ export const subpagesData = {
     newsSectionSubtitle: "Verified newspaper publications, media clippings, and tech conclave features celebrating SkyWeb's engineering accomplishments.",
     newsItems: [
       {
+        title: "Swayamkrushi Website Launch & Coral Jubilee",
+        publisher: "The Hindu",
+        category: "Client Launch & Press",
+        date: "November 2026",
+        image: "/assets/news/swayamkrushi-coral-jubilee.png",
+        summary: "SkyWeb launches the Swayamkrushi website as The Hindu covers the 35th Coral Jubilee — Former VP M. Venkaiah Naidu and Minister Seethakka honour the Secunderabad nonprofit."
+      },
+      {
         title: "CodeStars 2K26 National Hackathon & Innovation Summit",
         publisher: "Sakshi Daily",
         category: "Tech Conclave",
@@ -308,7 +316,7 @@ export const subpagesData = {
         publisher: "Design Conclave Hyderabad",
         category: "UI/UX Honor",
         date: "October 2026",
-        image: "/assets/news/designathon-2026-hyderabad.png",
+        image: "/assets/news/designathon-2026-hyderabad-clean.png",
         summary: "Special feature highlighting SkyWeb's recognition in neat, clean UI architecture, human-centric design system benchmarks, and rapid frontend delivery."
       },
       {
@@ -533,6 +541,14 @@ export const subpagesData = {
     ],
     newsItems: [
       {
+        title: "Swayamkrushi Website Launch & Coral Jubilee",
+        publisher: "The Hindu",
+        category: "Client Launch & Press",
+        date: "November 2026",
+        image: "/assets/news/swayamkrushi-coral-jubilee.png",
+        summary: "SkyWeb launches the Swayamkrushi website as The Hindu covers the 35th Coral Jubilee — Former VP M. Venkaiah Naidu and Minister Seethakka honour the Secunderabad nonprofit."
+      },
+      {
         title: "CodeStars 2K26 National Hackathon & Innovation Summit",
         publisher: "Sakshi Daily",
         category: "Tech Conclave",
@@ -553,7 +569,7 @@ export const subpagesData = {
         publisher: "Design Conclave Hyderabad",
         category: "UI/UX Honor",
         date: "October 2026",
-        image: "/assets/news/designathon-2026-hyderabad.png",
+        image: "/assets/news/designathon-2026-hyderabad-clean.png",
         summary: "Special feature highlighting SkyWeb's recognition in neat, clean UI architecture, human-centric design system benchmarks, and rapid frontend delivery."
       },
       {
@@ -1305,252 +1321,661 @@ export const subpagesData = {
     categoryHref: "/industries",
     badge: "Fintech & Banking",
     title: "Banking & Financial Services",
-    subtitle: "High-frequency payment switches, automated fraud mitigation, and core banking modernization.",
-    description: "We engineer resilient financial technology infrastructure that processes millions of transactions with microsecond latency, zero downtime, and strict regulatory compliance.",
+    subtitle: "Payments, fraud defense, and core banking modernization.",
+    description: "Resilient financial platforms that move money safely — from payment rails and KYC flows to fraud scoring and customer banking portals — with strict compliance built in.",
     highlights: [
-      { metric: "10M+", label: "Daily Transactions Processed" },
-      { metric: "< 25ms", label: "Payment Gateway Latency" },
-      { metric: "PCI-DSS Level 1", label: "Certified Security" },
-      { metric: "99.999%", label: "High Availability SLA" }
+      { metric: "10M+", label: "Daily Transactions" },
+      { metric: "< 25ms", label: "Payment Latency" },
+      { metric: "PCI-DSS", label: "Security Ready" },
+      { metric: "99.99%", label: "Availability Target" }
+    ],
+    solutionsIntro: "Systems banks and fintechs use to collect, move, protect, and reconcile money at scale.",
+    solutions: [
+      { title: "Payment Gateways & Switches", desc: "Multi-rail routing across cards, UPI, wallets, and clearing networks with idempotent settlement." },
+      { title: "Fraud & Risk Engines", desc: "Real-time scoring, device signals, and rule + ML hybrid decisions before authorization completes." },
+      { title: "Core Banking APIs", desc: "Account, ledger, and customer services with audit trails and controlled release pipelines." },
+      { title: "Onboarding & KYC", desc: "Digital KYC, document OCR, and case workflows that reduce drop-off without weakening controls." },
+      { title: "Customer Banking Portals", desc: "Secure web and mobile experiences for balances, transfers, statements, and service requests." },
+      { title: "Reconciliation & Reporting", desc: "Automated matching, exception queues, and regulator-ready operational reports." }
+    ],
+    challenges: [
+      { title: "Legacy core systems", desc: "Wrap or gradually replace brittle cores with APIs so new products ship without big-bang rewrites." },
+      { title: "Fraud without friction", desc: "Stop abuse while keeping genuine customers in a fast checkout path." },
+      { title: "Compliance evidence", desc: "Produce clear audit logs, access controls, and retention policies for every sensitive flow." },
+      { title: "Peak-day reliability", desc: "Stay online through salary days, festivals, and campaign spikes with predictable failover." }
     ],
     pillars: [
-      { title: "Modern Payment Switches", desc: "Distributed ledger and multi-rail payment routing across credit cards, UPI, SWIFT, and local clearinghouses." },
-      { title: "Real-Time Fraud Detection", desc: "In-flight machine learning inference evaluating transaction risk in under 12 milliseconds." }
-    ]
+      { title: "Modern Payment Rails", desc: "Distributed payment routing with strong consistency on money movement and clear failure recovery." },
+      { title: "Real-Time Fraud Detection", desc: "In-flight risk evaluation that balances speed, precision, and explainability for operations teams." },
+      { title: "Secure Customer Channels", desc: "Hardened auth, session controls, and encrypted data paths across web and mobile." }
+    ],
+    article: {
+      headline: "Engineering Trust Into Every Transaction",
+      lead: "Banking software must be fast, correct, and explainable — especially when money and regulation meet.",
+      sections: [
+        { title: "Design for money correctness first", content: "We treat ledgers, idempotency keys, and settlement states as first-class design concerns. Every payment path has clear success, retry, and compensate behavior so balances stay trustworthy under retries and partial outages." },
+        { title: "Ship products without exposing the core", content: "New experiences are built on stable APIs and event streams. That lets product teams launch faster while core systems remain protected behind controlled interfaces and change windows." },
+        { title: "Operate with evidence", content: "Dashboards, traces, and immutable audit trails help risk, compliance, and engineering teams answer what happened — and why — in minutes, not days." }
+      ],
+      takeaways: [
+        "Payment correctness and auditability beat feature speed when the two conflict",
+        "API boundaries protect legacy cores while enabling modern channels",
+        "Fraud models need operations-friendly explanations, not black boxes only"
+      ]
+    }
   },
   "industries/communications": {
     category: "Industries",
     categoryHref: "/industries",
     badge: "Telecom",
     title: "Communications & Telco",
-    subtitle: "5G network slicing, BSS/OSS modernization, and edge compute orchestration for telecom giants.",
-    description: "Empowering telecommunications providers to transition from connectivity pipes into agile digital platform ecosystems.",
+    subtitle: "BSS/OSS modernization, subscriber platforms, and edge orchestration.",
+    description: "We help telecom operators modernize billing, care, and network software so they can launch digital products faster and run networks with clearer real-time visibility.",
     highlights: [
-      { metric: "50M+", label: "Subscribers Managed on Core BSS" },
-      { metric: "Zero Gravity", label: "Cloud-Native Telco Architecture" },
-      { metric: "Open RAN", label: "Decoupled Radio Access Network" },
-      { metric: "Real-Time", label: "Network Telemetry & Self-Healing" }
+      { metric: "Cloud BSS", label: "Event-Driven Charging" },
+      { metric: "Care Apps", label: "Self-Service Portals" },
+      { metric: "Edge Ready", label: "Low-Latency Services" },
+      { metric: "24/7", label: "Ops Visibility" }
+    ],
+    solutionsIntro: "Digital platforms that turn connectivity into productized, self-serve customer experiences.",
+    solutions: [
+      { title: "BSS / Charging Modernization", desc: "Real-time rating, offers, and billing workflows that replace slow batch-era systems." },
+      { title: "Customer Care Portals", desc: "Self-serve apps for plans, usage, tickets, and device support with secure identity." },
+      { title: "Order & Fulfillment Flows", desc: "Activation journeys that coordinate CRM, inventory, and network provisioning cleanly." },
+      { title: "Network Telemetry Dashboards", desc: "Operational views that surface incidents, capacity, and SLA risk early." },
+      { title: "Partner & API Marketplaces", desc: "Controlled APIs for MVNOs, enterprises, and digital partners with metering and quotas." },
+      { title: "Field & Workforce Tools", desc: "Mobile apps for technicians with job queues, parts, and completion evidence." }
+    ],
+    challenges: [
+      { title: "Legacy BSS complexity", desc: "Reduce product launch time by decoupling offers, charging, and care from monolith constraints." },
+      { title: "Fragmented customer journeys", desc: "Unify web, app, and call-center journeys around one customer profile and ticket state." },
+      { title: "Ops blind spots", desc: "Give NOC and product teams shared telemetry instead of isolated tool silos." }
     ],
     pillars: [
-      { title: "Digital BSS/OSS Modernization", desc: "Replacing legacy billing engines with real-time, cloud-native event-driven charging platforms." },
-      { title: "Network Function Virtualization", desc: "Orchestrating containerized network functions on private edge computing infrastructure." }
-    ]
+      { title: "Digital BSS/OSS", desc: "Cloud-native charging and order platforms that support continuous product change." },
+      { title: "Self-Serve Care", desc: "Secure portals that deflect routine tickets while escalating complex cases cleanly." },
+      { title: "Operational Clarity", desc: "Event streams and dashboards that make network and service health actionable." }
+    ],
+    article: {
+      headline: "From Connectivity Pipe to Digital Product Company",
+      lead: "Telcos win when software lets them package, price, and support services as quickly as digital-native competitors.",
+      sections: [
+        { title: "Modernize around journeys", content: "We prioritize activate, pay, care, and upgrade journeys first — then reconnect BSS/OSS components behind stable APIs so change is safer." },
+        { title: "Make operations observable", content: "Real-time events from charging, provisioning, and network systems feed shared dashboards so teams diagnose issues with the same truth." },
+        { title: "Open carefully", content: "Partner APIs are gated with auth, quotas, and commercial metering so ecosystems grow without uncontrolled risk." }
+      ],
+      takeaways: [
+        "Journey-first modernization beats wholesale BSS replacement theater",
+        "Self-serve care needs identity, usage truth, and clean escalation paths",
+        "APIs create revenue only when governed and metered"
+      ]
+    }
   },
   "industries/education": {
     category: "Industries",
     categoryHref: "/industries",
     badge: "EdTech",
     title: "Education & EdTech",
-    subtitle: "Adaptive learning algorithms, remote examination proctoring, and scalable campus portals.",
-    description: "Transforming how universities and EdTech platforms teach, evaluate, and scale learning through personalized AI tutoring and video delivery.",
+    subtitle: "Learning platforms, exams, and campus systems that stay reliable under load.",
+    description: "SkyWeb builds education software for universities and EdTech teams — from adaptive learning and online exams to student portals and institutional analytics.",
     highlights: [
-      { metric: "2M+", label: "Active Student Learners" },
-      { metric: "Adaptive AI", label: "Dynamic Curriculum Pacing" },
-      { metric: "Low Bandwidth", label: "Optimized for Emerging Markets" },
-      { metric: "Automated", label: "Plagiarism & Proctoring Engines" }
+      { metric: "High Load", label: "Exam-Day Scale" },
+      { metric: "Adaptive", label: "Learning Paths" },
+      { metric: "Secure", label: "Proctoring Flows" },
+      { metric: "Clear UX", label: "Student & Faculty Portals" }
+    ],
+    solutionsIntro: "Platforms that help institutions teach, assess, and administer at digital scale.",
+    solutions: [
+      { title: "Learning Management Systems", desc: "Course delivery, assignments, progress tracking, and content libraries with role-based access." },
+      { title: "Online Examination Platforms", desc: "High-concurrency exam engines with timing controls, integrity checks, and result workflows." },
+      { title: "Adaptive Practice Engines", desc: "Question banks and difficulty models that respond to learner mastery in real time." },
+      { title: "Student & Faculty Portals", desc: "Clean dashboards for schedules, grades, attendance, and communications." },
+      { title: "Admissions & CRM", desc: "Lead-to-enrollment funnels with document collection and counselor workflows." },
+      { title: "Institution Analytics", desc: "Cohort performance, engagement, and operational reporting for leadership teams." }
+    ],
+    challenges: [
+      { title: "Exam-day traffic spikes", desc: "Design for concurrent sessions so assessments stay fair when thousands join at once." },
+      { title: "Academic integrity", desc: "Balance proctoring controls with student privacy and accessible UX." },
+      { title: "Fragmented campus tools", desc: "Connect LMS, SIS, and communication tools so faculty and students are not lost in logins." }
     ],
     pillars: [
-      { title: "Adaptive Learning Systems", desc: "Dynamic knowledge graphs that adapt question difficulty in real time based on student mastery." },
-      { title: "Scalable Examination Platforms", desc: "Conducting concurrent exams for 100,000+ students with automated AI anti-cheating verification." }
-    ]
+      { title: "Reliable Assessment", desc: "Exam systems engineered for concurrency, integrity, and clear audit of results." },
+      { title: "Personalized Learning", desc: "Adaptive practice that guides learners without burying teachers in manual work." },
+      { title: "Campus Clarity", desc: "Unified portals and analytics that make institutional operations easier to run." }
+    ],
+    article: {
+      headline: "Software That Protects Learning Moments",
+      lead: "When exams or live classes fail, trust fails. Education platforms must be calm, clear, and resilient.",
+      sections: [
+        { title: "Design for the stressful hour", content: "We load-test exam and login paths as first-class scenarios, with graceful degradation and clear student messaging when networks are uneven." },
+        { title: "Keep teachers in control", content: "Admin tools emphasize simple workflows for publishing content, reviewing submissions, and resolving exceptions without ticket ping-pong." },
+        { title: "Measure what matters", content: "Analytics focus on completion, struggle points, and operational bottlenecks — not vanity dashboards." }
+      ],
+      takeaways: [
+        "Exam reliability is a product feature, not an afterthought",
+        "Faculty UX determines whether platforms actually get used",
+        "Privacy and integrity controls should be visible and explainable"
+      ]
+    }
   },
   "industries/energy-utilities": {
     category: "Industries",
     categoryHref: "/industries",
     badge: "Energy",
     title: "Energy & Utilities",
-    subtitle: "Smart grid IoT telemetry, predictive pipeline maintenance, and renewable distribution management.",
-    description: "Bridging physical industrial assets with real-time digital twins to maximize energy output and prevent catastrophic grid failures.",
+    subtitle: "Grid telemetry, asset reliability, and customer utility platforms.",
+    description: "We connect field assets, operations teams, and customers with software that improves reliability, forecasting, and day-to-day utility service.",
     highlights: [
-      { metric: "500k+", label: "Smart Meters Monitored" },
-      { metric: "35%", label: "Reduction in Unplanned Outages" },
-      { metric: "IoT Ingestion", label: "Edge Sensor Processing" },
-      { metric: "Microgrid", label: "Renewable Balancing Algorithms" }
+      { metric: "IoT Scale", label: "Meter & Sensor Ingest" },
+      { metric: "Predictive", label: "Maintenance Signals" },
+      { metric: "Outage Cut", label: "Faster Restoration Insight" },
+      { metric: "Secure", label: "OT/IT Boundaries" }
+    ],
+    solutionsIntro: "Operational and customer systems for utilities modernizing grids and service delivery.",
+    solutions: [
+      { title: "Smart Meter & Sensor Platforms", desc: "Ingestion, validation, and alerting for high-volume meter and asset telemetry." },
+      { title: "Predictive Maintenance", desc: "Models and workflows that prioritize inspections before failures cascade." },
+      { title: "Outage & Incident Consoles", desc: "Operator views that combine tickets, crew status, and affected customers." },
+      { title: "Customer Utility Portals", desc: "Usage insights, billing, and service requests with clear self-serve flows." },
+      { title: "Field Workforce Apps", desc: "Job assignment, safety checklists, and completion capture for crews." },
+      { title: "Renewable Balancing Tools", desc: "Forecast and dispatch helpers for storage, demand response, and variable generation." }
+    ],
+    challenges: [
+      { title: "OT and IT split", desc: "Integrate safely without exposing control systems to unnecessary risk." },
+      { title: "Data noise at scale", desc: "Turn sensor floods into trusted alerts operations teams will actually act on." },
+      { title: "Customer trust during outages", desc: "Communicate status clearly while field teams restore service." }
     ],
     pillars: [
-      { title: "Predictive Asset Maintenance", desc: "Analyzing acoustic and vibration telemetry from turbines to predict mechanical failure weeks in advance." },
-      { title: "Smart Grid Balancing", desc: "Dynamic load-shedding and battery storage orchestration during extreme weather demand spikes." }
-    ]
+      { title: "Trusted Telemetry", desc: "Reliable ingest and quality checks so operators trust what they see." },
+      { title: "Asset Reliability", desc: "Maintenance prioritization grounded in real signals, not calendar-only schedules." },
+      { title: "Customer Clarity", desc: "Portals and notifications that reduce call volume during disruption." }
+    ],
+    article: {
+      headline: "Reliability Is the Product",
+      lead: "Utility software succeeds when crews, control rooms, and customers share a clear picture of what is happening.",
+      sections: [
+        { title: "Start with operational truth", content: "We unify meter, ticket, and crew data into views that help dispatchers act faster without fighting five tools." },
+        { title: "Respect OT boundaries", content: "Architectures isolate industrial systems while still enabling analytics and customer experiences on safe data paths." },
+        { title: "Close the loop with customers", content: "Outage and billing experiences reduce confusion — and call-center load — when status updates are timely and plain." }
+      ],
+      takeaways: [
+        "Alert quality matters more than raw sensor volume",
+        "Crew tools must work in low-connectivity field conditions",
+        "Customer communication is part of reliability engineering"
+      ]
+    }
   },
   "industries/healthcare-lifesciences": {
     category: "Industries",
     categoryHref: "/industries",
     badge: "Healthcare",
     title: "Healthcare & Life Sciences",
-    subtitle: "HIPAA-compliant telemedicine platforms, clinical trial data analytics, and diagnostic AI.",
-    description: "Engineering secure, human-centered healthcare technologies that improve patient outcomes while protecting sensitive medical records.",
+    subtitle: "Care platforms, clinical data, and compliant patient experiences.",
+    description: "Secure healthcare software for providers and life-science teams — telehealth, records interoperability, scheduling, and analytics that protect patient privacy.",
     highlights: [
-      { metric: "HIPAA & GDPR", label: "100% Medical Data Compliance" },
-      { metric: "EHR Sync", label: "FHIR / HL7 Interoperability" },
-      { metric: "Diagnostic AI", label: "Radiology & Pathology Models" },
-      { metric: "Sub-Second", label: "Patient Record Retrieval" }
+      { metric: "HIPAA-minded", label: "Privacy Controls" },
+      { metric: "FHIR Ready", label: "Interoperability Paths" },
+      { metric: "Care Apps", label: "Patient & Clinician UX" },
+      { metric: "Audit", label: "Access Traceability" }
+    ],
+    solutionsIntro: "Clinical and patient systems designed for privacy, clarity, and day-to-day care workflows.",
+    solutions: [
+      { title: "Telehealth Suites", desc: "Video consults, intake forms, e-prescriptions, and follow-up messaging in one flow." },
+      { title: "EHR Interoperability", desc: "FHIR/HL7-oriented APIs and sync jobs that reduce duplicate charting." },
+      { title: "Appointment & Care Coordination", desc: "Scheduling, reminders, and referral tracking across clinics and specialties." },
+      { title: "Patient Portals", desc: "Secure access to visits, reports, billing, and care instructions." },
+      { title: "Clinical Analytics", desc: "Operational and outcome dashboards with role-based data access." },
+      { title: "Trial & Research Tools", desc: "Consent, site workflows, and data capture for study teams." }
+    ],
+    challenges: [
+      { title: "Fragmented records", desc: "Give clinicians a usable patient view without creating another unsafe data silo." },
+      { title: "Privacy vs. usability", desc: "Keep access tight while clinicians still move quickly in real care moments." },
+      { title: "Integration debt", desc: "Connect labs, pharmacies, and EHRs with durable interfaces and monitoring." }
     ],
     pillars: [
-      { title: "Clinical Data Interoperability", desc: "Unifying fragmented hospital records into FHIR-compliant APIs for seamless physician access." },
-      { title: "Telehealth Platforms", desc: "Encrypted, high-definition video consultation suites integrated with digital prescription engines." }
-    ]
+      { title: "Privacy by Design", desc: "Least-privilege access, encryption, and audit trails woven into every workflow." },
+      { title: "Clinician-Centered UX", desc: "Fewer clicks, clearer charts, and less duplicate entry during busy clinics." },
+      { title: "Interoperable Data", desc: "Standards-aware integrations that keep records moving safely between systems." }
+    ],
+    article: {
+      headline: "Care Software Should Feel Calm Under Pressure",
+      lead: "Healthcare teams need tools that protect patients and still respect the pace of real clinical work.",
+      sections: [
+        { title: "Protect first, then accelerate", content: "Identity, consent, and audit are designed up front so product features do not become privacy exceptions later." },
+        { title: "Integrate for the chart, not the demo", content: "We focus on reliable sync and conflict handling so clinicians trust the record they open." },
+        { title: "Measure operational outcomes", content: "No-show rates, cycle time, and documentation burden matter as much as feature lists." }
+      ],
+      takeaways: [
+        "Auditability is a clinical safety feature",
+        "Interoperability needs monitoring, not just mapping documents",
+        "Patient apps must be accessible and plain-language clear"
+      ]
+    }
   },
   "industries/hi-tech": {
     category: "Industries",
     categoryHref: "/industries",
     badge: "Technology",
     title: "Hi Tech & Semiconductor",
-    subtitle: "Silicon design telemetry, automated software supply-chains, and developer tool ecosystems.",
-    description: "Partnering with leading silicon vendors, software pioneers, and hardware OEMs to accelerate high-velocity product releases.",
+    subtitle: "Developer platforms, firmware pipelines, and product engineering velocity.",
+    description: "We partner with product and platform teams to harden CI/CD, internal developer portals, and release systems that keep hardware and software shipping together.",
     highlights: [
-      { metric: "DevOps", label: "High-Frequency CI/CD Pipelines" },
-      { metric: "Hardware-in-Loop", label: "Automated Firmware Testing" },
-      { metric: "Zero Defect", label: "Rigorous Code Verification" },
-      { metric: "Global", label: "Distributed Engineering Teams" }
+      { metric: "CI/CD", label: "Release Automation" },
+      { metric: "Dev Portals", label: "Self-Serve Environments" },
+      { metric: "HIL Ready", label: "Firmware Test Loops" },
+      { metric: "Quality", label: "Verification Gates" }
+    ],
+    solutionsIntro: "Engineering systems that help product companies ship safer builds, faster.",
+    solutions: [
+      { title: "Internal Developer Platforms", desc: "Self-serve environments, templates, and golden paths for product squads." },
+      { title: "Firmware CI Pipelines", desc: "Build, flash, and regression automation connected to hardware benches." },
+      { title: "Release Governance", desc: "Approvals, artifact signing, and rollout controls across services and devices." },
+      { title: "Observability for Products", desc: "Crash, performance, and usage telemetry that feeds engineering backlogs." },
+      { title: "Partner Integration Hubs", desc: "Secure APIs and sandboxes for OEMs, ISVs, and ecosystem partners." },
+      { title: "Supply-Chain Security Basics", desc: "Dependency scanning, SBOM habits, and controlled package promotion." }
+    ],
+    challenges: [
+      { title: "Slow environment setup", desc: "Cut onboarding time with standardized templates and self-serve infra." },
+      { title: "Hardware/software lag", desc: "Keep firmware and cloud services releasing on a predictable shared cadence." },
+      { title: "Quality escapes", desc: "Add verification gates that catch regressions before customers do." }
     ],
     pillars: [
-      { title: "Firmware CI/CD Infrastructure", desc: "Automating cross-compilation and automated flash testing on physical hardware test benches." },
-      { title: "Developer Platform Engineering", desc: "Building internal developer portals that enable engineering teams to spin up cloud environments in seconds." }
-    ]
+      { title: "Platform Engineering", desc: "Golden paths that make the secure way the easy way for product teams." },
+      { title: "Automated Verification", desc: "Test loops that include real devices where it matters." },
+      { title: "Controlled Releases", desc: "Signed artifacts, staged rollouts, and clear rollback plans." }
+    ],
+    article: {
+      headline: "Velocity Without Losing Control",
+      lead: "High-tech teams need speed and discipline in the same pipeline.",
+      sections: [
+        { title: "Make the right path default", content: "Developer portals and templates reduce DIY snowflakes that create security and ops debt." },
+        { title: "Close the hardware loop", content: "Where products include devices, CI must reach benches and return actionable results — not just green unit tests." },
+        { title: "Release with evidence", content: "Every promotion step leaves a trail: what changed, who approved, and how to roll back." }
+      ],
+      takeaways: [
+        "Self-serve platforms beat ticket-driven infra for product speed",
+        "Firmware quality needs automated hardware feedback",
+        "Release evidence reduces incident time later"
+      ]
+    }
   },
   "industries/insurance": {
     category: "Industries",
     categoryHref: "/industries",
     badge: "Insurtech",
     title: "Insurance & Insurtech",
-    subtitle: "Automated claims adjudication, dynamic risk underwriting, and policyholder portals.",
-    description: "Modernizing traditional insurance operations with instant algorithmic pricing, mobile claims photo appraisal, and fraud prevention.",
+    subtitle: "Claims, underwriting, and policyholder experiences that move faster with control.",
+    description: "SkyWeb modernizes insurance operations with automated claims flows, risk scoring support, policyholder portals, and fraud checks — so carriers and insurtechs settle faster without losing oversight.",
     highlights: [
-      { metric: "3 Mins", label: "Instant Claims Settlement" },
-      { metric: "45%", label: "Reduction in Loss Adjustment Expense" },
-      { metric: "Computer Vision", label: "Automated Damage Appraisal" },
-      { metric: "Actuarial ML", label: "Dynamic Risk Rating Models" }
+      { metric: "Faster", label: "Claims Cycle Time" },
+      { metric: "Lower LAE", label: "Adjustment Efficiency" },
+      { metric: "Vision + Rules", label: "Damage Triage Assist" },
+      { metric: "Audit Ready", label: "Decision Trails" }
+    ],
+    solutionsIntro: "Practical insurance systems across quote, bind, service, and claims.",
+    solutions: [
+      { title: "Claims Intake & Triage", desc: "Mobile-first FNOL, photo capture, and routing to the right adjuster or automated path." },
+      { title: "Vision-Assisted Appraisal", desc: "Computer vision support for estimating vehicle or property damage with human review gates." },
+      { title: "Policyholder Portals", desc: "Policy details, payments, endorsements, and claim status in one clear experience." },
+      { title: "Underwriting Workbenches", desc: "Risk data assembly, scoring hooks, and referral workflows for underwriters." },
+      { title: "Parametric Claim Triggers", desc: "Event-based payouts for travel or weather products with transparent rules." },
+      { title: "Fraud & Leakage Controls", desc: "Rule + anomaly signals, investigation queues, and evidence packs for SIU teams." }
+    ],
+    challenges: [
+      { title: "Slow claims journeys", desc: "Replace paperwork ping-pong with guided digital intake and status clarity." },
+      { title: "Inconsistent decisions", desc: "Standardize triage rules while keeping underwriter and adjuster judgment where needed." },
+      { title: "Legacy policy cores", desc: "Launch new digital channels on APIs without a risky full core replacement." },
+      { title: "Regulatory explainability", desc: "Keep model and rule decisions reviewable for compliance and customer queries." }
     ],
     pillars: [
-      { title: "Instant Vision Claims", desc: "Computer vision models that analyze car accident photos to assess repair costs and issue instant payouts." },
-      { title: "Parametric Insurance Engines", desc: "Smart contracts that automatically pay out travel or weather delay claims without paperwork." }
-    ]
+      { title: "Instant Vision Claims", desc: "Photo-based damage assistance that speeds appraisal while preserving human approval for edge cases." },
+      { title: "Parametric Engines", desc: "Transparent trigger-and-pay flows for products that should not need long claims paperwork." },
+      { title: "Policyholder Clarity", desc: "Portals and notifications that reduce inbound calls by answering “where is my claim?”" },
+      { title: "Controlled Automation", desc: "Automate the routine path; escalate exceptions with full context to experts." }
+    ],
+    article: {
+      headline: "Faster Claims Without Losing Trust",
+      lead: "Insurers win when customers feel guided and every automated decision can still be explained.",
+      sections: [
+        { title: "Digitize the first mile", content: "Most delay starts at FNOL. Guided intake, photo standards, and auto-routing cut days before appraisal even begins." },
+        { title: "Assist, then escalate", content: "Vision and rules accelerate ordinary claims. Unusual losses still land with adjusters — with a complete evidence pack attached." },
+        { title: "Keep the audit trail", content: "Every automated step records inputs, rules, and reviewers so compliance and customer care can answer questions quickly." }
+      ],
+      takeaways: [
+        "Automation should shorten cycle time and improve consistency together",
+        "Human review remains essential for complex or high-severity claims",
+        "Policyholder status clarity reduces call-center load"
+      ]
+    }
   },
   "industries/manufacturing": {
     category: "Industries",
     categoryHref: "/industries",
     badge: "Industry 4.0",
     title: "Smart Manufacturing",
-    subtitle: "Shop floor IoT integration, computer vision quality inspection, and supply-chain digital twins.",
-    description: "Empowering smart factories to achieve higher yield, lower scrap rates, and complete end-to-end supply chain transparency.",
+    subtitle: "Shop-floor visibility, quality inspection, and supply-chain coordination.",
+    description: "We help manufacturers connect machines, quality, and logistics data so plants raise yield, catch defects earlier, and plan materials with fewer surprises.",
     highlights: [
-      { metric: "Industry 4.0", label: "Connected Factory IoT" },
-      { metric: "99.8%", label: "Defect Detection Accuracy" },
-      { metric: "Real-Time", label: "OEE Manufacturing Dashboards" },
-      { metric: "Automated", label: "Warehouse AGV Fleet Control" }
+      { metric: "OEE Views", label: "Live Line Performance" },
+      { metric: "Vision QC", label: "Defect Detection Assist" },
+      { metric: "Traceability", label: "Batch & Serial History" },
+      { metric: "Supply", label: "Inventory Signals" }
+    ],
+    solutionsIntro: "Plant and supply systems that make production measurable and actionable.",
+    solutions: [
+      { title: "Production Dashboards", desc: "Line OEE, downtime reasons, and shift performance in one operations view." },
+      { title: "Vision Quality Inspection", desc: "Camera-assisted defect detection integrated into operator review workflows." },
+      { title: "Machine Telemetry Ingest", desc: "PLC/IoT data collection with alerts for drift, vibration, and stoppages." },
+      { title: "Traceability Systems", desc: "Batch, serial, and genealogy tracking for recalls and compliance." },
+      { title: "Warehouse & Dispatch Tools", desc: "Pick, pack, and ship workflows tied to production completion events." },
+      { title: "Supplier Collaboration Portals", desc: "ASN, quality complaints, and delivery schedules in a shared workspace." }
+    ],
+    challenges: [
+      { title: "Data trapped on the line", desc: "Bring machine and quality signals into systems planners and supervisors actually use." },
+      { title: "Late defect discovery", desc: "Move inspection earlier so scrap and rework shrink before shipping." },
+      { title: "Supply surprises", desc: "Connect inventory and supplier status to production plans in near real time." }
     ],
     pillars: [
-      { title: "Automated Optical Inspection", desc: "High-speed camera vision inspection detecting micrometric manufacturing defects on moving assembly lines." },
-      { title: "Supply Chain Resilience", desc: "Predictive inventory models factoring in global shipping delays and raw material pricing." }
-    ]
+      { title: "Visible Operations", desc: "Trusted plant dashboards that drive daily standups and escalation." },
+      { title: "Quality Automation", desc: "Vision and rules that catch defects with operator confirmation paths." },
+      { title: "Connected Supply", desc: "Inventory and supplier signals linked to what the line will need next." }
+    ],
+    article: {
+      headline: "Make the Factory Measurable",
+      lead: "Industry 4.0 value appears when supervisors can see issues early and act with the right context.",
+      sections: [
+        { title: "Instrument what matters", content: "We prioritize downtime codes, scrap reasons, and critical process parameters over vanity sensor counts." },
+        { title: "Close quality loops", content: "Inspection results feed back into process owners quickly — not after monthly reports." },
+        { title: "Plan with live inputs", content: "Production and warehouse systems share events so materials and labor follow actual output." }
+      ],
+      takeaways: [
+        "OEE without reason codes does not change behavior",
+        "Vision QC needs human override and training data hygiene",
+        "Traceability pays for itself the first time a recall is contained"
+      ]
+    }
   },
   "industries/media-entertainment": {
     category: "Industries",
     categoryHref: "/industries",
     badge: "Media Tech",
     title: "Media & Entertainment",
-    subtitle: "Ultra-low-latency video streaming, digital rights management, and dynamic ad-insertion backends.",
-    description: "Delivering broadcast-quality video and interactive streaming experiences to millions of concurrent viewers worldwide.",
+    subtitle: "Streaming, rights, and audience experiences built for peak demand.",
+    description: "SkyWeb engineers media platforms for streaming, live events, catalogs, and monetization — with CDN-aware delivery and resilient backends.",
     highlights: [
-      { metric: "4K 60fps", label: "Adaptive Bitrate Streaming" },
-      { metric: "< 2s", label: "Glass-to-Glass Live Latency" },
-      { metric: "Global CDN", label: "Distributed Edge Caching" },
-      { metric: "Server-Side", label: "Targeted Ad Insertion (SSAI)" }
+      { metric: "Live Ready", label: "Peak Concurrent Scale" },
+      { metric: "ABR", label: "Adaptive Streaming" },
+      { metric: "Catalog", label: "Discovery & Recs" },
+      { metric: "SSAI", label: "Ad Insertion Paths" }
+    ],
+    solutionsIntro: "Viewer and operator platforms for content businesses that cannot go down on premiere night.",
+    solutions: [
+      { title: "Streaming Backends", desc: "Playback auth, entitlements, and session services designed for surge traffic." },
+      { title: "Live Event Pipelines", desc: "Ingest, packaging, and monitoring workflows for sports and premieres." },
+      { title: "Catalog & CMS", desc: "Metadata, collections, and publishing tools for editorial teams." },
+      { title: "Recommendations", desc: "Personalized shelves and search that keep discovery useful." },
+      { title: "Creator / Partner Portals", desc: "Upload, rights, and payout workflows for ecosystem partners." },
+      { title: "Audience Analytics", desc: "Watch-time, funnel, and quality-of-experience dashboards." }
+    ],
+    challenges: [
+      { title: "Premiere-night scale", desc: "Stay smooth when traffic multiplies in minutes." },
+      { title: "Rights complexity", desc: "Enforce geo, window, and partner rules without breaking playback." },
+      { title: "QoE blind spots", desc: "Detect buffering and failures before social media does." }
     ],
     pillars: [
-      { title: "Live Event Video Pipelines", desc: "Auto-scaling transcoding infrastructure handling millions of concurrent viewers during live sports events." },
-      { title: "Content Discovery & Recommendation", desc: "Collaborative filtering and vector search algorithms personalizing viewing feeds." }
-    ]
+      { title: "Resilient Delivery", desc: "Architecture that absorbs spikes with graceful degradation." },
+      { title: "Entitlements Clarity", desc: "Correct access decisions that are fast and auditable." },
+      { title: "Editorial Speed", desc: "CMS tools that let teams publish without engineering tickets." }
+    ],
+    article: {
+      headline: "Experience Quality Is the Brand",
+      lead: "In media, buffering and broken entitlements are brand damage — not just tech tickets.",
+      sections: [
+        { title: "Design for the spike", content: "We load-shape auth, manifest, and session services for the first minutes of a live event." },
+        { title: "Keep rights correct", content: "Entitlement checks stay fast while remaining explainable to support and partners." },
+        { title: "Watch the viewer path", content: "QoE and funnel analytics connect engineering health to business outcomes." }
+      ],
+      takeaways: [
+        "Peak concurrency must be a first-class test scenario",
+        "Editorial tooling quality drives content freshness",
+        "QoE metrics belong next to conversion metrics"
+      ]
+    }
   },
   "industries/oil-gas": {
     category: "Industries",
     categoryHref: "/industries",
     badge: "Energy",
     title: "Oil & Gas Engineering",
-    subtitle: "Wellhead IoT monitoring, seismic data processing, and worker safety computer vision.",
-    description: "Applying advanced computing to hazardous operational environments to increase extraction efficiency and ensure worker safety.",
+    subtitle: "Field telemetry, safety vision, and remote operations software.",
+    description: "Software for hazardous and remote environments — monitoring assets, supporting safety workflows, and giving central teams clearer situational awareness.",
     highlights: [
-      { metric: "Remote", label: "Offshore Platform Telemetry" },
-      { metric: "Seismic AI", label: "Geological Reservoir Modeling" },
-      { metric: "Safety Vision", label: "PPE & Hazard Zone Detection" },
-      { metric: "Zero Lost Time", label: "Incident Prevention" }
+      { metric: "Remote", label: "Site Telemetry" },
+      { metric: "Safety", label: "PPE & Zone Alerts" },
+      { metric: "Edge", label: "Offline-Tolerant Apps" },
+      { metric: "Audit", label: "Incident Evidence" }
+    ],
+    solutionsIntro: "Operations tools that work when connectivity is imperfect and safety is non-negotiable.",
+    solutions: [
+      { title: "Well & Facility Monitoring", desc: "Sensor dashboards and alerts for production and equipment health." },
+      { title: "Safety Vision Assist", desc: "Camera workflows for PPE and hazard-zone awareness with human review." },
+      { title: "Permit & Compliance Digitization", desc: "Digital permits, checklists, and approval trails for field work." },
+      { title: "Edge Data Buffers", desc: "Local processing and store-and-forward when satellite or radio links degrade." },
+      { title: "Incident Case Systems", desc: "Evidence capture, timelines, and investigation workflows." },
+      { title: "Contractor Portals", desc: "Access, induction, and job coordination for third-party crews." }
+    ],
+    challenges: [
+      { title: "Unreliable connectivity", desc: "Design apps that queue work and sync safely when links return." },
+      { title: "Safety process sprawl", desc: "Replace paper and chat threads with guided digital controls." },
+      { title: "Central vs field gap", desc: "Give HQ teams timely status without distracting crews." }
     ],
     pillars: [
-      { title: "Offshore Edge Computing", desc: "Deploying ruggedized servers that process sensor data locally on oil rigs when satellite links are degraded." },
-      { title: "Automated Compliance Auditing", desc: "Real-time safety cameras that alert control rooms when personnel enter hazardous pipeline perimeters." }
-    ]
+      { title: "Edge Resilience", desc: "Local-first architecture for remote sites." },
+      { title: "Safety Workflows", desc: "Digital controls that are practical on the ground." },
+      { title: "Operational Awareness", desc: "Clear telemetry and incident context for decision makers." }
+    ],
+    article: {
+      headline: "Software That Respects the Field",
+      lead: "Oil and gas tools must be rugged in connectivity, clear in UX, and serious about safety evidence.",
+      sections: [
+        { title: "Assume the network will fail", content: "Store-and-forward, conflict handling, and offline checklists are part of the core design." },
+        { title: "Make safety usable", content: "Permit and PPE flows succeed only when they fit how crews actually move through a shift." },
+        { title: "Preserve evidence", content: "Incidents need timelines, photos, and approvals that stand up to later review." }
+      ],
+      takeaways: [
+        "Offline behavior is a safety feature",
+        "Vision assists need human confirmation paths",
+        "HQ dashboards should reduce noise, not add it"
+      ]
+    }
   },
   "industries/private-equity": {
     category: "Industries",
     categoryHref: "/industries",
     badge: "Private Capital",
     title: "Private Equity & M&A Technology",
-    subtitle: "Technical due diligence, carve-out modernization, and rapid EBITDA expansion through digital engineering.",
-    description: "Helping private equity sponsors de-risk technology investments, accelerate portfolio company modernizations, and maximize exit multiples.",
+    subtitle: "Diligence, carve-outs, and portfolio value creation through software.",
+    description: "SkyWeb supports sponsors and portfolio companies with technical diligence, separation programs, and modernization that protects deal value.",
     highlights: [
-      { metric: "14 Days", label: "Rapid Technical Due Diligence" },
-      { metric: "Carve-Out", label: "Zero-Downtime IT Separation" },
-      { metric: "EBITDA+", label: "Technology Value Creation" },
-      { metric: "Exit Ready", label: "Clean Code & IP Certification" }
+      { metric: "Fast Diligence", label: "Architecture & Risk Review" },
+      { metric: "Carve-Out", label: "Clean Separation Plans" },
+      { metric: "Value Create", label: "Product & Ops Modernization" },
+      { metric: "Exit Ready", label: "Documentation & Controls" }
+    ],
+    solutionsIntro: "Engagements that reduce technology risk before and after the deal.",
+    solutions: [
+      { title: "Technical Due Diligence", desc: "Architecture, security, cost, and team capability assessments for investment committees." },
+      { title: "Carve-Out Blueprints", desc: "Application, data, and identity separation plans with sequenced cutovers." },
+      { title: "Day-1 / Day-100 Platforms", desc: "Stabilization of email, identity, ERP edges, and customer channels post-close." },
+      { title: "Portfolio Modernization", desc: "Targeted rebuilds that raise reliability, conversion, or operating margin." },
+      { title: "Cyber & Compliance Uplift", desc: "Priority control hardening aligned to buyer and regulator expectations." },
+      { title: "Exit Packaging", desc: "Clean documentation, IP clarity, and operating metrics for the next buyer." }
+    ],
+    challenges: [
+      { title: "Hidden technical debt", desc: "Surface reliability, security, and key-person risks before valuation is locked." },
+      { title: "Messy separations", desc: "Plan carve-outs that keep customers live while systems disconnect." },
+      { title: "Value creation lag", desc: "Pick a few high-ROI product and ops bets instead of endless transformation theater." }
     ],
     pillars: [
-      { title: "Technical Code Audits", desc: "Deep architectural and security inspections identifying hidden technical debt before deal close." },
-      { title: "Carve-Out IT Standup", desc: "Rapidly decoupling enterprise applications and building independent, modern cloud infrastructures for divested entities." }
-    ]
+      { title: "Diligence Clarity", desc: "Decision-ready findings, not generic audit binders." },
+      { title: "Safe Separation", desc: "Cutover plans that protect revenue and identity." },
+      { title: "Focused Modernization", desc: "Engineering time spent where EBITDA and resilience move." }
+    ],
+    article: {
+      headline: "Technology Decisions That Survive the Deal Cycle",
+      lead: "In PE, software risk is deal risk. Clarity beats optimism.",
+      sections: [
+        { title: "Diligence that answers the IC", content: "We focus on what can break value: outages, security gaps, cost cliffs, and irreplaceable people." },
+        { title: "Separation with a heartbeat", content: "Carve-outs keep customer journeys alive with sequenced cutovers and rollback options." },
+        { title: "Build for the next exit", content: "Documentation, metrics, and control hygiene make the next diligence faster and cleaner." }
+      ],
+      takeaways: [
+        "Prioritize material risks over exhaustive inventories",
+        "Carve-outs need customer journey ownership, not just infra tickets",
+        "Value creation should be sequenced and measurable"
+      ]
+    }
   },
   "industries/professional-services": {
     category: "Industries",
     categoryHref: "/industries",
     badge: "Enterprise Services",
     title: "Professional Services & Legal Tech",
-    subtitle: "Document intelligence, automated contract lifecycle management, and practice management portals.",
-    description: "Empowering law firms, accounting practices, and consultancies to automate routine paperwork and deliver higher-value client counsel.",
+    subtitle: "Document intelligence, client portals, and practice operations.",
+    description: "We help law firms, consultancies, and professional practices automate document work, secure client collaboration, and run delivery operations with less admin drag.",
     highlights: [
-      { metric: "80%", label: "Faster Contract Review" },
-      { metric: "Encrypted", label: "Client Vault & Privileged Storage" },
-      { metric: "Automated", label: "Timesheet & Billing Orchestration" },
-      { metric: "Search", label: "Semantic Precedent Search" }
+      { metric: "Faster Review", label: "Contract Assistance" },
+      { metric: "Secure Vault", label: "Client Collaboration" },
+      { metric: "Billing Ops", label: "Time & Invoice Flows" },
+      { metric: "Search", label: "Knowledge Retrieval" }
+    ],
+    solutionsIntro: "Practice systems that protect confidentiality while cutting repetitive work.",
+    solutions: [
+      { title: "Contract Review Assist", desc: "Clause extraction, risk flags, and playbook checks with attorney oversight." },
+      { title: "Client Portals", desc: "Encrypted document exchange, requests, and status tracking." },
+      { title: "Matter / Engagement Systems", desc: "Intake, staffing, milestones, and profitability views." },
+      { title: "Time & Billing Automation", desc: "Capture, approval, and invoice workflows with fewer leaks." },
+      { title: "Knowledge Search", desc: "Semantic search across precedents and prior work product." },
+      { title: "Compliance Workspaces", desc: "Retention, access reviews, and ethical-wall controls." }
+    ],
+    challenges: [
+      { title: "Manual document grind", desc: "Automate first-pass review without removing professional judgment." },
+      { title: "Client confidentiality", desc: "Keep vaults, access, and retention aligned to professional obligations." },
+      { title: "Unbilled work", desc: "Make time capture and billing status visible to delivery leads." }
     ],
     pillars: [
-      { title: "Semantic Document Extraction", desc: "AI models parsing thousands of legal clauses and flagging non-standard liabilities in seconds." },
-      { title: "Secure Client Portals", desc: "Zero-knowledge encrypted vaults for confidential data exchange between partners and clients." }
-    ]
+      { title: "Assisted Expertise", desc: "AI and rules that prepare — not replace — professional review." },
+      { title: "Confidential Collaboration", desc: "Client exchange with strong identity and audit." },
+      { title: "Practice Visibility", desc: "Delivery and billing metrics that partners can trust." }
+    ],
+    article: {
+      headline: "Reduce Admin Without Reducing Judgment",
+      lead: "Professional services software should free experts for counsel, not invent new bureaucracy.",
+      sections: [
+        { title: "Automate the first pass", content: "Document tools highlight risk patterns so experts spend time on exceptions and strategy." },
+        { title: "Protect the client relationship", content: "Portals and vaults reduce email chaos while preserving privilege and access discipline." },
+        { title: "Make delivery measurable", content: "Matter economics and utilization become visible without turning lawyers into spreadsheet operators." }
+      ],
+      takeaways: [
+        "Human approval remains central for high-stakes advice",
+        "Security UX must be simple enough that people actually use the vault",
+        "Billing leakage is often a workflow problem, not a people problem"
+      ]
+    }
   },
   "industries/retail-consumer": {
     category: "Industries",
     categoryHref: "/industries",
     badge: "E-Commerce",
     title: "Retail & Consumer Goods",
-    subtitle: "Headless e-commerce, real-time omnichannel inventory, and personalized recommendation engines.",
-    description: "Creating unified retail shopping experiences across digital storefronts, native apps, and physical point-of-sale terminals.",
+    subtitle: "Commerce, inventory truth, and personalized shopping journeys.",
+    description: "We build retail platforms that stay fast on campaign days — headless storefronts, inventory sync, loyalty, and operations tools for omnichannel brands.",
     highlights: [
-      { metric: "Sub-Second", label: "Instant Page Load Time" },
-      { metric: "Omnichannel", label: "Real-Time Inventory Sync" },
-      { metric: "+32%", label: "Average Order Value with AI" },
-      { metric: "Zero Downtime", label: "Surge Traffic Handling" }
+      { metric: "Campaign Ready", label: "Surge Traffic Capacity" },
+      { metric: "Omnichannel", label: "Inventory Sync" },
+      { metric: "Conversion", label: "Checkout & Recs" },
+      { metric: "Ops", label: "Order & Returns" }
+    ],
+    solutionsIntro: "Customer and operations systems for brands that sell online and offline.",
+    solutions: [
+      { title: "Headless Commerce Storefronts", desc: "Fast web/app experiences on flexible commerce backends." },
+      { title: "Checkout & Payments", desc: "Reliable carts, offers, and payment flows with fraud checks." },
+      { title: "Inventory & OMS", desc: "Stock truth across warehouses, stores, and marketplaces." },
+      { title: "Loyalty & Personalization", desc: "Profiles, rewards, and recommendations that feel useful — not noisy." },
+      { title: "Store Associate Tools", desc: "Clienteling, endless aisle, and order lookup for floor teams." },
+      { title: "Returns & Care", desc: "Self-serve returns, refunds, and support workflows." }
+    ],
+    challenges: [
+      { title: "Campaign outages", desc: "Keep PDP and checkout healthy when traffic spikes." },
+      { title: "Wrong stock promises", desc: "Stop overselling with nearer-real-time inventory signals." },
+      { title: "Fragmented customer view", desc: "Unify online and store history for service and loyalty." }
     ],
     pillars: [
-      { title: "Headless E-Commerce Stacks", desc: "Decoupled Next.js frontends powered by Shopify Plus, commercetools, or custom Go microservices." },
-      { title: "Omnichannel Cart & Loyalty", desc: "Unified customer profiles that reward shoppers whether buying online or in brick-and-mortar stores." }
-    ]
+      { title: "Fast Storefronts", desc: "Performance budgets and resilient APIs for shopping peaks." },
+      { title: "Inventory Truth", desc: "Order promising backed by dependable stock services." },
+      { title: "Unified Customers", desc: "One profile across channels for care and personalization." }
+    ],
+    article: {
+      headline: "Commerce That Holds Under Pressure",
+      lead: "Retail software is judged on the busiest hour of the year.",
+      sections: [
+        { title: "Protect the money path", content: "We harden browse-to-pay journeys first: PDP, cart, auth, and payment confirmation." },
+        { title: "Promise only what you can fulfill", content: "Inventory and OMS events feed promising logic so customers are not surprised later." },
+        { title: "Serve the store and the site together", content: "Associate tools and online care share order truth to reduce refunds and frustration." }
+      ],
+      takeaways: [
+        "Peak readiness is a continuous practice, not a one-week drill",
+        "Inventory accuracy is a conversion feature",
+        "Returns UX affects margin as much as acquisition does"
+      ]
+    }
   },
   "industries/travel-logistics": {
     category: "Industries",
     categoryHref: "/industries",
     badge: "Mobility",
     title: "Travel, Transportation & Logistics",
-    subtitle: "Fleet route optimization, real-time tracking, and automated passenger reservation systems.",
-    description: "Optimizing the movement of goods and passengers with algorithmic route scheduling, warehouse automation, and dynamic booking.",
+    subtitle: "Booking engines, fleet visibility, and delivery operations.",
+    description: "SkyWeb builds travel and logistics software for booking, tracking, routing, and exception handling — so passengers and shipments stay on schedule with clearer communication.",
     highlights: [
-      { metric: "22%", label: "Fuel Cost Savings via AI Routing" },
-      { metric: "Live GPS", label: "Real-Time Fleet Telemetry" },
-      { metric: "Booking API", label: "Millions of Flight Searches / Sec" },
-      { metric: "Cold-Chain", label: "Sensor-Monitored Cargo Delivery" }
+      { metric: "Routing", label: "Smarter Dispatch" },
+      { metric: "Live Track", label: "Fleet & Shipment Visibility" },
+      { metric: "Booking Scale", label: "Search & Reserve APIs" },
+      { metric: "Exceptions", label: "Faster Recovery Flows" }
+    ],
+    solutionsIntro: "Passenger and cargo systems that prioritize reliability and exception handling.",
+    solutions: [
+      { title: "Booking & Reservation Engines", desc: "Search, inventory, pricing hooks, and confirmation flows under peak demand." },
+      { title: "Fleet Tracking Platforms", desc: "Live location, ETAs, and geofenced events for ops teams and customers." },
+      { title: "Route Optimization Assist", desc: "Dispatch recommendations balancing windows, capacity, and constraints." },
+      { title: "Warehouse & Hub Tools", desc: "Inbound, sortation, and outbound workflows with scan events." },
+      { title: "Customer Tracking Experiences", desc: "Clear shipment or trip status pages that reduce support contacts." },
+      { title: "Exception Management", desc: "Delay, damage, and redelivery cases with ownership and SLAs." }
+    ],
+    challenges: [
+      { title: "Peak booking storms", desc: "Keep search and reserve responsive during holidays and flash sales." },
+      { title: "Blind spots in transit", desc: "Give ops and customers trustworthy ETAs and event history." },
+      { title: "Costly exceptions", desc: "Detect and resolve delays early with clear ownership." }
     ],
     pillars: [
-      { title: "Algorithmic Route Optimization", desc: "Dynamic dispatching factoring in traffic, fuel prices, driver rest mandates, and delivery windows." },
-      { title: "Passenger Booking Engines", desc: "Scalable reservation and seat selection platforms that stay responsive under high holiday demand." }
-    ]
+      { title: "Reliable Booking", desc: "Inventory-safe reservations that survive traffic spikes." },
+      { title: "Live Visibility", desc: "Tracking that operations and customers can both trust." },
+      { title: "Exception Discipline", desc: "Structured recovery instead of endless chat threads." }
+    ],
+    article: {
+      headline: "Movement Needs Software That Handles Exceptions",
+      lead: "In travel and logistics, the happy path is easy — recovery is the real product.",
+      sections: [
+        { title: "Scale the search-to-book path", content: "Caching, inventory locks, and graceful degradation keep booking usable when demand surges." },
+        { title: "Make status undeniable", content: "Scan and GPS events feed one timeline shared by ops, partners, and customers." },
+        { title: "Run exceptions as a workflow", content: "Delays and failures get owners, timers, and customer messaging templates — not improvisation." }
+      ],
+      takeaways: [
+        "Inventory correctness prevents overbooking pain",
+        "Customer tracking pages are a support deflection tool",
+        "Exception SLAs protect brand trust during disruption"
+      ]
+    }
   },
 
   // ================= INSIGHTS SUBPAGES =================

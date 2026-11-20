@@ -148,39 +148,32 @@ export default function CapabilitiesPage({ onOpenModal }) {
     <div className="min-h-screen bg-white text-slate-900 font-['DM_Sans']">
       
       {/* ================= 1. PREMIUM HERO SECTION (SOLID BLACK & BLUE HEADLINE) ================= */}
-      <section className="bg-black text-white pt-36 sm:pt-40 pb-16 sm:pb-24 px-6 sm:px-8 border-b border-slate-800 relative overflow-hidden">
+      <section className="bg-black text-white pt-24 md:pt-40 pb-14 md:pb-24 px-5 sm:px-8 border-b border-slate-800 relative overflow-hidden">
         <div className="max-w-6xl mx-auto relative z-10">
           
-          {/* Brand Message Tag */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-bold tracking-wider uppercase bg-blue-950/70 border border-blue-500/40 text-blue-300 mb-6 backdrop-blur-sm">
-            <span>Engineering Digital Possibilities.</span>
-          </div>
-
-          {/* Primary Headline */}
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-blue-500 max-w-4xl leading-tight mb-6 font-['DM_Sans']">
-            End-to-End Technology Solutions for a Connected, Intelligent and Scalable Future.
+          <h1 className="text-3xl sm:text-5xl lg:text-[3.25rem] font-extrabold tracking-tight text-blue-500 max-w-3xl leading-[1.12] mb-4 font-['DM_Sans']">
+            Capabilities
           </h1>
 
-          {/* Supporting Description */}
-          <p className="text-base sm:text-lg lg:text-xl text-blue-200 max-w-3xl leading-relaxed mb-10 font-normal">
-            SkyWeb IT Solutions helps businesses design, build, deploy and evolve digital solutions that improve operations, strengthen technology foundations and create opportunities for growth.
+          <p className="text-sm sm:text-base lg:text-lg text-blue-100/90 max-w-2xl leading-relaxed mb-8 font-normal">
+            Software, AI, cloud, and platforms — designed, built, and operated for real business outcomes.
           </p>
 
-          {/* Two CTAs */}
-          <div className="flex flex-wrap items-center gap-4">
+          <div className="flex flex-wrap items-center gap-3 sm:gap-4">
             <button
+              type="button"
               onClick={onOpenModal}
-              className="px-8 py-4 rounded-full bg-[#004AAD] hover:bg-[#003B8A] text-white text-base font-bold shadow-[0_8px_25px_rgba(0,74,173,0.4)] hover:-translate-y-0.5 active:translate-y-0 transition-all flex items-center gap-2 cursor-pointer"
+              className="px-7 py-3 rounded-full bg-[#004AAD] hover:bg-[#003B8A] text-white text-sm font-bold shadow-[0_6px_20px_rgba(0,74,173,0.35)] hover:-translate-y-0.5 transition-all flex items-center gap-2 cursor-pointer"
             >
-              <span>Schedule Architecture Consultation</span>
+              <span>Talk to an architect</span>
               <ArrowRight className="h-4 w-4" />
             </button>
 
             <a
               href="#core-capabilities"
-              className="px-8 py-4 rounded-full bg-slate-900 hover:bg-slate-800 border border-slate-700 text-white text-base font-bold transition-all flex items-center gap-2"
+              className="px-6 py-3 rounded-full bg-slate-900 hover:bg-slate-800 border border-slate-700 text-white text-sm font-bold transition-all"
             >
-              <span>Explore Core Capabilities</span>
+              Browse capabilities
             </a>
           </div>
         </div>
@@ -189,12 +182,12 @@ export default function CapabilitiesPage({ onOpenModal }) {
       {/* ================= 2. CAPABILITY FEED (NEAT SERVICE DIRECTORY) ================= */}
       <section id="core-capabilities" className="py-12 sm:py-16 px-6 sm:px-8 bg-white border-b border-slate-100">
         <div className="max-w-6xl mx-auto">
-          <div className="max-w-3xl mb-12">
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-[#0f172a] leading-tight">
-              Capabilities & Services
+          <div className="max-w-2xl mb-8 sm:mb-10">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#0f172a] leading-tight tracking-tight">
+              What we build
             </h2>
-            <p className="text-base sm:text-lg text-slate-600 mt-2 leading-relaxed">
-              One clean directory of what we build — each pillar lists services, the tech we use, and how SkyWeb implements them.
+            <p className="text-sm sm:text-base text-slate-600 mt-2 leading-relaxed">
+              Each pillar lists services, the tech we use, and how we implement them.
             </p>
           </div>
 
@@ -284,15 +277,12 @@ export default function CapabilitiesPage({ onOpenModal }) {
       {/* ================= 2b. SPOTLIGHT PRODUCTS ================= */}
       <section className="py-12 sm:py-16 px-6 sm:px-8 bg-[#f8fafc] border-b border-slate-200/80">
         <div className="max-w-6xl mx-auto">
-          <div className="max-w-3xl mb-10">
-            <span className="text-xs font-bold uppercase tracking-[0.18em] text-[#004AAD] block mb-2">
-              Spotlight
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-[#0f172a] leading-tight">
-              Products & Platforms
+          <div className="max-w-2xl mb-8">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#0f172a] leading-tight tracking-tight">
+              Products & platforms
             </h2>
-            <p className="text-base text-slate-600 mt-2 leading-relaxed">
-              Flagship products SkyWeb engineers and ships — live platforms and upcoming releases.
+            <p className="text-sm sm:text-base text-slate-600 mt-2 leading-relaxed">
+              Live platforms and releases SkyWeb builds and ships.
             </p>
           </div>
 
@@ -607,28 +597,28 @@ export default function CapabilitiesPage({ onOpenModal }) {
         </div>
       </section>
 
-      {/* ================= 8. STRONG CONSULTATION CALL TO ACTION ================= */}
-      <section className="py-20 px-6 sm:px-8 bg-black text-white border-b border-slate-800">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-blue-500 mb-5 tracking-tight font-['DM_Sans']">
-            Ready to Engineer Digital Possibilities?
+      <section className="py-14 sm:py-16 px-6 sm:px-8 bg-black text-white border-b border-slate-800">
+        <div className="max-w-2xl mx-auto text-center">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-blue-500 mb-3 tracking-tight font-['DM_Sans']">
+            Ready to build?
           </h2>
-          <p className="text-base sm:text-lg text-blue-200 max-w-2xl mx-auto mb-9 leading-relaxed">
-            Connect directly with SkyWeb's software architects to evaluate your technical roadmap, diagnose architectural constraints, and construct dependable digital solutions.
+          <p className="text-sm sm:text-base text-blue-100/90 max-w-lg mx-auto mb-7 leading-relaxed">
+            Share your roadmap — we will map constraints, architecture, and a clear next step.
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-4">
+          <div className="flex flex-wrap items-center justify-center gap-3">
             <button
+              type="button"
               onClick={onOpenModal}
-              className="px-8 py-4 rounded-full bg-[#004AAD] hover:bg-[#003B8A] text-white text-base font-bold shadow-[0_8px_25px_rgba(0,74,173,0.4)] hover:-translate-y-0.5 active:translate-y-0 transition-all inline-flex items-center gap-2 cursor-pointer"
+              className="px-7 py-3 rounded-full bg-[#004AAD] hover:bg-[#003B8A] text-white text-sm font-bold transition-all inline-flex items-center gap-2 cursor-pointer"
             >
-              <span>Schedule Architecture Consultation</span>
+              <span>Talk to an architect</span>
               <ArrowRight className="h-4 w-4" />
             </button>
             <Link
               to="/contact"
-              className="px-8 py-4 rounded-full bg-slate-900 hover:bg-slate-800 border border-slate-700 text-white text-base font-bold transition-all inline-flex items-center gap-2"
+              className="px-6 py-3 rounded-full bg-slate-900 hover:bg-slate-800 border border-slate-700 text-white text-sm font-bold transition-all"
             >
-              <span>Contact Us</span>
+              Contact
             </Link>
           </div>
         </div>

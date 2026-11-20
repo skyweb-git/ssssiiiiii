@@ -25,10 +25,8 @@ export default function ContactPage({ onOpenModal }) {
   return (
     <div className="min-h-screen bg-white text-slate-900 font-['DM_Sans']">
       <PageHeader
-        badge="GET IN TOUCH"
-        title="Start an Engineering Conversation"
-        subtitle="Connect directly with SkyWeb's principal software architects to explore how our engineering squads can accelerate your mission-critical initiatives."
-        breadcrumb="Contact Us"
+        title="Contact"
+        subtitle="Tell us what you are building. An engineer will follow up with clear next steps."
       />
 
       {/* Form */}
@@ -64,11 +62,11 @@ export default function ContactPage({ onOpenModal }) {
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="text-center sm:text-left">
-                  <h3 className="text-2xl font-extrabold text-[#0f172a] mb-2">
-                    Request an Architectural Assessment
+                  <h3 className="text-xl sm:text-2xl font-extrabold text-[#0f172a] mb-1.5">
+                    Start a conversation
                   </h3>
-                  <p className="text-slate-500 text-xs sm:text-sm">
-                    Fill out the form below and an engineering director will reach out promptly.
+                  <p className="text-slate-500 text-sm">
+                    Share a short brief — we usually reply within one business day.
                   </p>
                 </div>
 

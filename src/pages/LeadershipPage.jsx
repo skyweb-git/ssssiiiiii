@@ -533,30 +533,24 @@ export default function LeadershipPage({ onOpenModal }) {
             ))}
           </div>
 
-          {/* Bottom Leadership Philosophy Banner */}
-          <div className="mt-20 border-t border-slate-300/80 pt-12 pb-6">
-            <div className="bg-white rounded-2xl p-8 sm:p-10 border border-slate-200/80 shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
-              <div className="max-w-2xl">
-                <span className="text-[11px] font-bold uppercase tracking-widest text-[#e31837] mb-2 block font-mono">
-                  EXECUTIVE INTEGRITY &amp; OVERSIGHT
-                </span>
-                <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-['DM_Sans'] mb-2">
-                  Engineering-Led Corporate Governance
+          <div className="mt-14 sm:mt-16 border-t border-slate-200 pt-10 pb-4">
+            <div className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+              <div className="max-w-xl">
+                <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 font-['DM_Sans'] mb-1.5 tracking-tight">
+                  Hands-on leadership
                 </h3>
                 <p className="text-sm text-slate-600 leading-relaxed">
-                  At SkyWeb, leadership is not an ivory-tower function. Our executives are active systems thinkers, engineers, and fiscal strategists who interact directly with enterprise accounts to guarantee unyielding SLA compliance and architectural longevity.
+                  Our executives stay close to delivery — architecture, operations, and client outcomes.
                 </p>
               </div>
 
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0">
-                <button
-                  type="button"
-                  onClick={onOpenModal}
-                  className="px-6 py-3 rounded-xl bg-[#004AAD] hover:bg-[#003B8A] text-white text-xs font-bold uppercase tracking-wider transition-all shadow-md cursor-pointer text-center"
-                >
-                  Consult With Executive Team
-                </button>
-              </div>
+              <button
+                type="button"
+                onClick={onOpenModal}
+                className="px-6 py-2.5 rounded-full bg-[#004AAD] hover:bg-[#003B8A] text-white text-sm font-bold transition-all cursor-pointer shrink-0"
+              >
+                Talk to the team
+              </button>
             </div>
           </div>
 

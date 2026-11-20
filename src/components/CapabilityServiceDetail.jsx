@@ -73,7 +73,7 @@ export default function CapabilityServiceDetail({ serviceData, onOpenModal }) {
     <div className="min-h-screen bg-white text-slate-900 font-['DM_Sans']">
       
       {/* ================= 1. SERVICE HERO SECTION (BLACK BG & BLUE HEADLINE) ================= */}
-      <section className="bg-black text-white pt-36 sm:pt-40 pb-16 sm:pb-20 px-6 sm:px-8 border-b border-slate-800 relative overflow-hidden">
+      <section className="bg-black text-white pt-24 md:pt-40 pb-14 md:pb-20 px-5 sm:px-8 border-b border-slate-800 relative overflow-hidden">
         <div className="max-w-6xl mx-auto relative z-10">
           
           {/* Breadcrumb Navigation */}
@@ -104,31 +104,29 @@ export default function CapabilityServiceDetail({ serviceData, onOpenModal }) {
             </Link>
           </div>
 
-          {/* Main Title */}
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-blue-500 max-w-4xl leading-tight mb-6 font-['DM_Sans']">
+          <h1 className="text-3xl sm:text-4xl lg:text-[2.75rem] font-extrabold tracking-tight text-blue-500 max-w-3xl leading-[1.15] mb-4 font-['DM_Sans']">
             {serviceData.title}
           </h1>
 
-          {/* Hero Subtitle */}
-          <p className="text-base sm:text-lg lg:text-xl text-blue-200 max-w-3xl leading-relaxed mb-10 font-normal">
+          <p className="text-sm sm:text-base text-blue-100/90 max-w-2xl leading-relaxed mb-8 font-normal">
             {serviceData.heroSubtitle}
           </p>
 
-          {/* Action CTAs */}
-          <div className="flex flex-wrap items-center gap-4">
+          <div className="flex flex-wrap items-center gap-3">
             <button
+              type="button"
               onClick={onOpenModal}
-              className="px-7 py-3.5 rounded-full bg-[#004AAD] hover:bg-[#003B8A] text-white text-sm font-bold shadow-[0_6px_20px_rgba(0,74,173,0.35)] hover:shadow-[0_8px_25px_rgba(0,74,173,0.45)] hover:-translate-y-0.5 active:translate-y-0 transition-all flex items-center gap-2 cursor-pointer"
+              className="px-6 py-2.5 rounded-full bg-[#004AAD] hover:bg-[#003B8A] text-white text-sm font-bold transition-all flex items-center gap-2 cursor-pointer"
             >
-              <span>Schedule Architecture Consultation</span>
+              <span>Talk to an architect</span>
               <ArrowRight className="h-4 w-4" />
             </button>
 
             <a
               href="#offerings"
-              className="px-7 py-3.5 rounded-full bg-slate-900 hover:bg-slate-800 border border-slate-700 text-white text-sm font-bold transition-all"
+              className="px-5 py-2.5 rounded-full bg-slate-900 hover:bg-slate-800 border border-slate-700 text-white text-sm font-bold transition-all"
             >
-              Explore Technical Capabilities
+              View offerings
             </a>
           </div>
         </div>
@@ -138,12 +136,12 @@ export default function CapabilityServiceDetail({ serviceData, onOpenModal }) {
       {serviceData.businessChallenges && serviceData.businessChallenges.length > 0 && (
         <section className="py-16 sm:py-20 px-6 sm:px-8 bg-[#f8fafc] border-b border-slate-200/80">
           <div className="max-w-6xl mx-auto">
-            <div className="max-w-3xl mb-12">
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-[#0f172a] leading-tight">
-                Business Challenges & Engineering Opportunities
+            <div className="max-w-2xl mb-8">
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-[#0f172a] leading-tight tracking-tight">
+                Challenges & opportunities
               </h2>
-              <p className="text-sm sm:text-base text-slate-600 mt-2 leading-relaxed">
-                Organizations face distinct technical obstacles as their operations evolve. SkyWeb transforms architectural bottlenecks into structured foundations for digital growth.
+              <p className="text-sm text-slate-600 mt-2 leading-relaxed">
+                Common blockers we see — and how we turn them into a clear build path.
               </p>
             </div>
 
@@ -154,8 +152,8 @@ export default function CapabilityServiceDetail({ serviceData, onOpenModal }) {
                   className="p-7 sm:p-8 rounded-2xl bg-white border border-slate-200/90 shadow-xs hover:border-[#004AAD]/30 transition-all flex flex-col justify-between"
                 >
                   <div className="mb-5">
-                    <span className="text-[11px] font-bold uppercase tracking-wider text-rose-600 bg-rose-50 border border-rose-200/70 px-2.5 py-1 rounded-md inline-block mb-3">
-                      The Operational Challenge
+                    <span className="text-[11px] font-bold text-rose-600 mb-2 inline-block">
+                      Challenge
                     </span>
                     <h3 className="text-lg sm:text-xl font-bold text-[#0f172a] mb-2">
                       {item.challenge}
@@ -166,8 +164,8 @@ export default function CapabilityServiceDetail({ serviceData, onOpenModal }) {
                   </div>
 
                   <div className="pt-5 border-t border-slate-100">
-                    <span className="text-[11px] font-bold uppercase tracking-wider text-[#004AAD] bg-blue-50 border border-blue-200/70 px-2.5 py-1 rounded-md inline-block mb-2">
-                      The SkyWeb Solution
+                    <span className="text-[11px] font-bold text-[#004AAD] mb-1.5 inline-block">
+                      How we help
                     </span>
                     <p className="text-xs sm:text-sm text-slate-700 font-medium leading-relaxed">
                       {item.opportunity}
@@ -559,28 +557,28 @@ export default function CapabilityServiceDetail({ serviceData, onOpenModal }) {
         </div>
       </section>
 
-      {/* ================= 10. STRONG CONSULTATION CALL TO ACTION ================= */}
-      <section className="py-20 px-6 sm:px-8 bg-black text-white">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-blue-500 mb-5 tracking-tight font-['DM_Sans']">
-            Architect Your {serviceData.shortTitle || serviceData.title} Roadmap
+      <section className="py-14 sm:py-16 px-6 sm:px-8 bg-black text-white">
+        <div className="max-w-2xl mx-auto text-center">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-blue-500 mb-3 tracking-tight font-['DM_Sans']">
+            Plan your {serviceData.shortTitle || serviceData.title} roadmap
           </h2>
-          <p className="text-base sm:text-lg text-blue-200 max-w-2xl mx-auto mb-8 leading-relaxed">
-            Collaborate directly with SkyWeb's software architects to evaluate your existing stack, eliminate operational bottlenecks, and engineer systems designed to endure.
+          <p className="text-sm sm:text-base text-blue-100/90 max-w-lg mx-auto mb-7 leading-relaxed">
+            Share your stack and constraints — we will map a clear next step.
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-4">
+          <div className="flex flex-wrap items-center justify-center gap-3">
             <button
+              type="button"
               onClick={onOpenModal}
-              className="px-8 py-4 rounded-full bg-[#004AAD] hover:bg-[#003B8A] text-white text-base font-bold shadow-[0_8px_25px_rgba(0,74,173,0.4)] hover:-translate-y-0.5 transition-all inline-flex items-center gap-2 cursor-pointer"
+              className="px-7 py-3 rounded-full bg-[#004AAD] hover:bg-[#003B8A] text-white text-sm font-bold transition-all inline-flex items-center gap-2 cursor-pointer"
             >
-              <span>Schedule Architecture Consultation</span>
+              <span>Talk to an architect</span>
               <ArrowRight className="h-4 w-4" />
             </button>
             <Link
               to="/contact"
-              className="px-8 py-4 rounded-full bg-slate-900 hover:bg-slate-800 border border-slate-700 text-white text-base font-bold transition-all inline-flex items-center gap-2"
+              className="px-6 py-3 rounded-full bg-slate-900 hover:bg-slate-800 border border-slate-700 text-white text-sm font-bold transition-all"
             >
-              <span>Contact Engineering Team</span>
+              Contact
             </Link>
           </div>
         </div>

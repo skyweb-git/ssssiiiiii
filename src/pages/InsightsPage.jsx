@@ -42,14 +42,14 @@ export default function InsightsPage({ onOpenModal }) {
   return (
     <div className="min-h-screen bg-[#fafbfc] text-slate-900 font-['DM_Sans']">
       {/* ================= HERO HEADER ================= */}
-      <header className="relative px-6 sm:px-8 pt-36 sm:pt-40 pb-12 sm:pb-16 bg-black text-white overflow-hidden border-b border-slate-800">
+      <header className="relative px-5 sm:px-8 pt-24 md:pt-40 pb-10 md:pb-16 bg-black text-white overflow-hidden border-b border-slate-800">
         <div className="relative max-w-6xl mx-auto">
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight text-blue-500 max-w-4xl">
-            Engineering the Future of Business
+          <h1 className="text-3xl sm:text-5xl lg:text-[3.25rem] font-extrabold tracking-tight leading-[1.12] text-blue-500 max-w-3xl">
+            Insights &amp; News
           </h1>
 
-          <p className="mt-5 max-w-3xl text-base sm:text-lg lg:text-xl leading-relaxed text-blue-200 font-normal">
-            Explore technology insights, engineering perspectives, digital transformation strategies, and official news from SkyWeb IT Solutions.
+          <p className="mt-4 max-w-2xl text-sm sm:text-base leading-relaxed text-blue-100/90 font-normal">
+            Engineering notes, press coverage, and practical perspectives from SkyWeb.
           </p>
         </div>
       </header>
@@ -78,8 +78,8 @@ export default function InsightsPage({ onOpenModal }) {
         <section className="pt-6 pb-9 sm:pt-8 sm:pb-10 px-6 sm:px-8 bg-slate-50/60 border-b border-slate-200/70">
           <div className="max-w-6xl mx-auto">
             <div className="mb-5 sm:mb-6">
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-[#0f172a] leading-tight">
-                Latest News & Official Press Highlights
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-[#0f172a] leading-tight tracking-tight">
+                Latest press
               </h2>
             </div>
 
@@ -312,31 +312,28 @@ export default function InsightsPage({ onOpenModal }) {
         </div>
       </section>
 
-      {/* ================= ENTERPRISE ADVISORY CALL TO ACTION ================= */}
-      <section className="py-16 px-6 sm:px-8 bg-gradient-to-br from-slate-900 via-slate-950 to-blue-950 text-white mt-12">
-        <div className="max-w-4xl mx-auto text-center">
-          <span className="text-xs font-bold uppercase tracking-[0.18em] text-sky-400">
-            Turn Strategic Insight Into Engineered Reality
-          </span>
-          <h2 className="mt-3 text-2xl sm:text-4xl font-extrabold text-white leading-tight">
-            Planning a Technology Initiative?
+      <section className="py-14 sm:py-16 px-6 sm:px-8 bg-slate-50 border-t border-slate-200 mt-8">
+        <div className="max-w-2xl mx-auto text-center">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 leading-tight tracking-tight">
+            Planning a technology initiative?
           </h2>
-          <p className="mt-4 text-slate-300 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
-            Connect directly with SkyWeb IT Solutions architects and consultants to discuss custom software development, cloud infrastructure modernization, AI workflows, or university hackathon collaborations.
+          <p className="mt-3 text-slate-600 text-sm sm:text-base max-w-lg mx-auto leading-relaxed">
+            Software, cloud, AI, or campus programs — tell us what you are building.
           </p>
-          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="mt-7 flex flex-col sm:flex-row items-center justify-center gap-3">
             <button
+              type="button"
               onClick={onOpenModal}
-              className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-[#004AAD] hover:bg-sky-600 text-white font-bold text-xs uppercase tracking-wider shadow-lg transition-all inline-flex items-center justify-center gap-2 cursor-pointer"
+              className="w-full sm:w-auto px-7 py-3 rounded-full bg-[#004AAD] hover:bg-[#003B8A] text-white font-bold text-sm transition-all inline-flex items-center justify-center gap-2 cursor-pointer"
             >
-              <span>Schedule a Consultation</span>
+              <span>Talk to us</span>
               <ArrowRight className="h-4 w-4" />
             </button>
             <Link
               to="/capabilities"
-              className="w-full sm:w-auto px-7 py-3.5 rounded-full bg-white/10 hover:bg-white/20 text-white font-bold text-xs uppercase tracking-wider transition-all inline-flex items-center justify-center"
+              className="w-full sm:w-auto px-6 py-3 rounded-full border border-slate-300 hover:border-slate-400 text-slate-800 font-bold text-sm transition-all inline-flex items-center justify-center"
             >
-              Explore Capabilities
+              Capabilities
             </Link>
           </div>
         </div>

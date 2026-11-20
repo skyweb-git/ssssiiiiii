@@ -3,7 +3,7 @@
 import * as React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence, useScroll, useMotionValueEvent, type Variants } from "framer-motion";
-import { Menu, ArrowRight, ChevronDown, Sparkles } from "lucide-react";
+import { ArrowRight, ChevronDown, Sparkles } from "lucide-react";
 import { cn } from "../../lib/utils";
 import {
   Sheet,
@@ -94,13 +94,13 @@ const logoVariants: Variants = {
     opacity: 1, 
     scale: 1, 
     x: 0, 
-    transition: { type: "spring", damping: 18 } 
+    transition: { type: "spring", damping: 20, stiffness: 280 } 
   },
   collapsed: { 
     opacity: 1, 
-    scale: 0.95, 
+    scale: 1, 
     x: 0, 
-    transition: { type: "spring", damping: 18 } 
+    transition: { type: "spring", damping: 20, stiffness: 280 } 
   },
 };
 
@@ -179,12 +179,41 @@ export function AnimatedNavFramer({
 
   return (
     <>
-      {/* Floating Rectangular Navbar with Clean Rounded Corners */}
+      {/* ================= MOBILE NAV — full-width clean bar (TechM-style) ================= */}
+      <header
+        className={cn(
+          "fixed top-0 left-0 right-0 z-50 md:hidden bg-white/95 backdrop-blur-md border-b border-slate-200/70",
+          className
+        )}
+      >
+        <div className="flex items-center justify-between h-16 px-4 max-w-7xl mx-auto">
+          <Link to="/" className="flex items-center outline-none focus:outline-none" aria-label="SkyWeb Home">
+            <img
+              src="/assets/logo.png"
+              alt="SkyWeb Logo"
+              className="h-12 w-auto object-contain"
+            />
+          </Link>
+
+          <button
+            type="button"
+            onClick={() => setMobileDrawerOpen(true)}
+            className="h-10 w-10 inline-flex flex-col items-center justify-center gap-[5px] rounded-lg text-slate-900 hover:bg-slate-50 transition-colors outline-none focus:outline-none"
+            aria-label="Open navigation menu"
+          >
+            <span className="block w-5 h-[2.5px] rounded-full bg-slate-900" />
+            <span className="block w-5 h-[2.5px] rounded-full bg-slate-900" />
+            <span className="block w-5 h-[2.5px] rounded-full bg-slate-900" />
+          </button>
+        </div>
+      </header>
+
+      {/* ================= DESKTOP NAV — floating pill ================= */}
       <motion.div 
         variants={wrapperVariants}
         initial="expanded"
         animate={isExpanded ? "expanded" : "collapsed"}
-        className={cn("fixed z-50", className)}
+        className={cn("fixed z-50 hidden md:block", className)}
         onMouseLeave={handleMouseLeave}
       >
         <motion.nav
@@ -195,16 +224,16 @@ export function AnimatedNavFramer({
           whileTap={!isExpanded ? { scale: 0.95 } : {}}
           onClick={handleNavClick}
           className={cn(
-            "flex items-center flex-nowrap whitespace-nowrap overflow-hidden rounded-2xl border border-slate-200/80 bg-white/95 shadow-[0_10px_35px_-6px_rgba(0,0,0,0.08),0_2px_8px_-2px_rgba(0,0,0,0.04)] backdrop-blur-md h-[56px] sm:h-[68px] md:h-[72px] max-w-[calc(100vw-1.5rem)] sm:max-w-[96vw] px-2.5 sm:px-3.5 md:px-5 transition-all relative",
+            "flex items-center flex-nowrap whitespace-nowrap overflow-hidden rounded-2xl border border-slate-200/80 bg-white/95 shadow-[0_10px_35px_-6px_rgba(0,0,0,0.08),0_2px_8px_-2px_rgba(0,0,0,0.04)] backdrop-blur-md h-[84px] max-w-[96vw] px-5 transition-all relative",
             !isExpanded && "cursor-pointer justify-center px-0 w-auto h-auto border-transparent bg-transparent shadow-none backdrop-blur-none hover:border-transparent hover:shadow-none"
           )}
         >
-          {/* Brand Logo (Shown in navbar and when collapsed in top-left) */}
+          {/* Brand Logo */}
           <motion.div
             variants={logoVariants}
             className={cn(
               "flex-shrink-0 flex items-center transition-all",
-              isExpanded ? "pl-0.5 sm:pl-1 md:pl-2 pr-1.5 sm:pr-2 md:pr-4" : "p-0 justify-center"
+              isExpanded ? "pl-1 pr-4" : "p-0 justify-center"
             )}
           >
             <Link 
@@ -216,15 +245,15 @@ export function AnimatedNavFramer({
                   setExpanded(true);
                 }
               }}
-              className="flex items-center justify-center outline-none focus:outline-none transition-transform duration-200 hover:scale-105" 
+              className="flex items-center justify-center outline-none focus:outline-none transition-transform duration-200 hover:scale-[1.03]" 
               aria-label="SkyWeb Home"
             >
               <img 
                 src="/assets/logo.png" 
                 alt="SkyWeb Logo" 
                 className={cn(
-                  "w-auto object-contain transition-all duration-200",
-                  isExpanded ? "h-8 sm:h-11 md:h-[48px] drop-shadow-sm rounded-lg" : "h-9 sm:h-11 md:h-12"
+                  "w-auto object-contain transition-all duration-200 select-none",
+                  isExpanded ? "h-[64px]" : "h-14"
                 )} 
               />
             </Link>
@@ -233,7 +262,7 @@ export function AnimatedNavFramer({
           {/* Desktop Navigation Links */}
           <motion.div
             className={cn(
-              "hidden md:flex items-center flex-nowrap whitespace-nowrap flex-shrink-0 gap-1 lg:gap-1.5 pr-1",
+              "flex items-center flex-nowrap whitespace-nowrap flex-shrink-0 gap-1 lg:gap-1.5 pr-1",
               !isExpanded && "pointer-events-none !hidden"
             )}
           >
@@ -291,49 +320,18 @@ export function AnimatedNavFramer({
             })}
 
             {/* Desktop Contact Us Link */}
-            <motion.div variants={itemVariants} className="pl-1.5 sm:pl-2.5 flex-shrink-0 whitespace-nowrap">
+            <motion.div variants={itemVariants} className="pl-2.5 flex-shrink-0 whitespace-nowrap">
               <Link
                 to="/contact"
                 onClick={(e) => {
                   e.stopPropagation();
                   closeDropdown();
                 }}
-                className="h-10 sm:h-11 px-5 sm:px-6 rounded-xl bg-[#004AAD] hover:bg-[#003B8A] text-white text-sm sm:text-[14.5px] font-semibold tracking-normal transition-all duration-200 shadow-[0_4px_14px_rgba(0,74,173,0.3)] hover:shadow-[0_6px_20px_rgba(0,74,173,0.4)] hover:-translate-y-0.5 active:translate-y-0 cursor-pointer whitespace-nowrap outline-none focus:outline-none inline-flex items-center justify-center"
+                className="h-11 px-6 rounded-xl bg-[#004AAD] hover:bg-[#003B8A] text-white text-[14.5px] font-semibold tracking-normal transition-all duration-200 shadow-[0_4px_14px_rgba(0,74,173,0.3)] hover:shadow-[0_6px_20px_rgba(0,74,173,0.4)] hover:-translate-y-0.5 active:translate-y-0 cursor-pointer whitespace-nowrap outline-none focus:outline-none inline-flex items-center justify-center"
               >
                 Contact Us
               </Link>
             </motion.div>
-          </motion.div>
-
-          {/* Mobile Right Controls */}
-          <motion.div
-            variants={itemVariants}
-            className={cn(
-              "flex md:hidden items-center gap-1.5 pr-0.5",
-              !isExpanded && "pointer-events-none !hidden"
-            )}
-          >
-            <Link
-              to="/contact"
-              onClick={(e) => {
-                e.stopPropagation();
-              }}
-              className="h-8 px-3 rounded-lg bg-[#004AAD] hover:bg-[#003B8A] text-white text-[11px] font-semibold transition-all shadow-xs cursor-pointer whitespace-nowrap outline-none focus:outline-none inline-flex items-center justify-center"
-            >
-              Contact
-            </Link>
-
-            <button
-              type="button"
-              onClick={(e) => {
-                e.stopPropagation();
-                setMobileDrawerOpen(true);
-              }}
-              className="h-8 w-8 inline-flex items-center justify-center rounded-lg text-slate-700 hover:bg-slate-100 cursor-pointer outline-none focus:outline-none"
-              aria-label="Open navigation menu"
-            >
-              <Menu className="h-5 w-5" />
-            </button>
           </motion.div>
         </motion.nav>
       </motion.div>
@@ -714,46 +712,40 @@ export function AnimatedNavFramer({
                       <span className="text-[10px] font-bold uppercase tracking-wider text-[#004AAD]">
                         Official Press & News
                       </span>
-                      <Link to="/insights/designathon-2026-hyderabad-uiux-hackathon-workshop" onClick={closeDropdown} className="font-bold text-[#0f172a] hover:text-[#004AAD] transition-colors text-sm flex items-center justify-between group py-1">
-                        <span>Designathon 2026: Hyderabad UI/UX Hackathon</span>
-                        <ArrowRight className="h-3.5 w-3.5 text-slate-400 group-hover:text-[#004AAD] transform group-hover:translate-x-1 transition-transform" />
+                      <Link to="/insights/swayamkrushi-website-launch-coral-jubilee-the-hindu" onClick={closeDropdown} className="font-bold text-[#0f172a] hover:text-[#004AAD] transition-colors text-sm block py-1">
+                        Swayamkrushi Website Launch & Coral Jubilee
                       </Link>
-                      <Link to="/insights/codestars-2k26-national-hackathon-hyderabad" onClick={closeDropdown} className="font-bold text-[#0f172a] hover:text-[#004AAD] transition-colors text-sm flex items-center justify-between group py-1">
-                        <span>Code Stars 2K26 Hackathon (Hyderabad)</span>
-                        <ArrowRight className="h-3.5 w-3.5 text-slate-400 group-hover:text-[#004AAD] transform group-hover:translate-x-1 transition-transform" />
+                      <Link to="/insights/designathon-2026-hyderabad-uiux-hackathon-workshop" onClick={closeDropdown} className="font-bold text-[#0f172a] hover:text-[#004AAD] transition-colors text-sm block py-1">
+                        Designathon 2026: Hyderabad UI/UX Hackathon
                       </Link>
-                      <Link to="/insights/audisankara-university-codesprint-2026-hackathon" onClick={closeDropdown} className="font-bold text-[#0f172a] hover:text-[#004AAD] transition-colors text-sm flex items-center justify-between group py-1">
-                        <span>Audisankara Codesprint 2026</span>
-                        <ArrowRight className="h-3.5 w-3.5 text-slate-400 group-hover:text-[#004AAD] transform group-hover:translate-x-1 transition-transform" />
+                      <Link to="/insights/codestars-2k26-national-hackathon-hyderabad" onClick={closeDropdown} className="font-bold text-[#0f172a] hover:text-[#004AAD] transition-colors text-sm block py-1">
+                        Code Stars 2K26 Hackathon (Hyderabad)
+                      </Link>
+                      <Link to="/insights/audisankara-university-codesprint-2026-hackathon" onClick={closeDropdown} className="font-bold text-[#0f172a] hover:text-[#004AAD] transition-colors text-sm block py-1">
+                        Audisankara Codesprint 2026
                       </Link>
                     </div>
 
                     <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-0.5">
                       Technology Articles
                     </span>
-                    <Link to="/insights/software-engineering" onClick={closeDropdown} className="font-bold text-[#0f172a] hover:text-[#004AAD] transition-colors text-sm flex items-center justify-between group py-1">
-                      <span>Software Engineering</span>
-                      <ArrowRight className="h-3.5 w-3.5 text-slate-400 group-hover:text-[#004AAD] transform group-hover:translate-x-1 transition-transform" />
+                    <Link to="/insights/software-engineering" onClick={closeDropdown} className="font-bold text-[#0f172a] hover:text-[#004AAD] transition-colors text-sm block py-1">
+                      Software Engineering
                     </Link>
-                    <Link to="/insights/ai-machine-learning" onClick={closeDropdown} className="font-bold text-[#0f172a] hover:text-[#004AAD] transition-colors text-sm flex items-center justify-between group py-1">
-                      <span>AI & Machine Learning</span>
-                      <ArrowRight className="h-3.5 w-3.5 text-slate-400 group-hover:text-[#004AAD] transform group-hover:translate-x-1 transition-transform" />
+                    <Link to="/insights/ai-machine-learning" onClick={closeDropdown} className="font-bold text-[#0f172a] hover:text-[#004AAD] transition-colors text-sm block py-1">
+                      AI & Machine Learning
                     </Link>
-                    <Link to="/insights/cloud-infrastructure" onClick={closeDropdown} className="font-bold text-[#0f172a] hover:text-[#004AAD] transition-colors text-sm flex items-center justify-between group py-1">
-                      <span>Cloud & Infrastructure</span>
-                      <ArrowRight className="h-3.5 w-3.5 text-slate-400 group-hover:text-[#004AAD] transform group-hover:translate-x-1 transition-transform" />
+                    <Link to="/insights/cloud-infrastructure" onClick={closeDropdown} className="font-bold text-[#0f172a] hover:text-[#004AAD] transition-colors text-sm block py-1">
+                      Cloud & Infrastructure
                     </Link>
-                    <Link to="/insights/digital-platforms" onClick={closeDropdown} className="font-bold text-[#0f172a] hover:text-[#004AAD] transition-colors text-sm flex items-center justify-between group py-1">
-                      <span>Digital Platforms & Artube</span>
-                      <ArrowRight className="h-3.5 w-3.5 text-slate-400 group-hover:text-[#004AAD] transform group-hover:translate-x-1 transition-transform" />
+                    <Link to="/insights/digital-platforms" onClick={closeDropdown} className="font-bold text-[#0f172a] hover:text-[#004AAD] transition-colors text-sm block py-1">
+                      Digital Platforms & Artube
                     </Link>
-                    <Link to="/insights/business-technology" onClick={closeDropdown} className="font-bold text-[#0f172a] hover:text-[#004AAD] transition-colors text-sm flex items-center justify-between group py-1">
-                      <span>Business Technology</span>
-                      <ArrowRight className="h-3.5 w-3.5 text-slate-400 group-hover:text-[#004AAD] transform group-hover:translate-x-1 transition-transform" />
+                    <Link to="/insights/business-technology" onClick={closeDropdown} className="font-bold text-[#0f172a] hover:text-[#004AAD] transition-colors text-sm block py-1">
+                      Business Technology
                     </Link>
-                    <Link to="/insights/technology-consulting" onClick={closeDropdown} className="font-bold text-[#0f172a] hover:text-[#004AAD] transition-colors text-sm flex items-center justify-between group py-1">
-                      <span>Technology Consulting</span>
-                      <ArrowRight className="h-3.5 w-3.5 text-slate-400 group-hover:text-[#004AAD] transform group-hover:translate-x-1 transition-transform" />
+                    <Link to="/insights/technology-consulting" onClick={closeDropdown} className="font-bold text-[#0f172a] hover:text-[#004AAD] transition-colors text-sm block py-1">
+                      Technology Consulting
                     </Link>
                   </div>
 
@@ -813,10 +805,10 @@ export function AnimatedNavFramer({
 
       {/* ================= MOBILE DRAWER — neat accordion ================= */}
       <Sheet open={mobileDrawerOpen} onOpenChange={setMobileDrawerOpen}>
-        <SheetContent side="right" className="w-[min(100vw,360px)] bg-white p-0 flex flex-col overflow-hidden">
-          <SheetHeader className="px-5 pt-5 pb-4 border-b border-slate-100 text-left shrink-0">
-            <SheetTitle className="flex items-center">
-              <img src="/assets/logo.png" alt="SkyWeb" className="h-10 w-auto object-contain rounded-md" />
+        <SheetContent side="right" className="w-[min(100vw,340px)] sm:w-[360px] bg-white p-0 flex flex-col overflow-hidden border-l border-slate-200">
+          <SheetHeader className="px-5 h-14 flex flex-row items-center border-b border-slate-100 text-left shrink-0 space-y-0">
+            <SheetTitle className="flex items-center m-0">
+              <img src="/assets/logo.png" alt="SkyWeb" className="h-11 w-auto object-contain" />
             </SheetTitle>
           </SheetHeader>
 
@@ -990,6 +982,7 @@ export function AnimatedNavFramer({
                     All insights
                   </Link>
                   {[
+                    { to: "/insights/swayamkrushi-website-launch-coral-jubilee-the-hindu", label: "Swayamkrushi Launch", accent: true },
                     { to: "/insights/designathon-2026-hyderabad-uiux-hackathon-workshop", label: "Designathon 2026", accent: true },
                     { to: "/insights/codestars-2k26-national-hackathon-hyderabad", label: "Code Stars 2K26", accent: true },
                     { to: "/insights/audisankara-university-codesprint-2026-hackathon", label: "Audisankara Codesprint", accent: true },

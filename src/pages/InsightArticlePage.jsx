@@ -76,7 +76,7 @@ export default function InsightArticlePage({ onOpenModal }) {
     .slice(0, 3);
 
   return (
-    <main className="min-h-screen bg-[#fafbfc] text-slate-900 font-['DM_Sans'] pt-32 sm:pt-36 pb-20">
+    <main className="min-h-screen bg-[#fafbfc] text-slate-900 font-['DM_Sans'] pt-20 md:pt-36 pb-20">
       {/* ================= ARTICLE HEADER ================= */}
       <header className="max-w-4xl mx-auto px-6 sm:px-8 pt-8 sm:pt-12 pb-6">
         {/* Back Button */}
@@ -98,11 +98,11 @@ export default function InsightArticlePage({ onOpenModal }) {
 
       {/* ================= HERO COVER IMAGE (FULL UN-CROPPED DISPLAY) ================= */}
       <figure className="max-w-5xl mx-auto px-6 sm:px-8 mb-12 sm:mb-16">
-        <div className="relative rounded-2xl sm:rounded-3xl border border-slate-200/90 shadow-sm bg-gradient-to-b from-slate-50 to-slate-100/60 overflow-hidden flex items-center justify-center p-3 sm:p-6">
+        <div className="relative rounded-2xl sm:rounded-3xl border border-slate-200/80 bg-white overflow-hidden flex items-center justify-center p-2 sm:p-4">
           <img
             src={article.image}
             alt={article.imageAlt}
-            className="w-auto max-w-full h-auto max-h-[820px] object-contain rounded-xl sm:rounded-2xl shadow-sm"
+            className="w-auto max-w-full h-auto max-h-[820px] object-contain rounded-xl sm:rounded-2xl"
           />
         </div>
         {article.imageCaption && (
@@ -138,7 +138,7 @@ export default function InsightArticlePage({ onOpenModal }) {
                     rel="noopener noreferrer"
                     className="mt-3.5 inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#004AAD] hover:bg-[#003B8A] text-white text-xs font-bold transition-all w-full justify-center shadow-xs"
                   >
-                    <span>Read on The Hans India</span>
+                    <span>Read on {article.externalSource.publisher}</span>
                     <ExternalLink className="w-3.5 h-3.5" />
                   </a>
                 </div>

@@ -709,7 +709,7 @@ export const insightsArticles = [
       name: "SkyWeb Design & Innovation Practice",
       role: "Creative Technology & User Experience"
     },
-    image: "/assets/news/designathon-2026-hyderabad.png",
+    image: "/assets/news/designathon-2026-hyderabad-clean.png",
     imageAlt: "Designathon 2026: Hyderabad's UI/UX Design Hackathon and Workshop organized by SkyWeb IT Solutions",
     imageCaption: "Designathon 2026 UI/UX Workshop & Hackathon in Hyderabad — Bringing together creativity, technology, and the next generation of designers with SkyWeb IT Solutions Pvt. Ltd.",
     sourceName: "SkyWeb Official Press & Event Bureau",
@@ -763,6 +763,114 @@ export const insightsArticles = [
         }
       }
     ]
+  },
+  {
+    slug: "swayamkrushi-website-launch-coral-jubilee-the-hindu",
+    category: "News & Press",
+    isNews: true,
+    title: "Swayamkrushi Website Launch & Coral Jubilee: The Hindu Covers 35 Years of Service",
+    subtitle: "SkyWeb engineers the digital presence for Secunderabad’s pioneering nonprofit as Former VP M. Venkaiah Naidu and Minister Seethakka honour the Coral Jubilee.",
+    description: "SkyWeb IT Solutions launched the official Swayamkrushi website as The Hindu reported on the organisation’s 35th Coral Jubilee celebrations in Hyderabad — highlighting founder-director Manjulaa Kalyaan’s pioneering work for persons with intellectual disabilities.",
+    seoTitle: "Swayamkrushi Website Launch & Coral Jubilee | The Hindu Coverage | SkyWeb",
+    metaDescription: "SkyWeb launches the Swayamkrushi website as The Hindu covers Coral Jubilee celebrations marking 35 years of service. Former VP M. Venkaiah Naidu and Minister Seethakka honour the Secunderabad nonprofit.",
+    canonicalUrl: "https://skywebit.com/insights/swayamkrushi-website-launch-coral-jubilee-the-hindu",
+    publishedDate: "November 2026",
+    readTime: "5 min read",
+    author: {
+      name: "The Hindu Bureau / SkyWeb Newsroom",
+      role: "Press & Client Delivery"
+    },
+    image: "/assets/news/swayamkrushi-coral-jubilee.png",
+    imageAlt: "Swayamkrushi Coral Jubilee Celebrations — 35 Years of Service & Commitment",
+    imageCaption: "Swayamkrushi Coral Jubilee Celebrations marking 35 years of service and commitment — Secunderabad, November 2026.",
+    sourceName: "The Hindu (Hyderabad) & SkyWeb Client Delivery",
+    externalSource: {
+      publisher: "The Hindu",
+      headline: "Former VP urges youth to take part in meaningful social initiatives",
+      edition: "Hyderabad",
+      date: "November 16, 2026",
+      url: "https://www.thehindu.com/news/cities/Hyderabad/",
+      verifiedBadge: "Verified Press Coverage"
+    },
+    pressClippings: [
+      {
+        publication: "The Hindu",
+        headline: "Former VP urges youth to take part in meaningful social initiatives",
+        edition: "Hyderabad Edition",
+        date: "16/11/2026",
+        image: "/assets/news/thehindu-swayamkrushi-nov2026.png",
+        caption: "The Hindu coverage of Swayamkrushi’s Coral Jubilee — Minister Seethakka visits campus; Former VP M. Venkaiah Naidu addresses the 35th anniversary virtually."
+      },
+      {
+        publication: "The Hindu — Article Text",
+        headline: "Coral Jubilee reflections on compassion, capability, and community",
+        edition: "Published November 16, 2026 07:37 pm IST",
+        date: "16/11/2026",
+        image: "/assets/news/thehindu-swayamkrushi-text-nov2026.png",
+        caption: "Full reportage from The Hindu Bureau on Swayamkrushi’s pioneering educational, vocational, and independent-living programmes."
+      },
+      {
+        publication: "Swayamkrushi Coral Jubilee",
+        headline: "35 Years of Service & Commitment",
+        edition: "Event Photography",
+        date: "November 2026",
+        image: "/assets/news/swayamkrushi-coral-jubilee.png",
+        caption: "Coral Jubilee celebrations banner — Swayamkrushi marks three and a half decades of welfare, rehabilitation, and integration for persons with intellectual disabilities."
+      }
+    ],
+    sections: [
+      {
+        heading: "Launching the Swayamkrushi Website",
+        subheading: "A clean digital home for a 35-year mission of dignity and inclusion",
+        paragraphs: [
+          "SkyWeb IT Solutions engineered and launched the official Swayamkrushi website — giving the Secunderabad-based nonprofit a modern, accessible digital presence that reflects its mission: the welfare, rehabilitation, and integration of persons with intellectual disabilities.",
+          "The platform presents programmes, stories, and pathways for families, volunteers, and partners to engage with Swayamkrushi’s work across personalised education, vocational skill development, and independent living."
+        ],
+        highlightBox: {
+          title: "SkyWeb × Swayamkrushi",
+          type: "framework",
+          points: [
+            "Client: Swayamkrushi — Secunderabad not-for-profit (est. 1991)",
+            "Delivery: Official website launch by SkyWeb IT Solutions",
+            "Focus: Accessible UI, clear programme storytelling, and community reach",
+            "Milestone: Coral Jubilee — 35 Years of Service & Commitment"
+          ]
+        }
+      },
+      {
+        heading: "The Hindu: Former VP Addresses Coral Jubilee",
+        subheading: "M. Venkaiah Naidu urges meaningful social initiatives and a compassionate society",
+        paragraphs: [
+          "Addressing the Coral Jubilee celebrations marking the 35th anniversary of Swayamkrushi virtually on Monday (November 16), Former Vice-President of India M. Venkaiah Naidu said nation-building was not limited to economic growth and technological advancement but also involved creating a compassionate and caring society.",
+          "Mr. Naidu said persons with intellectual disabilities needed understanding, encouragement, appropriate support and opportunities to develop their capabilities rather than sympathy. He commended Swayamkrushi founder-director Manjulaa Kalyaan for recognising their potential and establishing the organisation in 1991."
+        ]
+      },
+      {
+        heading: "Pioneering Programmes for Self-Reliance",
+        subheading: "Education, vocational skills, and independent living at the heart of the mission",
+        paragraphs: [
+          "He noted that Swayamkrushi had undertaken pioneering work through personalised educational programmes, vocational skill development and training in independent living skills. Such initiatives not only equip individuals with practical abilities but also promote self-reliance, decision-making and meaningful participation in family and community life, he said."
+        ]
+      },
+      {
+        heading: "Campus Visit & Voices of Support",
+        subheading: "Minister Seethakka, J.D. Lakshminarayana, and Devulapalli Amar honour the work",
+        paragraphs: [
+          "Telangana Minister for Panchayat Raj and Rural Development and Women and Child Welfare Seethakka visited the Swayamkrushi campus and interacted with Ms. Kalyaan, staff and students. Former IPS officer and social activist J.D. Lakshminarayana lauded Swayamkrushi’s contribution to society and described Ms. Kalyaan as the ‘pillar of India’.",
+          "Veteran journalist and former adviser to the Andhra Pradesh government Devulapalli Amar expressed concern over the media’s failure to adequately highlight the work of organisations such as Swayamkrushi."
+        ],
+        highlightBox: {
+          title: "Event Highlights — November 16, 2026",
+          type: "framework",
+          points: [
+            "Coral Jubilee: 35 years of Swayamkrushi service in Secunderabad",
+            "Virtual address: Former VP of India M. Venkaiah Naidu",
+            "Campus visit: Minister Seethakka with founder-director Manjulaa Kalyaan",
+            "Press: The Hindu Hyderabad Bureau coverage"
+          ]
+        }
+      }
+    ]
   }
 ];
 
@@ -784,5 +892,10 @@ if (insightArticleBySlug["designathon-2026-hyderabad-uiux-hackathon-workshop"]) 
   insightArticleBySlug["designathon-2026"] = insightArticleBySlug["designathon-2026-hyderabad-uiux-hackathon-workshop"];
   insightArticleBySlug["designathon-2026-hyderabad"] = insightArticleBySlug["designathon-2026-hyderabad-uiux-hackathon-workshop"];
   insightArticleBySlug["hyderabad-uiux-hackathon-workshop"] = insightArticleBySlug["designathon-2026-hyderabad-uiux-hackathon-workshop"];
+}
+if (insightArticleBySlug["swayamkrushi-website-launch-coral-jubilee-the-hindu"]) {
+  insightArticleBySlug["swayamkrushi"] = insightArticleBySlug["swayamkrushi-website-launch-coral-jubilee-the-hindu"];
+  insightArticleBySlug["swayamkrushi-website-launch"] = insightArticleBySlug["swayamkrushi-website-launch-coral-jubilee-the-hindu"];
+  insightArticleBySlug["swayamkrushi-coral-jubilee"] = insightArticleBySlug["swayamkrushi-website-launch-coral-jubilee-the-hindu"];
 }
 

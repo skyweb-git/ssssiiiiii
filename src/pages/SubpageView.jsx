@@ -55,6 +55,15 @@ export default function SubpageView({ category: propCategory, onOpenModal }) {
     'industries/retail': 'industries/retail-consumer',
     'industries/healthcare-life-sciences': 'industries/healthcare-lifesciences',
     'industries/public-sector': 'industries/education',
+    'industries/insurance-insurtech': 'industries/insurance',
+    'industries/insurtech': 'industries/insurance',
+    'industries/banking': 'industries/banking-financial',
+    'industries/fintech': 'industries/banking-financial',
+    'industries/energy': 'industries/energy-utilities',
+    'industries/healthcare': 'industries/healthcare-lifesciences',
+    'industries/travel': 'industries/travel-logistics',
+    'industries/logistics': 'industries/travel-logistics',
+    'industries/media': 'industries/media-entertainment',
     'capabilities/scale-at-speed': 'capabilities/nano-profiles',
     'capabilities/nano': 'capabilities/nano-profiles',
     'capabilities/artcoin': 'capabilities/art-coin',
@@ -113,7 +122,7 @@ export default function SubpageView({ category: propCategory, onOpenModal }) {
   return (
     <div className="min-h-screen bg-white text-slate-900 font-['DM_Sans'] pb-24">
       {/* ================= 1. HERO HEADER SECTION (ONLY UPPER SECTION IS SOLID BLACK & BLUE TEXT) ================= */}
-      <section className="pt-36 sm:pt-40 pb-16 sm:pb-20 px-6 sm:px-8 border-b border-slate-900 relative overflow-hidden bg-black text-white">
+      <section className="pt-24 md:pt-40 pb-14 md:pb-20 px-5 sm:px-8 border-b border-slate-900 relative overflow-hidden bg-black text-white">
         <div className="max-w-5xl mx-auto relative z-10 text-center">
           {/* Back Button */}
           <div className="mb-6 flex justify-start">
@@ -126,45 +135,132 @@ export default function SubpageView({ category: propCategory, onOpenModal }) {
             </button>
           </div>
 
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-blue-500 tracking-tight leading-[1.12] mb-6">
+          <h1 className="text-3xl sm:text-4xl lg:text-[2.75rem] font-extrabold text-blue-500 tracking-tight leading-[1.15] mb-4">
             {pageData.title}
           </h1>
 
-          <p className="text-lg sm:text-xl lg:text-2xl text-blue-200 font-medium leading-relaxed max-w-3xl mx-auto mb-8">
+          <p className="text-sm sm:text-base text-blue-100/90 leading-relaxed max-w-2xl mx-auto mb-3">
             {pageData.subtitle}
           </p>
+          {pageData.description && (
+            <p className="text-sm text-slate-300 leading-relaxed max-w-2xl mx-auto mb-7">
+              {pageData.description}
+            </p>
+          )}
 
-          <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
+          <div className="flex flex-wrap items-center justify-center gap-3 pt-1">
             {pageData.externalUrl && (
               <a
                 href={pageData.externalUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-8 py-3.5 rounded-full bg-[#004AAD] hover:bg-[#003B8A] text-white text-base font-bold shadow-[0_6px_20px_rgba(0,74,173,0.35)] hover:-translate-y-0.5 active:translate-y-0 transition-all flex items-center gap-2"
+                className="px-6 py-2.5 rounded-full bg-[#004AAD] hover:bg-[#003B8A] text-white text-sm font-bold transition-all flex items-center gap-2"
               >
-                <span>Visit External Resource</span>
+                <span>Visit resource</span>
                 <ExternalLink className="h-4 w-4" />
               </a>
             )}
 
             <button
+              type="button"
               onClick={onOpenModal}
-              className="px-8 py-3.5 rounded-full bg-[#004AAD] hover:bg-[#003B8A] text-white text-base font-bold shadow-[0_6px_20px_rgba(0,74,173,0.35)] hover:-translate-y-0.5 active:translate-y-0 transition-all flex items-center gap-2 cursor-pointer"
+              className="px-6 py-2.5 rounded-full bg-[#004AAD] hover:bg-[#003B8A] text-white text-sm font-bold transition-all flex items-center gap-2 cursor-pointer"
             >
-              <span>Schedule Architecture Review</span>
+              <span>Talk to an architect</span>
               <ArrowRight className="h-4 w-4" />
             </button>
 
             <Link
               to={categoryHref}
-              className="px-7 py-3.5 rounded-full bg-neutral-900 hover:bg-neutral-800 border border-slate-800 text-blue-200 hover:text-white text-base font-bold transition-all shadow-xs"
+              className="px-5 py-2.5 rounded-full bg-neutral-900 hover:bg-neutral-800 border border-slate-800 text-blue-200 hover:text-white text-sm font-bold transition-all"
             >
-              Explore All {categoryName}
+              All {categoryName}
             </Link>
           </div>
         </div>
       </section>
 
+      {/* ================= OVERVIEW METRICS ================= */}
+      {pageData.highlights && pageData.highlights.length > 0 && (
+        <section className="py-10 sm:py-12 px-5 sm:px-8 bg-white border-b border-slate-100">
+          <div className="max-w-6xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+            {pageData.highlights.map((h, idx) => (
+              <div
+                key={idx}
+                className="rounded-2xl border border-slate-200 bg-[#fafafa] px-4 py-5 sm:px-5 sm:py-6 text-center"
+              >
+                <div className="text-xl sm:text-2xl font-extrabold text-[#004AAD] tracking-tight mb-1">
+                  {h.metric}
+                </div>
+                <div className="text-xs sm:text-sm text-slate-600 font-medium leading-snug">
+                  {h.label}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* ================= WHAT WE BUILD ================= */}
+      {pageData.solutions && pageData.solutions.length > 0 && (
+        <section className="py-14 sm:py-16 px-5 sm:px-8 bg-slate-50 border-b border-slate-200">
+          <div className="max-w-6xl mx-auto">
+            <div className="max-w-2xl mb-8 sm:mb-10">
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-2 tracking-tight">
+                What We Build
+              </h2>
+              <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
+                {pageData.solutionsIntro || 'Practical systems tailored to this sector’s regulation, scale, and customer experience needs.'}
+              </p>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+              {pageData.solutions.map((item, idx) => (
+                <div
+                  key={idx}
+                  className="rounded-2xl border border-slate-200 bg-white p-5 sm:p-6 hover:border-[#004AAD]/40 transition-colors"
+                >
+                  <h3 className="text-base sm:text-lg font-bold text-slate-900 mb-2">
+                    {item.title}
+                  </h3>
+                  <p className="text-sm text-slate-600 leading-relaxed">
+                    {item.desc}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ================= CHALLENGES WE SOLVE ================= */}
+      {pageData.challenges && pageData.challenges.length > 0 && (
+        <section className="py-14 sm:py-16 px-5 sm:px-8 bg-white border-b border-slate-100">
+          <div className="max-w-6xl mx-auto">
+            <div className="max-w-2xl mb-8 sm:mb-10">
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-2 tracking-tight">
+                Challenges We Solve
+              </h2>
+              <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
+                Common bottlenecks we help organizations remove with clear architecture and delivery.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
+              {pageData.challenges.map((item, idx) => (
+                <div
+                  key={idx}
+                  className="rounded-2xl border border-slate-200 bg-[#fafafa] p-5 sm:p-6 flex gap-3"
+                >
+                  <CheckCircle2 className="h-5 w-5 text-[#004AAD] shrink-0 mt-0.5" />
+                  <div>
+                    <h3 className="text-base font-bold text-slate-900 mb-1">{item.title}</h3>
+                    <p className="text-sm text-slate-600 leading-relaxed">{item.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ================= 3. FEATURED IN-DEPTH ARTICLE SECTION ================= */}
       {pageData.article && (
@@ -525,37 +621,30 @@ export default function SubpageView({ category: propCategory, onOpenModal }) {
       {pageData.pillars && pageData.pillars.length > 0 && (
         <section className="py-16 sm:py-20 px-6 sm:px-8 bg-white border-b border-slate-100">
           <div className="max-w-6xl mx-auto">
-            <div className="text-center max-w-3xl mx-auto mb-12">
-              <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-2">
-                Architectural Pillars &amp; Methodologies
+            <div className="max-w-2xl mb-8 sm:mb-10">
+              <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-2 tracking-tight">
+                How We Approach It
               </h3>
               <p className="text-sm sm:text-base text-slate-600">
-                Rigorous computer science standards applied to mission-critical business systems.
+                Clear methods we use to design and deliver systems in this area.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
               {pageData.pillars.map((pillar, idx) => (
                 <div
                   key={idx}
-                  className="p-7 sm:p-8 rounded-2xl border border-slate-200/90 bg-[#fafafa] hover:bg-white hover:border-[#004AAD]/40 transition-all duration-200 hover:shadow-lg flex flex-col justify-between group"
+                  className="p-5 sm:p-6 rounded-2xl border border-slate-200 bg-white hover:border-[#004AAD]/40 transition-colors"
                 >
-                  <div>
-                    <div className="h-12 w-12 rounded-xl bg-[#004AAD]/10 text-[#004AAD] flex items-center justify-center font-bold text-lg mb-6 group-hover:bg-[#004AAD] group-hover:text-white transition-colors duration-200">
-                      0{idx + 1}
-                    </div>
-                    <h4 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-[#004AAD] transition-colors">
-                      {pillar.title}
-                    </h4>
-                    <p className="text-slate-600 text-sm leading-relaxed">
-                      {pillar.desc}
-                    </p>
+                  <div className="text-xs font-bold text-[#004AAD] mb-3">
+                    {String(idx + 1).padStart(2, '0')}
                   </div>
-
-                  <div className="pt-6 border-t border-slate-200/60 mt-6 flex items-center gap-2 text-xs font-bold text-[#004AAD]">
-                    <CheckCircle2 className="h-4 w-4 text-[#004AAD]" />
-                    <span>Production-Grade Architecture</span>
-                  </div>
+                  <h4 className="text-lg font-bold text-slate-900 mb-2">
+                    {pillar.title}
+                  </h4>
+                  <p className="text-slate-600 text-sm leading-relaxed">
+                    {pillar.desc}
+                  </p>
                 </div>
               ))}
             </div>
@@ -565,47 +654,47 @@ export default function SubpageView({ category: propCategory, onOpenModal }) {
 
       {/* ================= 11. ENTERPRISE ENGINEERING STANDARD ================= */}
       {!(pageData.testimonials?.length && !pageData.pillars?.length && !pageData.article) && (
-      <section className="py-16 px-6 sm:px-8 bg-[#f8fafc] border-b border-slate-200/70">
+      <section className="py-14 sm:py-16 px-5 sm:px-8 bg-slate-50 border-b border-slate-200">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-2">
-              The SkyWeb Engineering Standard
+          <div className="max-w-2xl mb-8 sm:mb-10">
+            <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-2 tracking-tight">
+              Engineering Standard
             </h3>
-            <p className="text-slate-600 text-sm">
-              Every system we engineer adheres to strict institutional governance, security benchmarks, and computational efficiency.
+            <p className="text-sm sm:text-base text-slate-600">
+              Security, reliability, and delivery habits we apply across every engagement.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="p-6 bg-white rounded-xl border border-slate-200/80 shadow-xs">
-              <ShieldCheck className="h-8 w-8 text-[#004AAD] mb-4" />
-              <h5 className="font-bold text-slate-900 text-base mb-2">Zero-Trust Security</h5>
-              <p className="text-slate-600 text-xs leading-relaxed">
-                Automated vulnerability scanning, least-privilege IAM, and end-to-end encryption in transit and at rest.
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+            <div className="p-5 bg-white rounded-2xl border border-slate-200">
+              <ShieldCheck className="h-6 w-6 text-[#004AAD] mb-3" />
+              <h5 className="font-bold text-slate-900 text-sm mb-1.5">Security</h5>
+              <p className="text-slate-600 text-sm leading-relaxed">
+                Least-privilege access, encryption, and continuous vulnerability checks.
               </p>
             </div>
 
-            <div className="p-6 bg-white rounded-xl border border-slate-200/80 shadow-xs">
-              <Cpu className="h-8 w-8 text-[#004AAD] mb-4" />
-              <h5 className="font-bold text-slate-900 text-base mb-2">Hyperscale Compute</h5>
-              <p className="text-slate-600 text-xs leading-relaxed">
-                Multi-region Kubernetes orchestration and elastic auto-scaling engineered for zero cold-start penalties.
+            <div className="p-5 bg-white rounded-2xl border border-slate-200">
+              <Cpu className="h-6 w-6 text-[#004AAD] mb-3" />
+              <h5 className="font-bold text-slate-900 text-sm mb-1.5">Scale</h5>
+              <p className="text-slate-600 text-sm leading-relaxed">
+                Cloud architectures that grow with demand and stay cost-aware.
               </p>
             </div>
 
-            <div className="p-6 bg-white rounded-xl border border-slate-200/80 shadow-xs">
-              <Activity className="h-8 w-8 text-[#004AAD] mb-4" />
-              <h5 className="font-bold text-slate-900 text-base mb-2">Observability &amp; SLAs</h5>
-              <p className="text-slate-600 text-xs leading-relaxed">
-                Distributed OpenTelemetry tracing, real-time alert routing, and 99.98% system availability guarantees.
+            <div className="p-5 bg-white rounded-2xl border border-slate-200">
+              <Activity className="h-6 w-6 text-[#004AAD] mb-3" />
+              <h5 className="font-bold text-slate-900 text-sm mb-1.5">Observability</h5>
+              <p className="text-slate-600 text-sm leading-relaxed">
+                Tracing, alerts, and clear SLAs so issues are found early.
               </p>
             </div>
 
-            <div className="p-6 bg-white rounded-xl border border-slate-200/80 shadow-xs">
-              <Globe2 className="h-8 w-8 text-[#004AAD] mb-4" />
-              <h5 className="font-bold text-slate-900 text-base mb-2">Global Squads</h5>
-              <p className="text-slate-600 text-xs leading-relaxed">
-                Dedicated IIT-trained engineering squads collaborating seamlessly across Hyderabad, Dubai, and Cape Town.
+            <div className="p-5 bg-white rounded-2xl border border-slate-200">
+              <Globe2 className="h-6 w-6 text-[#004AAD] mb-3" />
+              <h5 className="font-bold text-slate-900 text-sm mb-1.5">Global Delivery</h5>
+              <p className="text-slate-600 text-sm leading-relaxed">
+                Teams across Hyderabad, Dubai, and Cape Town shipping together.
               </p>
             </div>
           </div>
@@ -658,28 +747,29 @@ export default function SubpageView({ category: propCategory, onOpenModal }) {
         </section>
       )}
 
-      {/* ================= 13. BOTTOM ACTION BANNER ================= */}
-      <section className="pt-16 px-6 sm:px-8 bg-white">
-        <div className="max-w-5xl mx-auto bg-black text-white border border-slate-800 rounded-3xl p-8 sm:p-12 text-center">
-          <h3 className="text-2xl sm:text-4xl font-extrabold text-blue-500 tracking-tight mb-3">
-            Ready to Engineer What's Next?
+      <section className="pt-12 sm:pt-16 px-6 sm:px-8 bg-white">
+        <div className="max-w-3xl mx-auto bg-black text-white border border-slate-800 rounded-2xl p-7 sm:p-10 text-center">
+          <h3 className="text-xl sm:text-2xl font-extrabold text-blue-500 tracking-tight mb-2">
+            Ready to start?
           </h3>
-          <p className="text-blue-200 text-base leading-relaxed mb-6 max-w-2xl mx-auto">
-            Direct Inquiries: <a href="mailto:offical@skywebinternational.com" className="text-blue-400 hover:underline">offical@skywebinternational.com</a> • Hyderabad, Telangana, India
+          <p className="text-blue-100/90 text-sm leading-relaxed mb-6 max-w-lg mx-auto">
+            <a href="mailto:offical@skywebinternational.com" className="text-blue-400 hover:underline">offical@skywebinternational.com</a>
+            {' '}· Hyderabad, India
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-4">
+          <div className="flex flex-wrap items-center justify-center gap-3">
             <button
+              type="button"
               onClick={onOpenModal}
-              className="px-8 py-3.5 rounded-full bg-[#004AAD] hover:bg-[#003B8A] text-white text-base font-bold shadow-[0_6px_20px_rgba(0,74,173,0.35)] hover:-translate-y-0.5 transition-all cursor-pointer flex items-center gap-2"
+              className="px-6 py-2.5 rounded-full bg-[#004AAD] hover:bg-[#003B8A] text-white text-sm font-bold transition-all cursor-pointer flex items-center gap-2"
             >
-              <span>Schedule Architecture Review</span>
+              <span>Talk to an architect</span>
               <ArrowRight className="h-4 w-4" />
             </button>
             <Link
-              to="/about"
-              className="px-7 py-3.5 rounded-full bg-neutral-900 hover:bg-neutral-800 border border-slate-800 text-blue-200 hover:text-white text-base font-bold transition-all"
+              to="/contact"
+              className="px-5 py-2.5 rounded-full bg-neutral-900 hover:bg-neutral-800 border border-slate-800 text-blue-200 hover:text-white text-sm font-bold transition-all"
             >
-              Explore SkyWeb Hub
+              Contact
             </Link>
           </div>
         </div>
