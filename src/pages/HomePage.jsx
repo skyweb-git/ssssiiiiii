@@ -890,14 +890,14 @@ export default function HomePage({ onOpenModal }) {
               >
                 <Link
                   to={`/insights/${article.slug}`}
-                  className="block h-36 overflow-hidden bg-slate-50 border-b border-slate-100 relative flex items-center justify-center p-3"
+                  className="block h-36 overflow-hidden bg-slate-100 border-b border-slate-100 relative"
                   aria-label={`Read ${article.title}`}
                 >
                   <img
                     src={article.image}
                     alt={article.imageAlt}
                     loading="lazy"
-                    className="max-w-full max-h-full object-contain rounded-md"
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                 </Link>
 

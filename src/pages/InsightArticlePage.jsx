@@ -390,13 +390,13 @@ export default function InsightArticlePage({ onOpenModal }) {
             >
               <Link
                 to={`/insights/${related.slug}`}
-                className="block h-36 overflow-hidden bg-slate-50 border-b border-slate-100 flex items-center justify-center p-3"
+                className="block h-36 overflow-hidden bg-slate-100 border-b border-slate-100 relative"
               >
                 <img
                   src={related.image}
                   alt={related.imageAlt}
                   loading="lazy"
-                  className="max-w-full max-h-full object-contain rounded-md"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
               </Link>
               <div className="p-5 flex flex-col flex-1">

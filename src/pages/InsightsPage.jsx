@@ -80,11 +80,11 @@ export default function InsightsPage({ onOpenModal }) {
                   className="rounded-2xl border border-slate-200 bg-white overflow-hidden shadow-sm hover:shadow-lg hover:border-[#004AAD]/40 transition-all flex flex-col justify-between group"
                 >
                   <div>
-                    <div className="h-40 sm:h-44 overflow-hidden bg-slate-50 border-b border-slate-100 relative flex items-center justify-center p-3">
+                    <div className="h-40 sm:h-44 overflow-hidden bg-slate-100 border-b border-slate-100 relative">
                       <img
                         src={item.image}
                         alt={item.imageAlt}
-                        className="max-w-full max-h-full object-contain rounded-md"
+                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
                     </div>
 
@@ -153,11 +153,11 @@ export default function InsightsPage({ onOpenModal }) {
             <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden hover:shadow-md transition-all group">
               <div className="grid grid-cols-1 lg:grid-cols-12">
                 {/* Left: Image */}
-                <div className="lg:col-span-5 relative h-48 sm:h-56 lg:h-full lg:min-h-[240px] lg:max-h-[300px] overflow-hidden bg-slate-50 flex items-center justify-center p-4">
+                <div className="lg:col-span-5 relative h-48 sm:h-56 lg:h-full lg:min-h-[240px] lg:max-h-[300px] overflow-hidden bg-slate-100">
                   <img
                     src={featuredArticle.image}
                     alt={featuredArticle.imageAlt}
-                    className="max-w-full max-h-full object-contain rounded-lg"
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>
 
@@ -242,14 +242,14 @@ export default function InsightsPage({ onOpenModal }) {
                 >
                   <Link
                     to={`/insights/${article.slug}`}
-                    className="block h-36 sm:h-40 overflow-hidden bg-slate-50 border-b border-slate-100 relative flex items-center justify-center p-3"
+                    className="block h-36 sm:h-40 overflow-hidden bg-slate-100 border-b border-slate-100 relative"
                     aria-label={`Read ${article.title}`}
                   >
                     <img
                       src={article.image}
                       alt={article.imageAlt}
                       loading="lazy"
-                      className="max-w-full max-h-full object-contain rounded-md"
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                   </Link>
 
