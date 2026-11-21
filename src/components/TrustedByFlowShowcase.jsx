@@ -12,6 +12,7 @@ const defaultLogos = [
   { name: "Value Laden", src: "/assets/client-showcase/9.png" },
   { name: "Akashya Labs and Tech", src: "/assets/client-showcase/10.png" },
   { name: "Edion Royal Guesthouse", src: "/assets/client-showcase/edion-royal-guesthouse.png" },
+  { name: "The RA Group", src: "/assets/client-showcase/ra-group.png" },
 ];
 
 export default function TrustedByFlowShowcase({ 

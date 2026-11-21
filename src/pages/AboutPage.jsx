@@ -107,6 +107,11 @@ const featuredTestimonials = [
     quote: "SkyWeb architected a high-throughput digital gallery and creator marketplace that scaled past 250,000 active creators seamlessly with flawless uptime."
   },
   {
+    company: "The RA Group",
+    imageUrl: "/assets/testimonials/card-7.png",
+    quote: "Cosmetic chemist building The RA Group. Seen in Glamour, Elle, Grazia, Cosmopolitan, PopSugar and more — founder of Rare Aesthetics by Grace Ncubuka, with best-selling products across the USA."
+  },
+  {
     company: "Value Laden",
     imageUrl: "/assets/testimonials/card-3.png",
     quote: "SkyWeb engineered our financial reporting engine and algorithmic advisory dashboard with unyielding accuracy, data privacy, and regulatory auditability."

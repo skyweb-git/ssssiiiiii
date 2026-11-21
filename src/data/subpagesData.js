@@ -376,6 +376,12 @@ export const subpagesData = {
         quote: "SkyWeb engineered our financial reporting engine and algorithmic advisory dashboard with unyielding accuracy, data privacy, and regulatory auditability."
       },
       {
+        company: "The RA Group",
+        logo: "/assets/logos/logo-ra-rare-aesthetics.png",
+        imageUrl: "/assets/testimonials/card-7.png",
+        quote: "Cosmetic chemist building The RA Group. Seen in Glamour, Elle, Grazia, Cosmopolitan, PopSugar and more — founder of Rare Aesthetics by Grace Ncubuka, with best-selling products across the USA."
+      },
+      {
         company: "Akashya Labs and Tech",
         logo: "/assets/logos/logo-10.png",
         imageUrl: "/assets/testimonials/card-4.png",
