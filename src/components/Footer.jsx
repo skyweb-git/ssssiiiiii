@@ -18,6 +18,7 @@ export default function Footer({ onOpenModal }) {
               />
             </Link>
             <p className="footer-legal-name">SKYWEB PRIVATE LIMITED</p>
+            <p className="footer-international-label">SkyWeb International</p>
             <p className="footer-brand-sub">
               We scale what others only dream of. Technology engineering for businesses ready to build, transform and scale.
             </p>
@@ -60,7 +61,11 @@ export default function Footer({ onOpenModal }) {
 
             <div className="footer-contact-details">
               <a href="mailto:offical@skywebinternational.com">offical@skywebinternational.com</a>
-              <a href="tel:+919121428210">+91 9121428210</a>
+              <span className="footer-phone-row">
+                <a href="tel:+919121428210">+91 9121428210</a>
+                <span aria-hidden="true">,</span>
+                <a href="tel:+27813435207">+27 81 343 5207</a>
+              </span>
               <span>Hyderabad, Telangana, India</span>
             </div>
           </div>

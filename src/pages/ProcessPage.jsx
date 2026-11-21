@@ -1,11 +1,14 @@
 import React from 'react';
 import PageHeader from '../components/PageHeader';
+import SEO from '../components/SEO';
+import { pageSeo } from '../data/seoData';
 import { ArrowRight } from 'lucide-react';
 import { processSteps } from '../data/siteData';
 
 export default function ProcessPage({ onOpenModal }) {
   return (
     <div className="min-h-screen bg-white text-slate-900 font-['DM_Sans']">
+      <SEO {...pageSeo['/process']} />
       <PageHeader
         title="How We Work"
         subtitle="A clear path from discovery to production — less rework, more predictable delivery."

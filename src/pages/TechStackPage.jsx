@@ -1,11 +1,14 @@
 import React from 'react';
 import PageHeader from '../components/PageHeader';
+import SEO from '../components/SEO';
+import { pageSeo } from '../data/seoData';
 import { techCategories } from '../data/siteData';
 import TechStackShowcase from '../components/TechStackShowcase';
 
 export default function TechStackPage({ onOpenModal }) {
   return (
     <div>
+      <SEO {...pageSeo['/tech-stack']} />
       <PageHeader
         title="Tech Stack"
         subtitle="Frameworks, cloud, databases, and AI toolchains we use to ship reliable systems."

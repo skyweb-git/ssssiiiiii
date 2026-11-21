@@ -1,24 +1,12 @@
-import React, { useMemo, useState, useEffect } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, ArrowUpRight, Clock, Calendar, Search, ExternalLink } from 'lucide-react';
 import { insightsArticles } from '../data/insightsArticles';
+import SEO from '../components/SEO';
+import { pageSeo } from '../data/seoData';
 
 export default function InsightsPage({ onOpenModal }) {
   const [searchQuery, setSearchQuery] = useState('');
-
-  useEffect(() => {
-    document.title = "Engineering the Future of Business | SkyWeb Insights & News";
-    let metaDesc = document.querySelector('meta[name="description"]');
-    if (!metaDesc) {
-      metaDesc = document.createElement('meta');
-      metaDesc.setAttribute('name', 'description');
-      document.head.appendChild(metaDesc);
-    }
-    metaDesc.setAttribute(
-      'content',
-      'Explore technology insights, engineering perspectives, digital transformation strategies, and official press coverage from SkyWeb IT Solutions Pvt. Ltd.'
-    );
-  }, []);
 
   const newsArticles = useMemo(() => {
     return insightsArticles.filter((article) => article.isNews || article.category === 'News & Press');
@@ -41,6 +29,7 @@ export default function InsightsPage({ onOpenModal }) {
 
   return (
     <div className="min-h-screen bg-[#fafbfc] text-slate-900 font-['DM_Sans']">
+      <SEO {...pageSeo['/insights']} />
       {/* ================= HERO HEADER ================= */}
       <header className="relative px-5 sm:px-8 pt-24 md:pt-40 pb-10 md:pb-16 bg-black text-white overflow-hidden border-b border-slate-800">
         <div className="relative max-w-6xl mx-auto">

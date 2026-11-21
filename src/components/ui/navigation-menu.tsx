@@ -467,6 +467,9 @@ export function AnimatedNavFramer({
                       <Link to="/about/leadership" onClick={closeDropdown} className="text-slate-600 hover:text-[#004AAD] hover:translate-x-0.5 transition-all">
                         Leadership
                       </Link>
+                      <Link to="/#global-corridors" onClick={closeDropdown} className="text-slate-600 hover:text-[#004AAD] hover:translate-x-0.5 transition-all">
+                        SkyWeb International
+                      </Link>
                       <Link to="/about/brand" onClick={closeDropdown} className="text-slate-600 hover:text-[#004AAD] hover:translate-x-0.5 transition-all">
                         Our Brand
                       </Link>

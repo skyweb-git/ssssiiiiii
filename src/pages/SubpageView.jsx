@@ -2,6 +2,8 @@ import React from 'react';
 import { useParams, useLocation, Link, useNavigate } from 'react-router-dom';
 import { subpagesData } from '../data/subpagesData';
 import { capabilitiesServicesData } from '../data/capabilitiesServicesData';
+import { buildSubpageSeo } from '../data/seoData';
+import SEO from '../components/SEO';
 import CapabilityServiceDetail from '../components/CapabilityServiceDetail';
 import LeadershipPage from './LeadershipPage';
 import { ClientReviewsGrid } from '../components/ui/profile-card-testimonial-carousel';
@@ -119,22 +121,25 @@ export default function SubpageView({ category: propCategory, onOpenModal }) {
   const categoryName = pageData.category || (category.charAt(0).toUpperCase() + category.slice(1));
   const categoryHref = pageData.categoryHref || `/${category}`;
 
+  const seo = buildSubpageSeo({ category, slug, pageData });
+
   return (
     <div className="min-h-screen bg-white text-slate-900 font-['DM_Sans'] pb-24">
-      {/* ================= 1. HERO HEADER SECTION (ONLY UPPER SECTION IS SOLID BLACK & BLUE TEXT) ================= */}
-      <section className="pt-24 md:pt-40 pb-14 md:pb-20 px-5 sm:px-8 border-b border-slate-900 relative overflow-hidden bg-black text-white">
-        <div className="max-w-5xl mx-auto relative z-10 text-center">
-          {/* Back Button */}
-          <div className="mb-6 flex justify-start">
-            <button
-              onClick={() => navigate(categoryHref)}
-              className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-blue-400 hover:text-blue-300 transition-colors group cursor-pointer"
-            >
-              <ArrowLeft className="h-3.5 w-3.5 transform group-hover:-translate-x-1 transition-transform" />
-              <span>Back to {categoryName}</span>
-            </button>
-          </div>
+      <SEO {...seo} />
+      {/* Back control — arrow only, beside the floating navbar */}
+      <button
+        type="button"
+        onClick={() => navigate(categoryHref)}
+        className="fixed z-40 top-[4.75rem] left-5 md:top-[1.85rem] md:left-[max(1.25rem,calc(50%-38rem))] lg:left-[max(1.5rem,calc(50%-40rem))] inline-flex items-center justify-center h-10 w-10 md:h-11 md:w-11 rounded-xl border border-white/20 bg-black/50 md:bg-white/10 backdrop-blur-xl text-blue-300 hover:text-white hover:bg-white/15 hover:border-white/35 transition-all group cursor-pointer shadow-[0_8px_24px_-8px_rgba(0,0,0,0.45)]"
+        aria-label={`Back to ${categoryName}`}
+        title={`Back to ${categoryName}`}
+      >
+        <ArrowLeft className="h-4 w-4 transform group-hover:-translate-x-0.5 transition-transform" />
+      </button>
 
+      {/* ================= 1. HERO HEADER SECTION (ONLY UPPER SECTION IS SOLID BLACK & BLUE TEXT) ================= */}
+      <section className="pt-28 md:pt-[7.25rem] pb-12 md:pb-16 px-5 sm:px-8 border-b border-slate-900 relative overflow-hidden bg-black text-white">
+        <div className="max-w-5xl mx-auto relative z-10 text-center">
           <h1 className="text-3xl sm:text-4xl lg:text-[2.75rem] font-extrabold text-blue-500 tracking-tight leading-[1.15] mb-4">
             {pageData.title}
           </h1>

@@ -17,6 +17,8 @@ import {
   Calendar
 } from 'lucide-react';
 import { insightsArticles } from '../data/insightsArticles';
+import SEO from '../components/SEO';
+import { pageSeo } from '../data/seoData';
 import {
   capabilityPillars,
   spotlightProducts,
@@ -130,14 +132,6 @@ const businessValues = [
 
 export default function CapabilitiesPage({ onOpenModal }) {
   useEffect(() => {
-    document.title = "Enterprise Technology Capabilities & Services | SkyWeb IT Solutions";
-    let metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) {
-      metaDesc.setAttribute(
-        'content',
-        'Explore SkyWeb IT Solutions enterprise capabilities: Software Engineering, Applied AI, Cloud & Infrastructure, Digital Platforms, Business Technology, and UI/UX.'
-      );
-    }
     window.scrollTo(0, 0);
   }, []);
 
@@ -146,6 +140,7 @@ export default function CapabilitiesPage({ onOpenModal }) {
 
   return (
     <div className="min-h-screen bg-white text-slate-900 font-['DM_Sans']">
+      <SEO {...pageSeo['/capabilities']} />
       
       {/* ================= 1. PREMIUM HERO SECTION (SOLID BLACK & BLUE HEADLINE) ================= */}
       <section className="bg-black text-white pt-24 md:pt-40 pb-14 md:pb-24 px-5 sm:px-8 border-b border-slate-800 relative overflow-hidden">

@@ -16,6 +16,8 @@ import {
   Mail
 } from 'lucide-react';
 import { teamMembers } from '../data/siteData';
+import { pageSeo } from '../data/seoData';
+import SEO from '../components/SEO';
 import { ClientReviewsGrid } from '../components/ui/profile-card-testimonial-carousel';
 
 const LinkedInIcon = () => (
@@ -124,6 +126,7 @@ const featuredTestimonials = [
 export default function AboutPage({ onOpenModal }) {
   return (
     <div className="min-h-screen bg-white text-slate-900 font-['DM_Sans'] pb-24">
+      <SEO {...pageSeo['/about']} />
       {/* ================= 1. SKYWEB HUB HERO ================= */}
       <section className="relative overflow-hidden text-white min-h-[68vh] sm:min-h-[74vh] flex items-end">
         <img

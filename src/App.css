@@ -1223,6 +1223,15 @@ html {
   text-transform: uppercase;
 }
 
+.footer-international-label {
+  margin-top: -0.35rem;
+  font-size: 0.78rem;
+  font-weight: 650;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #7dd3fc;
+}
+
 .footer-brand-sub {
   font-size: 0.925rem;
   line-height: 1.65;
@@ -1284,6 +1293,18 @@ html {
 .footer-contact-details span {
   color: #94a3b8;
   font-size: 0.9rem;
+}
+
+.footer-phone-row {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+  color: #cbd5e1;
+}
+
+.footer-phone-row a {
+  color: inherit;
 }
 
 .footer-watermark {

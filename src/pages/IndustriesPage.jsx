@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PageHeader from '../components/PageHeader';
+import SEO from '../components/SEO';
+import { pageSeo } from '../data/seoData';
 import {
   ArrowRight,
   Radio,
@@ -137,6 +139,7 @@ const industrySectors = [
 export default function IndustriesPage({ onOpenModal }) {
   return (
     <div className="min-h-screen bg-white text-slate-900 font-['DM_Sans']">
+      <SEO {...pageSeo['/industries']} />
       <PageHeader
         title="Industries"
         subtitle="Sector-ready software for regulated operations, customer experience, and scale."

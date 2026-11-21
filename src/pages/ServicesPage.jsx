@@ -1,10 +1,13 @@
 import React from 'react';
 import PageHeader from '../components/PageHeader';
+import SEO from '../components/SEO';
+import { pageSeo } from '../data/seoData';
 import { provisions } from '../data/siteData';
 
 export default function ServicesPage({ onOpenModal }) {
   return (
     <div>
+      <SEO {...pageSeo['/services']} />
       <PageHeader
         title="Services"
         subtitle="Systems, software, and digital infrastructure to build, operate, and scale."

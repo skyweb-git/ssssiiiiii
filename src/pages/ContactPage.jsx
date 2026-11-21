@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import PageHeader from '../components/PageHeader';
+import SEO from '../components/SEO';
+import { pageSeo } from '../data/seoData';
 import { Send, CheckCircle2, ShieldCheck } from 'lucide-react';
 
 const MAPS_SHARE_URL = 'https://share.google/eOzV5bz83sB9MPWcI';
@@ -24,6 +26,7 @@ export default function ContactPage({ onOpenModal }) {
 
   return (
     <div className="min-h-screen bg-white text-slate-900 font-['DM_Sans']">
+      <SEO {...pageSeo['/contact']} />
       <PageHeader
         title="Contact"
         subtitle="Tell us what you are building. An engineer will follow up with clear next steps."
@@ -245,12 +248,21 @@ export default function ContactPage({ onOpenModal }) {
                   <p className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">
                     Phone
                   </p>
-                  <a
-                    href="tel:+919121428210"
-                    className="text-base sm:text-lg text-slate-800 hover:text-[#004AAD] transition-colors"
-                  >
-                    +91 9121428210
-                  </a>
+                  <p className="text-base sm:text-lg text-slate-800">
+                    <a
+                      href="tel:+919121428210"
+                      className="hover:text-[#004AAD] transition-colors"
+                    >
+                      +91 9121428210
+                    </a>
+                    <span className="text-slate-400 mx-1.5" aria-hidden="true">,</span>
+                    <a
+                      href="tel:+27813435207"
+                      className="hover:text-[#004AAD] transition-colors"
+                    >
+                      +27 81 343 5207
+                    </a>
+                  </p>
                 </div>
               </div>
 

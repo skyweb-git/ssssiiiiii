@@ -1,5 +1,7 @@
 import React from 'react';
 import PageHeader from '../components/PageHeader';
+import SEO from '../components/SEO';
+import { pageSeo } from '../data/seoData';
 import { ArrowRight, MapPin, Briefcase, Zap, Award, HeartHandshake } from 'lucide-react';
 
 const openRoles = [
@@ -48,6 +50,7 @@ const openRoles = [
 export default function CareersPage({ onOpenModal }) {
   return (
     <div className="min-h-screen bg-white text-slate-900 font-['DM_Sans']">
+      <SEO {...pageSeo['/careers']} />
       <PageHeader
         title="Careers at SkyWeb"
         subtitle="Build real systems with engineers who care about clarity, quality, and ownership."

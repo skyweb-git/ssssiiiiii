@@ -3,11 +3,21 @@ import { Link } from 'react-router-dom';
 import { ArrowUpRight, ArrowRight, ArrowLeft, Clock, Layers, ShoppingBag, Palette, Server, Code2, Cpu, Cloud, Smartphone, ShieldCheck } from 'lucide-react';
 import { insightsArticles } from '../data/insightsArticles';
 import { provisions, industries, whyPillars, projects } from '../data/siteData';
+import { pageSeo } from '../data/seoData';
+import SEO from '../components/SEO';
 import TechStackShowcase from '../components/TechStackShowcase';
 import MethodologyProcessCards from '../components/MethodologyProcessCards';
 import TrustedByFlowShowcase from '../components/TrustedByFlowShowcase';
 import { DestinationCard } from '../components/ui/card-21';
 import { NotchedProjectCard } from '../components/ui/notched-project-card';
+import {
+  SouthAfricaFlag,
+  SaudiArabiaFlag,
+  UKFlag,
+  JapanFlag,
+  IndiaFlag,
+  UAEFlag,
+} from '../components/ui/CountryFlags';
 
 const capabilityIcons = [Server, Code2, Cpu, Cloud, Smartphone, ShieldCheck];
 
@@ -57,36 +67,42 @@ const globalServedMarkets = [
     location: "South Africa",
     stats: "Cape Town Hub • Enterprise FinTech & Cloud Architecture",
     imageUrl: "https://images.unsplash.com/photo-1576485290814-1c72aa4bbb8e?auto=format&fit=crop&w=800&q=80",
+    flag: <SouthAfricaFlag className="w-6 h-4" />,
   },
   {
     id: "saudi-arabia",
     location: "Saudi Arabia",
     stats: "Riyadh & GCC • Vision 2030 Enterprise Modernization",
     imageUrl: "https://images.unsplash.com/photo-1586724237569-f3d0c1dee8c6?auto=format&fit=crop&w=800&q=80",
+    flag: <SaudiArabiaFlag className="w-6 h-4" />,
   },
   {
     id: "uk",
     location: "United Kingdom",
     stats: "London Corridor • Cross-Border SaaS, AI & FinTech",
     imageUrl: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=800&q=80",
+    flag: <UKFlag className="w-6 h-4" />,
   },
   {
     id: "japan",
     location: "Japan",
     stats: "Tokyo Tech Hub • High-Concurrency Platforms & Systems",
     imageUrl: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=800&q=80",
+    flag: <JapanFlag className="w-6 h-4" />,
   },
   {
     id: "india",
     location: "India",
     stats: "Hyderabad R&D Core • Elite IIT Engineering & AI Squads",
     imageUrl: "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=800&q=80",
+    flag: <IndiaFlag className="w-6 h-4" />,
   },
   {
     id: "uae",
     location: "UAE (Dubai)",
     stats: "Dubai DIFC • High-Throughput Cloud & Banking Infrastructure",
     imageUrl: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=800&q=80",
+    flag: <UAEFlag className="w-6 h-4" />,
   }
 ];
 
@@ -216,6 +232,7 @@ export default function HomePage({ onOpenModal }) {
 
   return (
     <>
+      <SEO {...pageSeo['/']} />
       {/* ================= HERO SECTION (CLEAN & ENTERPRISE-READY) ================= */}
       <section className="hero-section hero-enterprise-layout">
         <div className="hero-container">
@@ -409,7 +426,7 @@ export default function HomePage({ onOpenModal }) {
             </div>
           </div>
 
-          {/* Countries We Serve — slideshow on mobile + desktop */}
+          {/* SkyWeb International — markets we serve */}
           <div
             ref={marketsSectionRef}
             className="mt-12 sm:mt-16 pt-10 border-t border-slate-200/80 md:border-slate-100"
@@ -417,18 +434,23 @@ export default function HomePage({ onOpenModal }) {
           >
             <div className="px-5 md:px-0 flex flex-col lg:flex-row lg:items-end justify-between mb-6 sm:mb-8 gap-4">
               <div className="max-w-2xl">
-                <span className="text-xs font-bold uppercase tracking-wider text-[#004AAD]">Global Delivery Corridors</span>
+                <div className="inline-flex items-center gap-2 mb-2">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#004AAD]" aria-hidden="true" />
+                  <span className="text-xs font-bold uppercase tracking-[0.18em] text-[#004AAD]">
+                    SkyWeb International
+                  </span>
+                </div>
                 <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight font-['DM_Sans'] mt-1">
                   Countries &amp; Enterprise Markets We Serve
                 </h3>
                 <p className="text-sm text-slate-500 max-w-md leading-relaxed mt-3 lg:hidden">
-                  Delivering 24/7 mission-critical software, dedicated IIT engineering squads, and scalable cloud infrastructure across prime international tech corridors.
+                  Cross-border delivery across India, EMEA, and Asia — software, AI, and cloud built for every corridor we serve.
                 </p>
               </div>
 
               <div className="flex items-end gap-4">
                 <p className="hidden lg:block text-sm text-slate-500 max-w-md leading-relaxed">
-                  Delivering 24/7 mission-critical software, dedicated IIT engineering squads, and scalable cloud infrastructure across prime international tech corridors.
+                  Cross-border delivery across India, EMEA, and Asia — software, AI, and cloud built for every corridor we serve.
                 </p>
                 <div className="flex items-center gap-2 shrink-0">
                   <button
@@ -465,6 +487,7 @@ export default function HomePage({ onOpenModal }) {
                     imageUrl={market.imageUrl}
                     location={market.location}
                     stats={market.stats}
+                    flag={market.flag}
                     onClick={(e) => {
                       e.preventDefault();
                       onOpenModal();
@@ -528,7 +551,7 @@ export default function HomePage({ onOpenModal }) {
       </section>
 
       {/* ================= WHAT WE PROVIDE (CORE CAPABILITIES) ================= */}
-      <section className="site-section bg-ink bg-[#0a0a0a] border-y border-zinc-900" id="services">
+      <section className="site-section bg-white" id="services">
         <div className="section-container">
           <div className="section-header-block mb-10 sm:mb-12">
             <span className="section-eyebrow">CORE CAPABILITIES</span>
@@ -555,8 +578,7 @@ export default function HomePage({ onOpenModal }) {
                   tags={item.highlights || []}
                   icon={IconComponent}
                   monochrome
-                  dark
-                  surface="#0a0a0a"
+                  surface="#ffffff"
                   accent="#004AAD"
                   accentForeground="#ffffff"
                 />

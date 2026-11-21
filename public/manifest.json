@@ -1,6 +1,7 @@
 {
   "short_name": "SkyWeb",
-  "name": "SkyWeb Private Limited",
+  "name": "SkyWeb International — Website Development, Software, AI & Cloud",
+  "description": "SkyWeb International builds websites, custom software, AI solutions, cloud infrastructure, and digital platforms for businesses worldwide.",
   "icons": [
     {
       "src": "favicon.ico",
@@ -33,8 +34,10 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": ".",
+  "start_url": "/",
   "display": "standalone",
   "theme_color": "#004AAD",
-  "background_color": "#ffffff"
+  "background_color": "#ffffff",
+  "lang": "en",
+  "categories": ["business", "productivity", "technology"]
 }

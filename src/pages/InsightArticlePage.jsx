@@ -12,6 +12,8 @@ import {
   X
 } from 'lucide-react';
 import { insightsArticles, insightArticleBySlug } from '../data/insightsArticles';
+import { DEFAULT_KEYWORDS } from '../data/seoData';
+import SEO from '../components/SEO';
 import SubpageView from './SubpageView';
 
 export default function InsightArticlePage({ onOpenModal }) {
@@ -20,45 +22,9 @@ export default function InsightArticlePage({ onOpenModal }) {
   const [activeSection, setActiveSection] = useState(0);
   const [selectedClipping, setSelectedClipping] = useState(null);
 
-  // SEO & Head Metadata
   useEffect(() => {
     if (!article) return undefined;
-
-    const previousTitle = document.title;
-    document.title = `${article.seoTitle || article.title} | SkyWeb Insights`;
-
-    let descriptionTag = document.querySelector('meta[name="description"]');
-    const createdDescriptionTag = !descriptionTag;
-    if (!descriptionTag) {
-      descriptionTag = document.createElement('meta');
-      descriptionTag.setAttribute('name', 'description');
-      document.head.appendChild(descriptionTag);
-    }
-    const previousDescription = descriptionTag.getAttribute('content');
-    descriptionTag.setAttribute('content', article.metaDescription || article.description);
-
-    let canonicalTag = document.querySelector('link[rel="canonical"]');
-    const createdCanonicalTag = !canonicalTag;
-    if (!canonicalTag) {
-      canonicalTag = document.createElement('link');
-      canonicalTag.setAttribute('rel', 'canonical');
-      document.head.appendChild(canonicalTag);
-    }
-    const previousCanonical = canonicalTag.getAttribute('href');
-    canonicalTag.setAttribute('href', article.canonicalUrl || `${window.location.origin}/insights/${article.slug}`);
-
-    // Scroll to top on slug change
     window.scrollTo({ top: 0, behavior: 'smooth' });
-
-    return () => {
-      document.title = previousTitle;
-      if (previousDescription === null) descriptionTag.removeAttribute('content');
-      else descriptionTag.setAttribute('content', previousDescription);
-      if (createdDescriptionTag) descriptionTag.remove();
-      if (previousCanonical === null) canonicalTag.removeAttribute('href');
-      else canonicalTag.setAttribute('href', previousCanonical);
-      if (createdCanonicalTag) canonicalTag.remove();
-    };
   }, [article, slug]);
 
   if (!article) {
@@ -77,6 +43,23 @@ export default function InsightArticlePage({ onOpenModal }) {
 
   return (
     <main className="min-h-screen bg-[#fafbfc] text-slate-900 font-['DM_Sans'] pt-20 md:pt-36 pb-20">
+      <SEO
+        title={article.seoTitle || `${article.title} | SkyWeb Insights`}
+        description={article.metaDescription || article.description}
+        keywords={`${DEFAULT_KEYWORDS}, ${article.category || 'insights'}, ${article.title}`}
+        path={article.canonicalUrl || `/insights/${article.slug}`}
+        image={article.heroImage || article.image}
+        type="article"
+        jsonLd={{
+          '@type': 'Article',
+          headline: article.title,
+          datePublished: article.date,
+          author: {
+            '@type': 'Organization',
+            name: article.author?.name || 'SkyWeb International',
+          },
+        }}
+      />
       {/* ================= ARTICLE HEADER ================= */}
       <header className="max-w-4xl mx-auto px-6 sm:px-8 pt-8 sm:pt-12 pb-6">
         {/* Back Button */}

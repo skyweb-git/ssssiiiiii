@@ -1,3 +1,13 @@
-# https://www.robotstxt.org/robotstxt.html
+# SkyWeb International — https://skywebit.com
 User-agent: *
-Disallow:
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+Sitemap: https://skywebit.com/sitemap.xml

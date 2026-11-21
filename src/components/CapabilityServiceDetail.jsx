@@ -15,6 +15,8 @@ import {
 } from 'lucide-react';
 import { insightsArticles } from '../data/insightsArticles';
 import { getPillarBySlug, howSkyWebBuilds } from '../data/capabilityCatalog';
+import { DEFAULT_KEYWORDS } from '../data/seoData';
+import SEO from './SEO';
 
 export default function CapabilityServiceDetail({ serviceData, onOpenModal }) {
   const catalogPillar = getPillarBySlug(serviceData.slug);
@@ -26,41 +28,9 @@ export default function CapabilityServiceDetail({ serviceData, onOpenModal }) {
     tech: item.tech || null,
   }));
   const buildSteps = howSkyWebBuilds;
-  // Update document title and meta description dynamically
+
   useEffect(() => {
-    const previousTitle = document.title;
-    if (serviceData.seoTitle) {
-      document.title = serviceData.seoTitle;
-    }
-
-    let metaDesc = document.querySelector('meta[name="description"]');
-    let createdMeta = false;
-    let previousDesc = null;
-
-    if (serviceData.seoDescription) {
-      if (!metaDesc) {
-        metaDesc = document.createElement('meta');
-        metaDesc.setAttribute('name', 'description');
-        document.head.appendChild(metaDesc);
-        createdMeta = true;
-      } else {
-        previousDesc = metaDesc.getAttribute('content');
-      }
-      metaDesc.setAttribute('content', serviceData.seoDescription);
-    }
-
     window.scrollTo(0, 0);
-
-    return () => {
-      document.title = previousTitle;
-      if (metaDesc) {
-        if (createdMeta) {
-          metaDesc.remove();
-        } else if (previousDesc !== null) {
-          metaDesc.setAttribute('content', previousDesc);
-        }
-      }
-    };
   }, [serviceData]);
 
   // Find related articles
@@ -71,13 +41,33 @@ export default function CapabilityServiceDetail({ serviceData, onOpenModal }) {
 
   return (
     <div className="min-h-screen bg-white text-slate-900 font-['DM_Sans']">
+      <SEO
+        title={serviceData.seoTitle || `${serviceData.title} | SkyWeb International`}
+        description={
+          serviceData.seoDescription ||
+          serviceData.heroSubtitle ||
+          `SkyWeb International delivers ${serviceData.title} — websites, software, AI, and cloud engineering.`
+        }
+        keywords={`${DEFAULT_KEYWORDS}, ${serviceData.shortTitle || serviceData.title}, website development, software services`}
+        path={`/capabilities/${serviceData.slug}`}
+        type="article"
+      />
+      {/* Back control — arrow only, beside the floating navbar */}
+      <Link
+        to="/capabilities"
+        className="fixed z-40 top-[4.75rem] left-5 md:top-[1.85rem] md:left-[max(1.25rem,calc(50%-38rem))] lg:left-[max(1.5rem,calc(50%-40rem))] inline-flex items-center justify-center h-10 w-10 md:h-11 md:w-11 rounded-xl border border-white/20 bg-black/50 md:bg-white/10 backdrop-blur-xl text-blue-300 hover:text-white hover:bg-white/15 hover:border-white/35 transition-all group cursor-pointer shadow-[0_8px_24px_-8px_rgba(0,0,0,0.45)]"
+        aria-label="Back to Capabilities"
+        title="Back to Capabilities"
+      >
+        <ArrowLeft className="h-4 w-4 transform group-hover:-translate-x-0.5 transition-transform" />
+      </Link>
       
       {/* ================= 1. SERVICE HERO SECTION (BLACK BG & BLUE HEADLINE) ================= */}
-      <section className="bg-black text-white pt-24 md:pt-40 pb-14 md:pb-20 px-5 sm:px-8 border-b border-slate-800 relative overflow-hidden">
+      <section className="bg-black text-white pt-28 md:pt-[7.25rem] pb-12 md:pb-16 px-5 sm:px-8 border-b border-slate-800 relative overflow-hidden">
         <div className="max-w-6xl mx-auto relative z-10">
           
           {/* Breadcrumb Navigation */}
-          <nav aria-label="Breadcrumb" className="mb-6">
+          <nav aria-label="Breadcrumb" className="mb-5">
             <ol className="flex items-center flex-wrap gap-2 text-xs text-slate-400 font-medium">
               <li>
                 <Link to="/" className="hover:text-blue-400 transition-colors">Home</Link>
@@ -92,17 +82,6 @@ export default function CapabilityServiceDetail({ serviceData, onOpenModal }) {
               </li>
             </ol>
           </nav>
-
-          {/* Back Link */}
-          <div className="mb-6 flex justify-start">
-            <Link
-              to="/capabilities"
-              className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-blue-400 hover:text-blue-300 transition-colors group cursor-pointer"
-            >
-              <ArrowLeft className="h-3.5 w-3.5 transform group-hover:-translate-x-1 transition-transform" />
-              <span>Back to Capabilities</span>
-            </Link>
-          </div>
 
           <h1 className="text-3xl sm:text-4xl lg:text-[2.75rem] font-extrabold tracking-tight text-blue-500 max-w-3xl leading-[1.15] mb-4 font-['DM_Sans']">
             {serviceData.title}

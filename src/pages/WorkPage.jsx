@@ -1,11 +1,14 @@
 import React from 'react';
 import PageHeader from '../components/PageHeader';
+import SEO from '../components/SEO';
+import { pageSeo } from '../data/seoData';
 import { ArrowUpRight, Layers, ShoppingBag, Palette } from 'lucide-react';
 import { projects } from '../data/siteData';
 
 export default function WorkPage({ onOpenModal }) {
   return (
     <div>
+      <SEO {...pageSeo['/work']} />
       <PageHeader
         title="Our Work"
         subtitle="Products, platforms, and systems we have delivered for clients across markets."

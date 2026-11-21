@@ -44,9 +44,20 @@ const DestinationCard = React.forwardRef<HTMLDivElement, DestinationCardProps>(
           
           {/* Content */}
           <div className="relative flex flex-col justify-end h-full p-6 text-white z-10">
-            <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight font-['DM_Sans']">
-              {location}
-            </h3>
+            <div className="flex items-center gap-2.5 mb-1.5">
+              {flag ? (
+                <span className="inline-flex items-center justify-center shrink-0 rounded-[3px] overflow-hidden shadow-sm ring-1 ring-white/25 bg-white/10 backdrop-blur-sm">
+                  {typeof flag === "string" ? (
+                    <img src={flag} alt="" className="h-4 w-6 object-cover" />
+                  ) : (
+                    flag
+                  )}
+                </span>
+              ) : null}
+              <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight font-['DM_Sans'] leading-none">
+                {location}
+              </h3>
+            </div>
             <p className="text-xs sm:text-sm text-slate-200 mt-1.5 font-medium leading-snug">{stats}</p>
 
             {/* Work With Us Button */}
