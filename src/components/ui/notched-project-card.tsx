@@ -1,27 +1,16 @@
 "use client";
 
 import * as React from "react";
+import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn } from "../../lib/utils";
 
 /**
  * NotchedProjectCard
  *
- * A project card whose cover has a rounded notch bitten out of its
- * bottom-right corner, with the "open" arrow nested inside it. The cut is
- * concentric with the arrow disc, and filleted where it meets the cover's
- * edges, so the cover curves into it instead of ending on a point.
- *
- * The notch is drawn by three layers painted in the colour of the surface
- * BEHIND the card (`surface`, the page background by default). Put the card
- * on a different background and pass that colour, or the notch shows.
- *
- * Optional extras:
- * - `screen`: a product screen layered over the cover photo. The photo holds
- *   still and the screen grows on hover, so the card gains depth instead of
- *   just zooming.
- * - `monochrome`: the cover sits in black and white and takes its colours
- *   back on hover or keyboard focus.
+ * Cover with a rounded notch in the bottom-right corner and an arrow disc
+ * nested inside it. Pass `surface` as the page background colour so the
+ * notch blends correctly.
  */
 
 export interface NotchedProjectCardProps {
@@ -41,6 +30,8 @@ export interface NotchedProjectCardProps {
   /** a dark wash between the photo and the screen, 0 to 1 */
   dim?: number;
   monochrome?: boolean;
+  /** dark surface styling (white title, muted copy, dark tags) */
+  dark?: boolean;
   /** the colour behind the card; the notch is painted in it */
   surface?: string;
   /** the arrow disc's fill on hover (any CSS colour); defaults to the theme's primary */
@@ -66,6 +57,7 @@ export function NotchedProjectCard({
   screen,
   dim = screen ? 0.45 : 0,
   monochrome = false,
+  dark = false,
   surface = "var(--color-background, #ffffff)",
   accent,
   accentForeground = "#ffffff",
@@ -76,16 +68,21 @@ export function NotchedProjectCard({
     : "transition-[scale] duration-500";
 
   return (
-    <a
-      href={href}
+    <Link
+      to={href}
       className={cn(
-        "group flex flex-col rounded-[28px] outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background",
+        "group flex flex-col rounded-[28px] outline-none focus-visible:ring-2 focus-visible:ring-[#004AAD] focus-visible:ring-offset-4",
+        dark ? "focus-visible:ring-offset-[#0a0a0a]" : "focus-visible:ring-offset-white",
         className,
       )}
     >
       <div className="relative">
-        {/* the cover */}
-        <div className="relative aspect-[4/3] overflow-hidden rounded-[28px] bg-muted">
+        <div
+          className={cn(
+            "relative aspect-[4/3] overflow-hidden rounded-[28px]",
+            dark ? "bg-zinc-900" : "bg-muted",
+          )}
+        >
           <img
             src={image}
             alt={screen ? "" : imageAlt}
@@ -94,6 +91,7 @@ export function NotchedProjectCard({
               tone,
               !screen && "group-hover:scale-[1.04]",
             )}
+            loading="lazy"
           />
           {dim > 0 && (
             <div aria-hidden className="absolute inset-0" style={{ backgroundColor: `rgb(0 0 0 / ${dim})` }} />
@@ -110,16 +108,14 @@ export function NotchedProjectCard({
             />
           )}
           {badge && (
-            <div className="pointer-events-none absolute inset-x-0 top-0 flex justify-center pt-4">
-              <span className="rounded-full border border-white/40 bg-black/30 px-2.5 py-1 text-[11px] font-medium text-white backdrop-blur-md">
+            <div className="pointer-events-none absolute right-4 top-4">
+              <span className="rounded-full border border-white/35 bg-black/40 px-2.5 py-1 text-[11px] font-medium text-white backdrop-blur-md">
                 {badge}
               </span>
             </div>
           )}
         </div>
 
-        {/* the notch: a block with a concave corner, and a fillet at each
-            end where the cut meets the cover's right and bottom edges */}
         <div
           aria-hidden
           className="absolute bottom-0 right-0"
@@ -142,11 +138,13 @@ export function NotchedProjectCard({
           />
         ))}
 
-        {/* the arrow, nested in the notch */}
         <span
           aria-hidden
           className={cn(
-            "absolute bottom-0 right-0 flex items-center justify-center rounded-full bg-secondary text-secondary-foreground transition-[background-color,color,scale] duration-300 group-hover:scale-105",
+            "absolute bottom-0 right-0 flex items-center justify-center rounded-full transition-[background-color,color,scale] duration-300 group-hover:scale-105",
+            dark
+              ? "bg-zinc-800 text-white"
+              : "bg-secondary text-secondary-foreground",
             accent
               ? "group-hover:bg-[var(--card-accent)] group-hover:text-[var(--card-accent-fg)]"
               : "group-hover:bg-primary group-hover:text-primary-foreground",
@@ -166,28 +164,58 @@ export function NotchedProjectCard({
 
       <div className="mt-5 flex items-start gap-3">
         {Icon && (
-          <div className="p-2 rounded-xl bg-blue-50 text-[#004AAD] shrink-0 mt-0.5 border border-blue-100 group-hover:bg-[#004AAD] group-hover:text-white transition-colors">
+          <div
+            className={cn(
+              "p-2 rounded-xl shrink-0 mt-0.5 border transition-colors",
+              dark
+                ? "bg-white/5 text-sky-300 border-white/10 group-hover:bg-[#004AAD] group-hover:text-white"
+                : "bg-blue-50 text-[#004AAD] border-blue-100 group-hover:bg-[#004AAD] group-hover:text-white",
+            )}
+          >
             <Icon className="size-5" />
           </div>
         )}
         <div className="flex-1 min-w-0">
-          <h3 className="text-2xl font-medium tracking-tight text-foreground group-hover:text-[#004AAD] transition-colors">{title}</h3>
+          <h3
+            className={cn(
+              "text-xl sm:text-2xl font-semibold tracking-tight transition-colors",
+              dark
+                ? "text-white group-hover:text-sky-300"
+                : "text-foreground group-hover:text-[#004AAD]",
+            )}
+          >
+            {title}
+          </h3>
         </div>
       </div>
-      {description && <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{description}</p>}
+      {description && (
+        <p
+          className={cn(
+            "mt-2 text-sm leading-relaxed",
+            dark ? "text-zinc-400" : "text-muted-foreground",
+          )}
+        >
+          {description}
+        </p>
+      )}
       {tags.length > 0 && (
         <ul className="mt-4 flex flex-wrap gap-2">
           {tags.map((t, i) => (
             <li
               key={`${t}-${i}`}
-              className="rounded-md bg-secondary px-2 py-1 text-[10px] font-semibold uppercase tracking-wider text-secondary-foreground"
+              className={cn(
+                "rounded-md px-2 py-1 text-[10px] font-semibold uppercase tracking-wider",
+                dark
+                  ? "bg-zinc-900 text-zinc-200 border border-zinc-800"
+                  : "bg-secondary text-secondary-foreground",
+              )}
             >
               {t}
             </li>
           ))}
         </ul>
       )}
-    </a>
+    </Link>
   );
 }
 

@@ -91,11 +91,11 @@ export default function InsightsPage({ onOpenModal }) {
                   className="rounded-2xl border border-slate-200 bg-white overflow-hidden shadow-sm hover:shadow-lg hover:border-[#004AAD]/40 transition-all flex flex-col justify-between group"
                 >
                   <div>
-                    <div className="aspect-[4/3] overflow-hidden bg-slate-900 relative flex items-center justify-center p-2">
+                    <div className="h-40 sm:h-44 overflow-hidden bg-slate-50 border-b border-slate-100 relative flex items-center justify-center p-3">
                       <img
                         src={item.image}
                         alt={item.imageAlt}
-                        className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+                        className="max-w-full max-h-full object-contain rounded-md"
                       />
                     </div>
 
@@ -164,16 +164,15 @@ export default function InsightsPage({ onOpenModal }) {
             <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden hover:shadow-md transition-all group">
               <div className="grid grid-cols-1 lg:grid-cols-12">
                 {/* Left: Image */}
-                <div className="lg:col-span-7 relative aspect-[16/10] lg:aspect-auto overflow-hidden bg-slate-100">
+                <div className="lg:col-span-5 relative h-48 sm:h-56 lg:h-full lg:min-h-[240px] lg:max-h-[300px] overflow-hidden bg-slate-50 flex items-center justify-center p-4">
                   <img
                     src={featuredArticle.image}
                     alt={featuredArticle.imageAlt}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    className="max-w-full max-h-full object-contain rounded-lg"
                   />
                 </div>
 
-                {/* Right: Editorial Overview */}
-                <div className="lg:col-span-5 p-7 sm:p-9 flex flex-col justify-between">
+                <div className="lg:col-span-7 p-6 sm:p-8 flex flex-col justify-between">
                   <div>
                     <div className="flex items-center gap-2 text-xs text-slate-400 mb-3 font-semibold uppercase tracking-wider">
                       <span className="text-[#004AAD] font-bold">{featuredArticle.category}</span>
@@ -254,14 +253,14 @@ export default function InsightsPage({ onOpenModal }) {
                 >
                   <Link
                     to={`/insights/${article.slug}`}
-                    className="block aspect-[16/10] overflow-hidden bg-slate-100 relative"
+                    className="block h-36 sm:h-40 overflow-hidden bg-slate-50 border-b border-slate-100 relative flex items-center justify-center p-3"
                     aria-label={`Read ${article.title}`}
                   >
                     <img
                       src={article.image}
                       alt={article.imageAlt}
                       loading="lazy"
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      className="max-w-full max-h-full object-contain rounded-md"
                     />
                   </Link>
 

@@ -96,17 +96,16 @@ export default function InsightArticlePage({ onOpenModal }) {
         </h1>
       </header>
 
-      {/* ================= HERO COVER IMAGE (FULL UN-CROPPED DISPLAY) ================= */}
-      <figure className="max-w-5xl mx-auto px-6 sm:px-8 mb-12 sm:mb-16">
-        <div className="relative rounded-2xl sm:rounded-3xl border border-slate-200/80 bg-white overflow-hidden flex items-center justify-center p-2 sm:p-4">
+      <figure className="max-w-3xl mx-auto px-6 sm:px-8 mb-8 sm:mb-10">
+        <div className="relative rounded-xl border border-slate-200 bg-slate-50 overflow-hidden flex items-center justify-center p-3 sm:p-4">
           <img
             src={article.image}
             alt={article.imageAlt}
-            className="w-auto max-w-full h-auto max-h-[820px] object-contain rounded-xl sm:rounded-2xl"
+            className="w-auto max-w-full h-auto max-h-[280px] sm:max-h-[340px] object-contain rounded-lg"
           />
         </div>
         {article.imageCaption && (
-          <figcaption className="mt-3 text-center text-xs text-slate-500 italic max-w-2xl mx-auto">
+          <figcaption className="mt-2.5 text-center text-xs text-slate-500 max-w-xl mx-auto">
             {article.imageCaption}
           </figcaption>
         )}
@@ -283,15 +282,15 @@ export default function InsightArticlePage({ onOpenModal }) {
                       onClick={() => setSelectedClipping(clip)}
                       className="group cursor-pointer rounded-2xl border border-slate-200 overflow-hidden bg-white hover:border-[#004AAD]/50 hover:shadow-lg transition-all"
                     >
-                      <div className="h-60 sm:h-64 bg-slate-50 flex items-center justify-center p-3 relative overflow-hidden">
+                      <div className="h-40 sm:h-44 bg-slate-50 flex items-center justify-center p-2.5 relative overflow-hidden">
                         <img
                           src={clip.image}
                           alt={clip.headline}
-                          className="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-500 rounded"
+                          className="max-w-full max-h-full object-contain rounded"
                         />
-                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-4">
-                          <span className="text-white text-xs font-bold inline-flex items-center gap-1.5 bg-black/75 px-3 py-1.5 rounded-full shadow-md backdrop-blur-sm">
-                            <Maximize2 className="w-3.5 h-3.5 text-sky-400" /> Click to Enlarge Clipping
+                        <div className="absolute inset-0 bg-black/35 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-3">
+                          <span className="text-white text-[11px] font-bold inline-flex items-center gap-1.5 bg-black/75 px-2.5 py-1 rounded-full">
+                            <Maximize2 className="w-3 h-3 text-sky-300" /> Enlarge
                           </span>
                         </div>
                       </div>
@@ -406,12 +405,15 @@ export default function InsightArticlePage({ onOpenModal }) {
               key={related.slug}
               className="rounded-2xl border border-slate-200 bg-white overflow-hidden flex flex-col group hover:shadow-lg hover:border-[#004AAD]/30 transition-all"
             >
-              <Link to={`/insights/${related.slug}`} className="block aspect-[16/10] overflow-hidden bg-slate-100">
+              <Link
+                to={`/insights/${related.slug}`}
+                className="block h-36 overflow-hidden bg-slate-50 border-b border-slate-100 flex items-center justify-center p-3"
+              >
                 <img
                   src={related.image}
                   alt={related.imageAlt}
                   loading="lazy"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  className="max-w-full max-h-full object-contain rounded-md"
                 />
               </Link>
               <div className="p-5 flex flex-col flex-1">

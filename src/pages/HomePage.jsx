@@ -7,6 +7,7 @@ import TechStackShowcase from '../components/TechStackShowcase';
 import MethodologyProcessCards from '../components/MethodologyProcessCards';
 import TrustedByFlowShowcase from '../components/TrustedByFlowShowcase';
 import { DestinationCard } from '../components/ui/card-21';
+import { NotchedProjectCard } from '../components/ui/notched-project-card';
 
 const capabilityIcons = [Server, Code2, Cpu, Cloud, Smartphone, ShieldCheck];
 
@@ -232,7 +233,7 @@ export default function HomePage({ onOpenModal }) {
 
             <div className="hero-actions">
               <a href="#solutions" className="hero-btn-primary">
-                <span>Explore Our Solutions →</span>
+                <span>Explore Our Solutions</span>
 
               </a>
 
@@ -241,21 +242,18 @@ export default function HomePage({ onOpenModal }) {
               </button>
             </div>
 
-            {/* Capability Indicators */}
-            <div className="hero-capabilities">
+            <div className="hero-capabilities" aria-label="Core focus areas">
               <div className="capability-item">
+                <span className="capability-dot" aria-hidden="true" />
                 <span className="capability-title">Software & AI</span>
-                <span className="capability-desc">Smart digital products</span>
               </div>
-              <div className="capability-divider" aria-hidden="true" />
               <div className="capability-item">
-                <span className="capability-title">Cloud Solutions</span>
-                <span className="capability-desc">Built to scale</span>
+                <span className="capability-dot" aria-hidden="true" />
+                <span className="capability-title">Cloud</span>
               </div>
-              <div className="capability-divider" aria-hidden="true" />
               <div className="capability-item">
-                <span className="capability-title">Product Delivery</span>
-                <span className="capability-desc">Idea to launch</span>
+                <span className="capability-dot" aria-hidden="true" />
+                <span className="capability-title">Delivery</span>
               </div>
             </div>
           </div>
@@ -530,81 +528,38 @@ export default function HomePage({ onOpenModal }) {
       </section>
 
       {/* ================= WHAT WE PROVIDE (CORE CAPABILITIES) ================= */}
-      <section className="site-section bg-subtle" id="services">
+      <section className="site-section bg-ink bg-[#0a0a0a] border-y border-zinc-900" id="services">
         <div className="section-container">
-          <div className="section-header-block">
+          <div className="section-header-block mb-10 sm:mb-12">
             <span className="section-eyebrow">CORE CAPABILITIES</span>
             <h2 className="section-headline">
               What We <span className="accent-text">Provide</span>
             </h2>
             <p className="section-subhead">
-              The systems, software, and digital infrastructure businesses need to build, operate, and scale in a connected world.
+              Systems, software, and digital infrastructure — built clean, delivered clear.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-10 lg:gap-x-8 lg:gap-y-12">
             {provisions.map((item, idx) => {
               const IconComponent = capabilityIcons[idx % capabilityIcons.length];
               return (
-                <Link
-                  key={idx}
-                  to={item.href || "/capabilities"}
-                  className="group relative block h-[420px] sm:h-[460px] rounded-2xl overflow-hidden border border-slate-800/40 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
-                >
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500 ease-out"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/55 to-black/20" />
-
-                  <div className="absolute top-4 right-4 z-10">
-                    <span className="w-7 h-7 rounded-full bg-black/60 backdrop-blur-md text-white border border-white/25 flex items-center justify-center text-xs font-bold">
-                      {item.number || `0${idx + 1}`}
-                    </span>
-                  </div>
-
-                  <div className="absolute inset-0 z-10 flex flex-col justify-end p-5 sm:p-6">
-                    <div className="flex items-center gap-3 mb-3">
-                      {IconComponent && (
-                        <div className="w-10 h-10 rounded-xl bg-white/15 text-white border border-white/20 backdrop-blur-sm flex items-center justify-center shrink-0">
-                          <IconComponent className="w-5 h-5" />
-                        </div>
-                      )}
-                      <h3 className="text-xl font-bold text-white font-['DM_Sans'] tracking-tight">
-                        {item.title}
-                      </h3>
-                    </div>
-
-                    <p className="text-sm text-white/85 leading-relaxed mb-4">
-                      {item.desc}
-                    </p>
-
-                    {item.highlights && item.highlights.length > 0 && (
-                      <div className="flex flex-wrap gap-1.5 mb-5">
-                        {item.highlights.map((hl, hIdx) => (
-                          <span
-                            key={hIdx}
-                            className="text-[11px] font-medium text-white/90 bg-white/10 border border-white/15 backdrop-blur-sm px-2.5 py-1 rounded-md"
-                          >
-                            {hl}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-
-                    <div className="pt-3 border-t border-white/15 flex items-center justify-between">
-                      <span className="text-xs font-bold text-sky-300 group-hover:text-white tracking-wider uppercase flex items-center gap-1.5 transition-colors">
-                        Explore Capability
-                        <ArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform" />
-                      </span>
-                      <span className="text-[11px] text-white/50 font-medium tracking-wide uppercase">
-                        Enterprise Ready
-                      </span>
-                    </div>
-                  </div>
-                </Link>
+                <NotchedProjectCard
+                  key={item.title}
+                  href={item.href || '/capabilities'}
+                  title={item.title}
+                  description={item.desc}
+                  image={item.image}
+                  imageAlt={item.title}
+                  badge={item.number || `0${idx + 1}`}
+                  tags={item.highlights || []}
+                  icon={IconComponent}
+                  monochrome
+                  dark
+                  surface="#0a0a0a"
+                  accent="#004AAD"
+                  accentForeground="#ffffff"
+                />
               );
             })}
           </div>
@@ -913,14 +868,14 @@ export default function HomePage({ onOpenModal }) {
               >
                 <Link
                   to={`/insights/${article.slug}`}
-                  className="block aspect-[16/10] overflow-hidden bg-slate-100 relative"
+                  className="block h-36 overflow-hidden bg-slate-50 border-b border-slate-100 relative flex items-center justify-center p-3"
                   aria-label={`Read ${article.title}`}
                 >
                   <img
                     src={article.image}
                     alt={article.imageAlt}
                     loading="lazy"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="max-w-full max-h-full object-contain rounded-md"
                   />
                 </Link>
 

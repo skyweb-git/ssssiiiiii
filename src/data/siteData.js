@@ -47,50 +47,50 @@ export const provisions = [
   {
     number: "01",
     title: "Technology Infrastructure",
-    desc: "The systems and infrastructure businesses need to operate digitally.",
+    desc: "Reliable systems to run and scale digitally.",
     image: "/assets/capabilities/tech-infra.jpg",
     href: "/capabilities/cloud-infrastructure",
-    highlights: ["Cloud Hosting & High Availability", "Virtual Private Clouds & VPC Peering", "Disaster Recovery & Redundancy"]
+    highlights: ["Cloud Hosting", "Disaster Recovery"]
   },
   {
     number: "02",
     title: "Software Engineering",
-    desc: "Custom software engineered around real business requirements.",
+    desc: "Custom software for real business needs.",
     image: "/assets/capabilities/software-eng.jpg",
     href: "/capabilities/application-services",
-    highlights: ["Custom Web Applications", "Distributed Microservices", "Enterprise API Frameworks"]
+    highlights: ["Web Apps", "APIs"]
   },
   {
     number: "03",
     title: "AI & Automation",
-    desc: "Intelligent systems that reduce repetitive work and improve business processes.",
+    desc: "AI that cuts repetitive work.",
     image: "/assets/capabilities/ai-automation.jpg",
     href: "/capabilities/artificial-intelligence",
-    highlights: ["Natural Language Processing", "Process Automation & RPA", "Data Extraction Pipelines"]
+    highlights: ["NLP", "Automation"]
   },
   {
     number: "04",
     title: "Cloud Solutions",
-    desc: "Cloud deployment, hosting, infrastructure management, APIs, databases and scalable environments.",
+    desc: "Deploy, host, and scale with confidence.",
     image: "/assets/capabilities/cloud-solutions.jpg",
     href: "/capabilities/cloud-infrastructure",
-    highlights: ["Automated Deployments", "Containerized Environments", "Managed SQL & NoSQL Databases"]
+    highlights: ["CI/CD", "Containers"]
   },
   {
     number: "05",
     title: "Digital Products",
-    desc: "Web and mobile products designed for customers, employees and business operations.",
+    desc: "Web and mobile products people use.",
     image: "/assets/capabilities/digital-products.jpg",
     href: "/capabilities/products-platforms",
-    highlights: ["Native & Hybrid Mobile Apps", "Modern Responsive Web Apps", "Intuitive Admin Consoles"]
+    highlights: ["Mobile", "Web"]
   },
   {
     number: "06",
     title: "Technology Support",
-    desc: "Continuous technical assistance, maintenance, optimization and modernization.",
+    desc: "Ongoing care, updates, and tuning.",
     image: "/assets/capabilities/tech-support.jpg",
     href: "/capabilities/business-technology",
-    highlights: ["24/7 SLA Uptime Monitoring", "Security Patching & Updates", "Continuous Performance Tuning"]
+    highlights: ["Monitoring", "Patching"]
   }
 ];
 

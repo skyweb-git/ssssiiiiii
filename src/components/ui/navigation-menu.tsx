@@ -3,14 +3,9 @@
 import * as React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence, useScroll, useMotionValueEvent, type Variants } from "framer-motion";
-import { ArrowRight, ChevronDown, Sparkles } from "lucide-react";
+import { ArrowRight, ChevronDown, Menu, Sparkles, X } from "lucide-react";
 import { cn } from "../../lib/utils";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-} from "./sheet";
+import { SterlingGateKineticNavigation } from "./sterling-gate-kinetic-navigation";
 
 export type MenuSection = "about" | "capabilities" | "industries" | "insights" | null;
 
@@ -116,18 +111,76 @@ export function AnimatedNavFramer({
 }: AnimatedNavFramerProps) {
   const [isExpanded, setExpanded] = React.useState(true);
   const [mobileDrawerOpen, setMobileDrawerOpen] = React.useState(false);
-  const [mobileOpenSection, setMobileOpenSection] = React.useState<string | null>(null);
   const [activeMenu, setActiveMenu] = React.useState<MenuSection>(null);
+  const [overDark, setOverDark] = React.useState(false);
   const dropdownTimeoutRef = React.useRef<NodeJS.Timeout | null>(null);
+  const desktopNavRef = React.useRef<HTMLElement | null>(null);
+  const mobileHeaderRef = React.useRef<HTMLElement | null>(null);
   const location = useLocation();
 
-  const toggleMobileSection = (section: string) => {
-    setMobileOpenSection((prev) => (prev === section ? null : section));
-  };
+  const isDarkColor = React.useCallback((bg: string) => {
+    if (!bg || bg === "transparent" || bg === "rgba(0, 0, 0, 0)") return null;
+    const match = bg.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/i);
+    if (!match) return null;
+    const r = Number(match[1]);
+    const g = Number(match[2]);
+    const b = Number(match[3]);
+    const a = match[4] === undefined ? 1 : Number(match[4]);
+    if (a < 0.45) return null;
+    const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+    return luminance < 0.45;
+  }, []);
+
+  const checkOverDark = React.useCallback(() => {
+    const probe =
+      (typeof window !== "undefined" && window.innerWidth >= 768
+        ? desktopNavRef.current
+        : mobileHeaderRef.current) || desktopNavRef.current || mobileHeaderRef.current;
+    if (!probe) return;
+
+    const rect = probe.getBoundingClientRect();
+    const x = Math.min(window.innerWidth - 2, Math.max(2, Math.round(rect.left + rect.width / 2)));
+    const y = Math.min(window.innerHeight - 2, Math.max(2, Math.round(rect.bottom + 4)));
+
+    const previous = probe.style.pointerEvents;
+    probe.style.pointerEvents = "none";
+    const stack = document.elementsFromPoint(x, y);
+    probe.style.pointerEvents = previous;
+
+    let dark = false;
+    for (const el of stack) {
+      if (!(el instanceof HTMLElement)) continue;
+      if (probe.contains(el)) continue;
+      let node: HTMLElement | null = el;
+      while (node && node !== document.documentElement) {
+        const bg = window.getComputedStyle(node).backgroundColor;
+        const result = isDarkColor(bg);
+        if (result === true) {
+          dark = true;
+          break;
+        }
+        if (result === false) break;
+        node = node.parentElement;
+      }
+      if (dark) break;
+    }
+
+    setOverDark(dark);
+  }, [isDarkColor]);
 
   React.useEffect(() => {
-    if (!mobileDrawerOpen) setMobileOpenSection(null);
-  }, [mobileDrawerOpen]);
+    checkOverDark();
+    const onScroll = () => checkOverDark();
+    const onResize = () => checkOverDark();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onResize);
+    const timer = window.setTimeout(checkOverDark, 80);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onResize);
+      window.clearTimeout(timer);
+    };
+  }, [checkOverDark, location.pathname, isExpanded]);
   
   const { scrollY } = useScroll();
   const lastScrollY = React.useRef(0);
@@ -181,10 +234,15 @@ export function AnimatedNavFramer({
     <>
       {/* ================= MOBILE NAV — full-width clean bar (TechM-style) ================= */}
       <header
+        ref={mobileHeaderRef}
         className={cn(
-          "fixed top-0 left-0 right-0 z-50 md:hidden bg-white/95 backdrop-blur-md border-b border-slate-200/70",
+          "fixed top-0 left-0 right-0 z-50 md:hidden backdrop-blur-2xl saturate-150 shadow-[0_4px_24px_rgba(15,23,42,0.06)] border-b transition-colors",
+          overDark
+            ? "border-white/20 bg-black/35"
+            : "border-white/40 bg-white/55",
           className
         )}
+        style={{ WebkitBackdropFilter: "blur(24px) saturate(150%)" }}
       >
         <div className="flex items-center justify-between h-16 px-4 max-w-7xl mx-auto">
           <Link to="/" className="flex items-center outline-none focus:outline-none" aria-label="SkyWeb Home">
@@ -197,13 +255,19 @@ export function AnimatedNavFramer({
 
           <button
             type="button"
-            onClick={() => setMobileDrawerOpen(true)}
-            className="h-10 w-10 inline-flex flex-col items-center justify-center gap-[5px] rounded-lg text-slate-900 hover:bg-slate-50 transition-colors outline-none focus:outline-none"
-            aria-label="Open navigation menu"
+            onClick={() => setMobileDrawerOpen((prev) => !prev)}
+            className={cn(
+              "h-10 w-10 inline-flex items-center justify-center rounded-lg transition-colors outline-none focus:outline-none",
+              overDark ? "text-white hover:bg-white/10" : "text-slate-900 hover:bg-slate-50"
+            )}
+            aria-label={mobileDrawerOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-expanded={mobileDrawerOpen}
           >
-            <span className="block w-5 h-[2.5px] rounded-full bg-slate-900" />
-            <span className="block w-5 h-[2.5px] rounded-full bg-slate-900" />
-            <span className="block w-5 h-[2.5px] rounded-full bg-slate-900" />
+            {mobileDrawerOpen ? (
+              <X className="h-5 w-5" strokeWidth={2.25} />
+            ) : (
+              <Menu className="h-5 w-5" strokeWidth={2.25} />
+            )}
           </button>
         </div>
       </header>
@@ -217,6 +281,7 @@ export function AnimatedNavFramer({
         onMouseLeave={handleMouseLeave}
       >
         <motion.nav
+          ref={desktopNavRef}
           initial="expanded"
           animate={isExpanded ? "expanded" : "collapsed"}
           variants={containerVariants}
@@ -224,9 +289,14 @@ export function AnimatedNavFramer({
           whileTap={!isExpanded ? { scale: 0.95 } : {}}
           onClick={handleNavClick}
           className={cn(
-            "flex items-center flex-nowrap whitespace-nowrap overflow-hidden rounded-2xl border border-slate-200/80 bg-white/95 shadow-[0_10px_35px_-6px_rgba(0,0,0,0.08),0_2px_8px_-2px_rgba(0,0,0,0.04)] backdrop-blur-md h-[84px] max-w-[96vw] px-5 transition-all relative",
-            !isExpanded && "cursor-pointer justify-center px-0 w-auto h-auto border-transparent bg-transparent shadow-none backdrop-blur-none hover:border-transparent hover:shadow-none"
+            "flex items-center flex-nowrap whitespace-nowrap overflow-hidden rounded-2xl backdrop-blur-2xl saturate-150 h-[84px] max-w-[96vw] px-5 transition-all relative",
+            isExpanded && overDark
+              ? "border border-white/25 bg-white/15 shadow-[0_10px_40px_-8px_rgba(0,0,0,0.35),inset_0_1px_0_rgba(255,255,255,0.25)]"
+              : isExpanded
+                ? "border border-white/50 bg-white/45 shadow-[0_10px_40px_-8px_rgba(15,23,42,0.12),inset_0_1px_0_rgba(255,255,255,0.65)]"
+                : "cursor-pointer justify-center px-0 w-auto h-auto border-transparent bg-transparent shadow-none backdrop-blur-none saturate-100 hover:border-transparent hover:shadow-none"
           )}
+          style={isExpanded ? { WebkitBackdropFilter: "blur(24px) saturate(150%)" } : undefined}
         >
           {/* Brand Logo */}
           <motion.div
@@ -286,9 +356,13 @@ export function AnimatedNavFramer({
                       }}
                       className={cn(
                         "inline-flex items-center flex-nowrap whitespace-nowrap flex-shrink-0 gap-1.5 text-[14.5px] lg:text-[15px] font-semibold transition-all px-3.5 lg:px-4 py-2 rounded-lg outline-none focus:outline-none select-none",
-                        isActive || isHovered
-                          ? "text-[#004AAD] bg-[#004AAD]/10 shadow-xs"
-                          : "text-slate-600 hover:text-[#004AAD] hover:bg-slate-100/70"
+                        overDark
+                          ? isActive || isHovered
+                            ? "text-white bg-white/15"
+                            : "text-white/90 hover:text-white hover:bg-white/10"
+                          : isActive || isHovered
+                            ? "text-[#004AAD] bg-[#004AAD]/10 shadow-xs"
+                            : "text-slate-600 hover:text-[#004AAD] hover:bg-slate-100/70"
                       )}
                     >
                       <span className="whitespace-nowrap">{item.name}</span>
@@ -308,9 +382,13 @@ export function AnimatedNavFramer({
                     }}
                     className={cn(
                       "text-[14.5px] lg:text-[15px] font-semibold transition-all px-3.5 lg:px-4 py-2 rounded-lg inline-block outline-none focus:outline-none select-none whitespace-nowrap flex-shrink-0",
-                      isActive
-                        ? "text-[#004AAD] bg-[#004AAD]/10 shadow-xs"
-                        : "text-slate-600 hover:text-[#004AAD] hover:bg-slate-100/70"
+                      overDark
+                        ? isActive
+                          ? "text-white bg-white/15"
+                          : "text-white/90 hover:text-white hover:bg-white/10"
+                        : isActive
+                          ? "text-[#004AAD] bg-[#004AAD]/10 shadow-xs"
+                          : "text-slate-600 hover:text-[#004AAD] hover:bg-slate-100/70"
                     )}
                   >
                     <span className="whitespace-nowrap">{item.name}</span>
@@ -351,7 +429,10 @@ export function AnimatedNavFramer({
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 8, scale: 0.98 }}
               transition={{ duration: 0.2, ease: "easeOut" }}
-              className="pointer-events-auto w-[1160px] max-w-[96vw] bg-white rounded-2xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.18),0_10px_25px_-5px_rgba(0,0,0,0.06)] border border-slate-200/80 p-7 lg:p-9 z-50 text-left relative before:absolute before:-top-6 before:left-0 before:right-0 before:h-6 overflow-hidden"
+              className={cn(
+                "pointer-events-auto max-w-[96vw] bg-white rounded-2xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.18),0_10px_25px_-5px_rgba(0,0,0,0.06)] border border-slate-200/80 p-6 sm:p-7 lg:p-8 z-50 text-left relative before:absolute before:-top-6 before:left-0 before:right-0 before:h-6 overflow-hidden",
+                activeMenu === "insights" ? "w-[860px]" : "w-[1160px]"
+              )}
             >
               {/* ================= 1. ABOUT US MEGA-MENU ================= */}
               {activeMenu === "about" && (
@@ -693,344 +774,95 @@ export function AnimatedNavFramer({
 
               {/* ================= 4. INSIGHTS MEGA-MENU ================= */}
               {activeMenu === "insights" && (
-                <div className="grid grid-cols-12 gap-6 lg:gap-8 items-stretch">
-                  <div className="col-span-12 lg:col-span-3 pr-2 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-slate-100 pb-5 lg:pb-0">
+                <div className="flex flex-col gap-5">
+                  <div className="flex flex-wrap items-end justify-between gap-3 pb-4 border-b border-slate-100">
                     <div>
-                      <h2 className="text-3xl lg:text-4xl font-extrabold text-[#0f172a] font-['DM_Sans'] tracking-tight mb-3">
+                      <h2 className="text-2xl sm:text-3xl font-extrabold text-[#0f172a] font-['DM_Sans'] tracking-tight">
                         Insights
                       </h2>
-                      <p className="text-sm text-slate-500 leading-relaxed max-w-[230px]">
-                        Engineering perspectives, applied AI research, and digital transformation strategies from SkyWeb.
+                      <p className="text-sm text-slate-500 mt-1 max-w-md">
+                        Press coverage and technology articles from SkyWeb.
                       </p>
                     </div>
+                    <Link
+                      to="/insights"
+                      onClick={closeDropdown}
+                      className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#004AAD] hover:text-[#003B8A] transition-colors"
+                    >
+                      <span>View all insights</span>
+                      <ArrowRight className="h-3.5 w-3.5" />
+                    </Link>
                   </div>
 
-                  {/* Middle Insights List */}
-                  <div className="col-span-12 lg:col-span-5 flex flex-col gap-2.5 text-sm pr-4">
-                    {/* Official News Links - Kept First */}
-                    <div className="pb-2 mb-1 border-b border-slate-100 flex flex-col gap-1">
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-[#004AAD]">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
+                    <div>
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-[#004AAD] block mb-2.5">
                         Official Press & News
                       </span>
-                      <Link to="/insights/swayamkrushi-website-launch-coral-jubilee-the-hindu" onClick={closeDropdown} className="font-bold text-[#0f172a] hover:text-[#004AAD] transition-colors text-sm block py-1">
-                        Swayamkrushi Website Launch & Coral Jubilee
-                      </Link>
-                      <Link to="/insights/designathon-2026-hyderabad-uiux-hackathon-workshop" onClick={closeDropdown} className="font-bold text-[#0f172a] hover:text-[#004AAD] transition-colors text-sm block py-1">
-                        Designathon 2026: Hyderabad UI/UX Hackathon
-                      </Link>
-                      <Link to="/insights/codestars-2k26-national-hackathon-hyderabad" onClick={closeDropdown} className="font-bold text-[#0f172a] hover:text-[#004AAD] transition-colors text-sm block py-1">
-                        Code Stars 2K26 Hackathon (Hyderabad)
-                      </Link>
-                      <Link to="/insights/audisankara-university-codesprint-2026-hackathon" onClick={closeDropdown} className="font-bold text-[#0f172a] hover:text-[#004AAD] transition-colors text-sm block py-1">
-                        Audisankara Codesprint 2026
-                      </Link>
+                      <div className="flex flex-col gap-0.5">
+                        <Link to="/insights/swayamkrushi-website-launch-coral-jubilee-the-hindu" onClick={closeDropdown} className="font-semibold text-[#0f172a] hover:text-[#004AAD] transition-colors text-sm py-1.5">
+                          Swayamkrushi Website Launch & Coral Jubilee
+                        </Link>
+                        <Link to="/insights/designathon-2026-hyderabad-uiux-hackathon-workshop" onClick={closeDropdown} className="font-semibold text-[#0f172a] hover:text-[#004AAD] transition-colors text-sm py-1.5">
+                          Designathon 2026: Hyderabad UI/UX Hackathon
+                        </Link>
+                        <Link to="/insights/codestars-2k26-national-hackathon-hyderabad" onClick={closeDropdown} className="font-semibold text-[#0f172a] hover:text-[#004AAD] transition-colors text-sm py-1.5">
+                          Code Stars 2K26 Hackathon (Hyderabad)
+                        </Link>
+                        <Link to="/insights/audisankara-university-codesprint-2026-hackathon" onClick={closeDropdown} className="font-semibold text-[#0f172a] hover:text-[#004AAD] transition-colors text-sm py-1.5">
+                          Audisankara Codesprint 2026
+                        </Link>
+                      </div>
                     </div>
 
-                    <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-0.5">
-                      Technology Articles
-                    </span>
-                    <Link to="/insights/software-engineering" onClick={closeDropdown} className="font-bold text-[#0f172a] hover:text-[#004AAD] transition-colors text-sm block py-1">
-                      Software Engineering
-                    </Link>
-                    <Link to="/insights/ai-machine-learning" onClick={closeDropdown} className="font-bold text-[#0f172a] hover:text-[#004AAD] transition-colors text-sm block py-1">
-                      AI & Machine Learning
-                    </Link>
-                    <Link to="/insights/cloud-infrastructure" onClick={closeDropdown} className="font-bold text-[#0f172a] hover:text-[#004AAD] transition-colors text-sm block py-1">
-                      Cloud & Infrastructure
-                    </Link>
-                    <Link to="/insights/digital-platforms" onClick={closeDropdown} className="font-bold text-[#0f172a] hover:text-[#004AAD] transition-colors text-sm block py-1">
-                      Digital Platforms & Artube
-                    </Link>
-                    <Link to="/insights/business-technology" onClick={closeDropdown} className="font-bold text-[#0f172a] hover:text-[#004AAD] transition-colors text-sm block py-1">
-                      Business Technology
-                    </Link>
-                    <Link to="/insights/technology-consulting" onClick={closeDropdown} className="font-bold text-[#0f172a] hover:text-[#004AAD] transition-colors text-sm block py-1">
-                      Technology Consulting
-                    </Link>
+                    <div>
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-2.5">
+                        Technology Articles
+                      </span>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-0.5">
+                        <Link to="/insights/software-engineering" onClick={closeDropdown} className="font-semibold text-[#0f172a] hover:text-[#004AAD] transition-colors text-sm py-1.5">
+                          Software Engineering
+                        </Link>
+                        <Link to="/insights/ai-machine-learning" onClick={closeDropdown} className="font-semibold text-[#0f172a] hover:text-[#004AAD] transition-colors text-sm py-1.5">
+                          AI & Machine Learning
+                        </Link>
+                        <Link to="/insights/cloud-infrastructure" onClick={closeDropdown} className="font-semibold text-[#0f172a] hover:text-[#004AAD] transition-colors text-sm py-1.5">
+                          Cloud & Infrastructure
+                        </Link>
+                        <Link to="/insights/digital-platforms" onClick={closeDropdown} className="font-semibold text-[#0f172a] hover:text-[#004AAD] transition-colors text-sm py-1.5">
+                          Digital Platforms & Artube
+                        </Link>
+                        <Link to="/insights/business-technology" onClick={closeDropdown} className="font-semibold text-[#0f172a] hover:text-[#004AAD] transition-colors text-sm py-1.5">
+                          Business Technology
+                        </Link>
+                        <Link to="/insights/technology-consulting" onClick={closeDropdown} className="font-semibold text-[#0f172a] hover:text-[#004AAD] transition-colors text-sm py-1.5">
+                          Technology Consulting
+                        </Link>
+                      </div>
+                    </div>
                   </div>
-
-                  {/* Right Featured Cards */}
-                  <div className="col-span-12 lg:col-span-4 flex flex-col gap-3">
-                    <Link
-                      to="/insights/software-engineering"
-                      onClick={closeDropdown}
-                      className="group relative rounded-xl overflow-hidden h-36 flex flex-col justify-between p-4 shadow-sm hover:shadow-md transition-all border border-slate-800"
-                      style={{ backgroundImage: "url('/assets/laptop.jpg')", backgroundSize: "cover", backgroundPosition: "center" }}
-                    >
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-black/35 group-hover:via-black/50 transition-colors" />
-                      <div className="relative z-10">
-                        <span className="text-[10px] font-bold uppercase tracking-wider text-slate-200 border-b border-white/60 pb-0.5 inline-block">
-                          Featured Insight
-                        </span>
-                      </div>
-                      <div className="relative z-10">
-                        <h4 className="text-xs font-bold text-white leading-snug mb-1">
-                          Engineering Digital Solutions That Drive Business Forward
-                        </h4>
-                        <span className="inline-flex items-center gap-1 text-[11px] font-bold text-sky-300 uppercase tracking-wider group-hover:text-white transition-colors">
-                          <span>READ ARTICLE</span>
-                          <ArrowRight className="h-3 w-3 transform group-hover:translate-x-1 transition-transform" />
-                        </span>
-                      </div>
-                    </Link>
-
-                    <Link
-                      to="/insights/ai-machine-learning"
-                      onClick={closeDropdown}
-                      className="group relative rounded-xl overflow-hidden h-36 flex flex-col justify-between p-4 shadow-sm hover:shadow-md transition-all border border-slate-800"
-                      style={{ backgroundImage: "url('/assets/nav-ai.jpg')", backgroundSize: "cover", backgroundPosition: "center" }}
-                    >
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-blue-950/60 to-black/40 group-hover:via-blue-950/50 transition-colors" />
-                      <div className="relative z-10">
-                        <span className="text-[10px] font-bold uppercase tracking-wider text-slate-200 border-b border-white/60 pb-0.5 inline-block">
-                          Applied Intelligence
-                        </span>
-                      </div>
-                      <div className="relative z-10">
-                        <h4 className="text-xs font-bold text-white leading-snug mb-1">
-                          Applied AI: Transforming Business Capabilities Through Intelligent Technology
-                        </h4>
-                        <span className="inline-flex items-center gap-1 text-[11px] font-bold text-cyan-300 uppercase tracking-wider group-hover:text-white transition-colors">
-                          <span>READ ARTICLE</span>
-                          <ArrowRight className="h-3 w-3 transform group-hover:translate-x-1 transition-transform" />
-                        </span>
-                      </div>
-                    </Link>
-                  </div>
-                </div>              )}
+                </div>
+              )}
             </motion.div>
           </div>
         )}
       </AnimatePresence>
 
-      {/* ================= MOBILE DRAWER — neat accordion ================= */}
-      <Sheet open={mobileDrawerOpen} onOpenChange={setMobileDrawerOpen}>
-        <SheetContent side="right" className="w-[min(100vw,340px)] sm:w-[360px] bg-white p-0 flex flex-col overflow-hidden border-l border-slate-200">
-          <SheetHeader className="px-5 h-14 flex flex-row items-center border-b border-slate-100 text-left shrink-0 space-y-0">
-            <SheetTitle className="flex items-center m-0">
-              <img src="/assets/logo.png" alt="SkyWeb" className="h-11 w-auto object-contain" />
-            </SheetTitle>
-          </SheetHeader>
-
-          <nav className="flex-1 overflow-y-auto px-3 py-3 space-y-1">
-            {/* About Us */}
-            <div className="rounded-xl overflow-hidden">
-              <button
-                type="button"
-                onClick={() => toggleMobileSection("about")}
-                className={cn(
-                  "w-full flex items-center justify-between px-3 py-3.5 rounded-xl text-left transition-colors",
-                  mobileOpenSection === "about" ? "bg-[#004AAD]/8 text-[#004AAD]" : "text-slate-900 hover:bg-slate-50"
-                )}
-                aria-expanded={mobileOpenSection === "about"}
-              >
-                <span className="text-[15px] font-bold">About Us</span>
-                <ChevronDown
-                  className={cn(
-                    "h-4 w-4 shrink-0 transition-transform duration-200",
-                    mobileOpenSection === "about" && "rotate-180 text-[#004AAD]"
-                  )}
-                />
-              </button>
-              {mobileOpenSection === "about" && (
-                <div className="px-2 pb-3 space-y-0.5">
-                  <Link to="/about" onClick={() => setMobileDrawerOpen(false)} className="block px-3 py-2.5 rounded-lg text-sm font-semibold text-[#004AAD] hover:bg-blue-50">
-                    About overview
-                  </Link>
-                  {[
-                    { to: "/about/overview", label: "Corporate Overview" },
-                    { to: "/about/leadership", label: "Leadership" },
-                    { to: "/about/brand", label: "Our Brand" },
-                    { to: "/about/customer-speak", label: "The Clients" },
-                    { to: "/about/recognition", label: "Recognition & Awards" },
-                  ].map((link) => (
-                    <Link
-                      key={link.to}
-                      to={link.to}
-                      onClick={() => setMobileDrawerOpen(false)}
-                      className="block px-3 py-2.5 rounded-lg text-sm text-slate-600 hover:bg-slate-50 hover:text-[#004AAD]"
-                    >
-                      {link.label}
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* Capabilities */}
-            <div className="rounded-xl overflow-hidden">
-              <button
-                type="button"
-                onClick={() => toggleMobileSection("capabilities")}
-                className={cn(
-                  "w-full flex items-center justify-between px-3 py-3.5 rounded-xl text-left transition-colors",
-                  mobileOpenSection === "capabilities" ? "bg-[#004AAD]/8 text-[#004AAD]" : "text-slate-900 hover:bg-slate-50"
-                )}
-                aria-expanded={mobileOpenSection === "capabilities"}
-              >
-                <span className="text-[15px] font-bold">Capabilities</span>
-                <ChevronDown
-                  className={cn(
-                    "h-4 w-4 shrink-0 transition-transform duration-200",
-                    mobileOpenSection === "capabilities" && "rotate-180 text-[#004AAD]"
-                  )}
-                />
-              </button>
-              {mobileOpenSection === "capabilities" && (
-                <div className="px-2 pb-3 space-y-0.5">
-                  <Link to="/capabilities" onClick={() => setMobileDrawerOpen(false)} className="block px-3 py-2.5 rounded-lg text-sm font-semibold text-[#004AAD] hover:bg-blue-50">
-                    All capabilities
-                  </Link>
-                  {[
-                    { to: "/capabilities/application-services", label: "Software Engineering" },
-                    { to: "/capabilities/artificial-intelligence", label: "AI & Machine Learning" },
-                    { to: "/capabilities/cloud-infrastructure", label: "Cloud & Infrastructure" },
-                    { to: "/capabilities/products-platforms", label: "Digital Platforms" },
-                    { to: "/capabilities/business-technology", label: "Business Technology" },
-                    { to: "/capabilities/experience-services", label: "UI/UX Experience" },
-                    { to: "/capabilities/nano-profiles", label: "Nano Profiles™", accent: true },
-                    { to: "/capabilities/hashtalks", label: "HashTalks", soon: true },
-                    { to: "/capabilities/artube", label: "ArTube", soon: true },
-                    { to: "/capabilities/art-coin", label: "Art Coin", soon: true },
-                  ].map((link) => (
-                    <Link
-                      key={link.to}
-                      to={link.to}
-                      onClick={() => setMobileDrawerOpen(false)}
-                      className={cn(
-                        "flex items-center justify-between gap-2 px-3 py-2.5 rounded-lg text-sm hover:bg-slate-50",
-                        link.accent ? "text-[#004AAD] font-semibold" : "text-slate-600 hover:text-[#004AAD]"
-                      )}
-                    >
-                      <span>{link.label}</span>
-                      {link.soon && (
-                        <span className="text-[9px] font-bold uppercase tracking-wide text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200">
-                          Soon
-                        </span>
-                      )}
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* Industries */}
-            <div className="rounded-xl overflow-hidden">
-              <button
-                type="button"
-                onClick={() => toggleMobileSection("industries")}
-                className={cn(
-                  "w-full flex items-center justify-between px-3 py-3.5 rounded-xl text-left transition-colors",
-                  mobileOpenSection === "industries" ? "bg-[#004AAD]/8 text-[#004AAD]" : "text-slate-900 hover:bg-slate-50"
-                )}
-                aria-expanded={mobileOpenSection === "industries"}
-              >
-                <span className="text-[15px] font-bold">Industries</span>
-                <ChevronDown
-                  className={cn(
-                    "h-4 w-4 shrink-0 transition-transform duration-200",
-                    mobileOpenSection === "industries" && "rotate-180 text-[#004AAD]"
-                  )}
-                />
-              </button>
-              {mobileOpenSection === "industries" && (
-                <div className="px-2 pb-3 space-y-0.5">
-                  <Link to="/industries" onClick={() => setMobileDrawerOpen(false)} className="block px-3 py-2.5 rounded-lg text-sm font-semibold text-[#004AAD] hover:bg-blue-50">
-                    All industries
-                  </Link>
-                  {[
-                    { to: "/industries/banking-financial", label: "Banking & Finance" },
-                    { to: "/industries/communications", label: "Communications" },
-                    { to: "/industries/manufacturing", label: "Manufacturing" },
-                    { to: "/industries/retail-consumer", label: "Retail & Goods" },
-                  ].map((link) => (
-                    <Link
-                      key={link.to}
-                      to={link.to}
-                      onClick={() => setMobileDrawerOpen(false)}
-                      className="block px-3 py-2.5 rounded-lg text-sm text-slate-600 hover:bg-slate-50 hover:text-[#004AAD]"
-                    >
-                      {link.label}
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* Insights */}
-            <div className="rounded-xl overflow-hidden">
-              <button
-                type="button"
-                onClick={() => toggleMobileSection("insights")}
-                className={cn(
-                  "w-full flex items-center justify-between px-3 py-3.5 rounded-xl text-left transition-colors",
-                  mobileOpenSection === "insights" ? "bg-[#004AAD]/8 text-[#004AAD]" : "text-slate-900 hover:bg-slate-50"
-                )}
-                aria-expanded={mobileOpenSection === "insights"}
-              >
-                <span className="text-[15px] font-bold">Insights</span>
-                <ChevronDown
-                  className={cn(
-                    "h-4 w-4 shrink-0 transition-transform duration-200",
-                    mobileOpenSection === "insights" && "rotate-180 text-[#004AAD]"
-                  )}
-                />
-              </button>
-              {mobileOpenSection === "insights" && (
-                <div className="px-2 pb-3 space-y-0.5">
-                  <Link to="/insights" onClick={() => setMobileDrawerOpen(false)} className="block px-3 py-2.5 rounded-lg text-sm font-semibold text-[#004AAD] hover:bg-blue-50">
-                    All insights
-                  </Link>
-                  {[
-                    { to: "/insights/swayamkrushi-website-launch-coral-jubilee-the-hindu", label: "Swayamkrushi Launch", accent: true },
-                    { to: "/insights/designathon-2026-hyderabad-uiux-hackathon-workshop", label: "Designathon 2026", accent: true },
-                    { to: "/insights/codestars-2k26-national-hackathon-hyderabad", label: "Code Stars 2K26", accent: true },
-                    { to: "/insights/audisankara-university-codesprint-2026-hackathon", label: "Audisankara Codesprint", accent: true },
-                    { to: "/insights/software-engineering", label: "Software Engineering" },
-                    { to: "/insights/ai-machine-learning", label: "AI & Machine Learning" },
-                    { to: "/insights/cloud-infrastructure", label: "Cloud & Infrastructure" },
-                    { to: "/insights/digital-platforms", label: "Digital Platforms" },
-                    { to: "/insights/business-technology", label: "Business Technology" },
-                    { to: "/insights/technology-consulting", label: "Tech Consulting" },
-                  ].map((link) => (
-                    <Link
-                      key={link.to}
-                      to={link.to}
-                      onClick={() => setMobileDrawerOpen(false)}
-                      className={cn(
-                        "block px-3 py-2.5 rounded-lg text-sm hover:bg-slate-50",
-                        link.accent ? "text-[#004AAD] font-semibold" : "text-slate-600 hover:text-[#004AAD]"
-                      )}
-                    >
-                      {link.label}
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* Careers — direct link */}
-            <Link
-              to="/careers"
-              onClick={() => setMobileDrawerOpen(false)}
-              className="flex items-center justify-between px-3 py-3.5 rounded-xl text-[15px] font-bold text-slate-900 hover:bg-slate-50"
-            >
-              <span>Careers</span>
-              <ArrowRight className="h-4 w-4 text-slate-400" />
-            </Link>
-          </nav>
-
-          <div className="shrink-0 px-5 py-4 border-t border-slate-100 bg-white">
-            <Link
-              to="/contact"
-              onClick={() => setMobileDrawerOpen(false)}
-              className="w-full py-3.5 px-4 rounded-xl bg-[#004AAD] hover:bg-[#003B8A] text-white text-sm font-bold shadow-md transition-all text-center block"
-            >
-              Contact Us
-            </Link>
-          </div>
-        </SheetContent>
-      </Sheet>
+      {/* ================= MOBILE — Sterling Gate kinetic overlay ================= */}
+      <SterlingGateKineticNavigation
+        embedded
+        mobileOnly
+        open={mobileDrawerOpen}
+        onOpenChange={setMobileDrawerOpen}
+        links={[
+          { label: "About us", href: "/about", shape: "1" },
+          { label: "Capabilities", href: "/capabilities", shape: "2" },
+          { label: "Industries", href: "/industries", shape: "3" },
+          { label: "Insights", href: "/insights", shape: "4" },
+          { label: "Careers", href: "/careers", shape: "5" },
+        ]}
+        contactHref="/contact"
+      />
     </>
   );
 }

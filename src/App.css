@@ -30,6 +30,18 @@ html {
   border-bottom: 1px solid #f1f5f9;
 }
 
+.site-section.bg-ink .section-eyebrow {
+  color: #38bdf8;
+}
+
+.site-section.bg-ink .section-headline {
+  color: #ffffff;
+}
+
+.site-section.bg-ink .section-subhead {
+  color: #a1a1aa;
+}
+
 .section-header-block {
   margin-bottom: 2.25rem;
   max-width: 760px;
@@ -458,45 +470,63 @@ html {
 
 .hero-capabilities {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 1.5rem;
-  margin-top: 2.75rem;
-  padding-top: 1.75rem;
+  gap: 0.55rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
   border-top: 1px solid #E2E8F0;
   width: 100%;
   max-width: 530px;
 }
 
 .capability-item {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
   min-width: 0;
+  padding: 0.45rem 0.9rem 0.45rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.42);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.85) inset,
+    0 0 0 1px rgba(15, 23, 42, 0.04),
+    0 8px 24px rgba(15, 23, 42, 0.06);
+  backdrop-filter: blur(14px) saturate(160%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.capability-item:hover {
+  background: rgba(255, 255, 255, 0.58);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    0 0 0 1px rgba(0, 74, 173, 0.08),
+    0 10px 28px rgba(15, 23, 42, 0.08);
+}
+
+.capability-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: #004AAD;
+  box-shadow: 0 0 8px rgba(0, 74, 173, 0.35);
+  flex-shrink: 0;
 }
 
 .capability-title {
   font-family: var(--font-heading);
-  font-size: 0.9375rem;
-  font-weight: 700;
-  color: #0f172a;
-  line-height: 1.35;
-  white-space: nowrap;
-}
-
-.capability-desc {
   font-size: 0.8125rem;
-  color: #64748b;
-  font-weight: 400;
-  line-height: 1.4;
+  font-weight: 600;
+  color: #0f172a;
+  line-height: 1.2;
   white-space: nowrap;
 }
 
+.capability-desc,
 .capability-divider {
-  width: 1px;
-  height: 32px;
-  background-color: #E2E8F0;
-  flex-shrink: 0;
+  display: none;
 }
 
 /* ================= RIGHT-SIDE ILLUSTRATION (BIG, CRISP & CINEMATIC) ================= */
@@ -651,40 +681,23 @@ html {
   }
 
   .hero-capabilities {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 0.55rem;
-    margin-top: 1.35rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-top: 1.15rem;
     padding-top: 0;
     border-top: none;
     max-width: 100%;
   }
 
   .capability-item {
-    width: 100%;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.75rem;
-    padding: 0.85rem 1rem;
-    background: #f8fafc;
-    border: 1px solid #e2e8f0;
-    border-radius: 12px;
+    padding: 0.4rem 0.8rem 0.4rem 0.65rem;
+    background: rgba(255, 255, 255, 0.55);
+    border-color: rgba(255, 255, 255, 0.75);
   }
 
   .capability-title {
-    font-size: 0.875rem;
-    margin: 0;
-  }
-
-  .capability-desc {
     font-size: 0.75rem;
-    text-align: right;
-    color: #64748b;
-  }
-
-  .capability-divider {
-    display: none;
   }
 
   .hero-illustration-wrapper {
