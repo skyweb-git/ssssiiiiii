@@ -66,7 +66,7 @@ export default function Footer({ onOpenModal }) {
                 <span aria-hidden="true">,</span>
                 <a href="tel:+27813435207">+27 81 343 5207</a>
               </span>
-              <span>Hyderabad, Telangana, India</span>
+              <span>Hyderabad, India · Cape Town, South Africa</span>
             </div>
           </div>
         </div>

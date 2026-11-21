@@ -4,9 +4,13 @@ import SEO from '../components/SEO';
 import { pageSeo } from '../data/seoData';
 import { Send, CheckCircle2, ShieldCheck } from 'lucide-react';
 
-const MAPS_SHARE_URL = 'https://share.google/eOzV5bz83sB9MPWcI';
-const MAPS_EMBED_URL =
+const HYDERABAD_MAPS_SHARE_URL = 'https://share.google/eOzV5bz83sB9MPWcI';
+const HYDERABAD_MAPS_EMBED_URL =
   'https://maps.google.com/maps?q=Cohort%20Coworking%20Kondapur%20Hyderabad&z=16&output=embed';
+const CAPE_TOWN_MAPS_SHARE_URL =
+  'https://www.google.com/maps/search/?api=1&query=Cape+Town%2C+Western+Cape%2C+South+Africa';
+const CAPE_TOWN_MAPS_EMBED_URL =
+  'https://maps.google.com/maps?q=Cape%20Town%20Western%20Cape%20South%20Africa&z=12&output=embed';
 
 export default function ContactPage({ onOpenModal }) {
   const [formData, setFormData] = useState({
@@ -177,98 +181,164 @@ export default function ContactPage({ onOpenModal }) {
         </div>
       </section>
 
-      {/* Map + hub card (Osome-style) */}
+      {/* Map + hub cards */}
       <section className="pb-20 sm:pb-24 px-6 sm:px-8 bg-white">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-10 sm:mb-12">
             <span className="text-xs font-bold uppercase tracking-[0.2em] text-slate-400 mb-3 block">
-              Hyderabad
+              Cape Town · Hyderabad
             </span>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-[#0f172a] tracking-tight">
               Where We Engineer
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6 items-stretch">
-            {/* Map */}
-            <div className="relative min-h-[320px] sm:min-h-[380px] rounded-2xl overflow-hidden border border-slate-200/90 bg-slate-100">
-              <iframe
-                title="SkyWeb Hyderabad Core Hub — Cohort"
-                src={MAPS_EMBED_URL}
-                className="absolute inset-0 h-full w-full border-0"
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                allowFullScreen
-              />
-              <a
-                href={MAPS_SHARE_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="absolute bottom-3 left-3 z-10 rounded-md bg-white/95 px-3 py-1.5 text-xs font-semibold text-slate-700 shadow-sm border border-slate-200 hover:text-[#004AAD] transition-colors"
-              >
-                View larger map
-              </a>
-            </div>
+          <div className="space-y-10 sm:space-y-12">
+            {/* Cape Town */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6 items-stretch">
+              <div className="relative min-h-[320px] sm:min-h-[380px] rounded-2xl overflow-hidden border border-slate-200/90 bg-slate-100">
+                <iframe
+                  title="SkyWeb Cape Town Hub — South Africa"
+                  src={CAPE_TOWN_MAPS_EMBED_URL}
+                  className="absolute inset-0 h-full w-full border-0"
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  allowFullScreen
+                />
+                <a
+                  href={CAPE_TOWN_MAPS_SHARE_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="absolute bottom-3 left-3 z-10 rounded-md bg-white/95 px-3 py-1.5 text-xs font-semibold text-slate-700 shadow-sm border border-slate-200 hover:text-[#004AAD] transition-colors"
+                >
+                  View larger map
+                </a>
+              </div>
 
-            {/* Info card */}
-            <div className="rounded-2xl bg-[#f7f6f3] border border-slate-200/60 p-8 sm:p-10 flex flex-col justify-between min-h-[320px] sm:min-h-[380px]">
-              <div className="space-y-8">
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">
-                    Address
-                  </p>
-                  <a
-                    href={MAPS_SHARE_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-base sm:text-lg text-slate-800 leading-relaxed hover:text-[#004AAD] transition-colors"
-                  >
-                    Cohort, HITEC City, Madhapur,
-                    <br />
-                    Hyderabad, Telangana 500081, India
-                  </a>
-                  <p className="mt-2 text-sm text-[#004AAD] font-semibold">
-                    Hyderabad Core Hub · Primary R&D Center (IIT Alumni)
-                  </p>
-                </div>
-
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">
-                    Email
-                  </p>
-                  <a
-                    href="mailto:contact@skyweb.tech"
-                    className="text-base sm:text-lg text-slate-800 hover:text-[#004AAD] transition-colors"
-                  >
-                    contact@skyweb.tech
-                  </a>
-                </div>
-
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">
-                    Phone
-                  </p>
-                  <p className="text-base sm:text-lg text-slate-800">
+              <div className="rounded-2xl bg-[#f7f6f3] border border-slate-200/60 p-8 sm:p-10 flex flex-col justify-between min-h-[320px] sm:min-h-[380px]">
+                <div className="space-y-8">
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">
+                      Address
+                    </p>
                     <a
-                      href="tel:+919121428210"
-                      className="hover:text-[#004AAD] transition-colors"
+                      href={CAPE_TOWN_MAPS_SHARE_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-base sm:text-lg text-slate-800 leading-relaxed hover:text-[#004AAD] transition-colors"
                     >
-                      +91 9121428210
+                      Cape Town, Western Cape,
+                      <br />
+                      South Africa
                     </a>
-                    <span className="text-slate-400 mx-1.5" aria-hidden="true">,</span>
+                    <p className="mt-2 text-sm text-[#004AAD] font-semibold">
+                      Cape Town Hub · EMEA & African Markets
+                    </p>
+                  </div>
+
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">
+                      Email
+                    </p>
+                    <a
+                      href="mailto:contact@skyweb.tech"
+                      className="text-base sm:text-lg text-slate-800 hover:text-[#004AAD] transition-colors"
+                    >
+                      contact@skyweb.tech
+                    </a>
+                  </div>
+
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">
+                      Phone
+                    </p>
                     <a
                       href="tel:+27813435207"
-                      className="hover:text-[#004AAD] transition-colors"
+                      className="text-base sm:text-lg text-slate-800 hover:text-[#004AAD] transition-colors"
                     >
                       +27 81 343 5207
                     </a>
-                  </p>
+                  </div>
+                </div>
+
+                <div className="mt-10 pt-6 border-t border-slate-200/80 flex items-center gap-2 text-sm text-slate-600">
+                  <ShieldCheck className="h-4 w-4 text-[#004AAD] shrink-0" />
+                  <span>Enterprise NDA protected by default</span>
                 </div>
               </div>
+            </div>
 
-              <div className="mt-10 pt-6 border-t border-slate-200/80 flex items-center gap-2 text-sm text-slate-600">
-                <ShieldCheck className="h-4 w-4 text-[#004AAD] shrink-0" />
-                <span>Enterprise NDA protected by default</span>
+            {/* Hyderabad */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6 items-stretch">
+              <div className="relative min-h-[320px] sm:min-h-[380px] rounded-2xl overflow-hidden border border-slate-200/90 bg-slate-100">
+                <iframe
+                  title="SkyWeb Hyderabad Core Hub — Cohort"
+                  src={HYDERABAD_MAPS_EMBED_URL}
+                  className="absolute inset-0 h-full w-full border-0"
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  allowFullScreen
+                />
+                <a
+                  href={HYDERABAD_MAPS_SHARE_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="absolute bottom-3 left-3 z-10 rounded-md bg-white/95 px-3 py-1.5 text-xs font-semibold text-slate-700 shadow-sm border border-slate-200 hover:text-[#004AAD] transition-colors"
+                >
+                  View larger map
+                </a>
+              </div>
+
+              <div className="rounded-2xl bg-[#f7f6f3] border border-slate-200/60 p-8 sm:p-10 flex flex-col justify-between min-h-[320px] sm:min-h-[380px]">
+                <div className="space-y-8">
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">
+                      Address
+                    </p>
+                    <a
+                      href={HYDERABAD_MAPS_SHARE_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-base sm:text-lg text-slate-800 leading-relaxed hover:text-[#004AAD] transition-colors"
+                    >
+                      Cohort, HITEC City, Madhapur,
+                      <br />
+                      Hyderabad, Telangana 500081, India
+                    </a>
+                    <p className="mt-2 text-sm text-[#004AAD] font-semibold">
+                      Hyderabad Core Hub · Primary R&D Center (IIT Alumni)
+                    </p>
+                  </div>
+
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">
+                      Email
+                    </p>
+                    <a
+                      href="mailto:contact@skyweb.tech"
+                      className="text-base sm:text-lg text-slate-800 hover:text-[#004AAD] transition-colors"
+                    >
+                      contact@skyweb.tech
+                    </a>
+                  </div>
+
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">
+                      Phone
+                    </p>
+                    <a
+                      href="tel:+919121428210"
+                      className="text-base sm:text-lg text-slate-800 hover:text-[#004AAD] transition-colors"
+                    >
+                      +91 9121428210
+                    </a>
+                  </div>
+                </div>
+
+                <div className="mt-10 pt-6 border-t border-slate-200/80 flex items-center gap-2 text-sm text-slate-600">
+                  <ShieldCheck className="h-4 w-4 text-[#004AAD] shrink-0" />
+                  <span>Enterprise NDA protected by default</span>
+                </div>
               </div>
             </div>
           </div>
