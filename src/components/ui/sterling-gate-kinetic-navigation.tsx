@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import gsap from "gsap";
 import { CustomEase } from "gsap/CustomEase";
@@ -48,13 +48,17 @@ export function SterlingGateKineticNavigation({
   const isControlled = typeof open === "boolean";
   const isMenuOpen = isControlled ? open : internalOpen;
 
-  const setMenuOpen = (next: boolean) => {
-    if (!isControlled) setInternalOpen(next);
-    onOpenChange?.(next);
-  };
+  const setMenuOpen = useCallback(
+    (next: boolean) => {
+      if (!isControlled) setInternalOpen(next);
+      onOpenChange?.(next);
+    },
+    [isControlled, onOpenChange]
+  );
 
   useEffect(() => {
-    if (!containerRef.current) return;
+    const container = containerRef.current;
+    if (!container) return;
 
     try {
       if (!gsap.parseEase("main")) {
@@ -67,8 +71,8 @@ export function SterlingGateKineticNavigation({
     }
 
     const ctx = gsap.context(() => {
-      const menuItems = containerRef.current!.querySelectorAll(".menu-list-item[data-shape]");
-      const shapesContainer = containerRef.current!.querySelector(".ambient-background-shapes");
+      const menuItems = container.querySelectorAll(".menu-list-item[data-shape]");
+      const shapesContainer = container.querySelector(".ambient-background-shapes");
 
       menuItems.forEach((item) => {
         const shapeIndex = item.getAttribute("data-shape");
@@ -124,27 +128,26 @@ export function SterlingGateKineticNavigation({
 
     return () => {
       ctx.revert();
-      if (containerRef.current) {
-        const items = containerRef.current.querySelectorAll(".menu-list-item[data-shape]");
-        items.forEach((item) => {
-          const el = item as HTMLElement & { _cleanup?: () => void };
-          el._cleanup?.();
-        });
-      }
+      const items = container.querySelectorAll(".menu-list-item[data-shape]");
+      items.forEach((item) => {
+        const el = item as HTMLElement & { _cleanup?: () => void };
+        el._cleanup?.();
+      });
     };
   }, []);
 
   useEffect(() => {
-    if (!containerRef.current) return;
+    const container = containerRef.current;
+    if (!container) return;
 
     const ctx = gsap.context(() => {
-      const navWrap = containerRef.current!.querySelector(".nav-overlay-wrapper");
-      const menu = containerRef.current!.querySelector(".menu-content");
-      const overlay = containerRef.current!.querySelector(".overlay");
-      const bgPanels = containerRef.current!.querySelectorAll(".backdrop-layer");
-      const menuLinks = containerRef.current!.querySelectorAll(".nav-link");
-      const fadeTargets = containerRef.current!.querySelectorAll("[data-menu-fade]");
-      const menuButton = containerRef.current!.querySelector(".nav-close-btn");
+      const navWrap = container.querySelector(".nav-overlay-wrapper");
+      const menu = container.querySelector(".menu-content");
+      const overlay = container.querySelector(".overlay");
+      const bgPanels = container.querySelectorAll(".backdrop-layer");
+      const menuLinks = container.querySelectorAll(".nav-link");
+      const fadeTargets = container.querySelectorAll("[data-menu-fade]");
+      const menuButton = container.querySelector(".nav-close-btn");
       const menuButtonTexts = menuButton?.querySelectorAll("p");
       const menuButtonIcon = menuButton?.querySelector(".menu-button-icon");
 
@@ -188,7 +191,7 @@ export function SterlingGateKineticNavigation({
           .to(menuButtonIcon, { rotate: 0 }, "<")
           .set(navWrap, { display: "none" });
       }
-    }, containerRef);
+    }, container);
 
     return () => ctx.revert();
   }, [isMenuOpen]);
@@ -199,7 +202,7 @@ export function SterlingGateKineticNavigation({
     };
     window.addEventListener("keydown", handleEsc);
     return () => window.removeEventListener("keydown", handleEsc);
-  }, [isMenuOpen]);
+  }, [isMenuOpen, setMenuOpen]);
 
   useEffect(() => {
     if (!isMenuOpen) return undefined;
