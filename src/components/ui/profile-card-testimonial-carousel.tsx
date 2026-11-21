@@ -180,16 +180,15 @@ export function ClientTestimonialCard({
   return (
     <div
       className={cn(
-        "relative flex flex-col sm:flex-row items-center sm:items-stretch group transition-all duration-300",
+        "group flex flex-col sm:flex-row overflow-hidden rounded-[28px] border border-slate-200/80 bg-white shadow-[0_15px_40px_-15px_rgba(0,0,0,0.1)] transition-shadow duration-300 hover:shadow-[0_20px_50px_-12px_rgba(0,0,0,0.14)]",
         className
       )}
     >
-      <div className="w-full sm:w-[50%] lg:w-[52%] xl:w-[52%] min-h-[280px] sm:min-h-[360px] lg:min-h-[390px] rounded-[28px] overflow-hidden bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:bg-neutral-800 shrink-0 shadow-md border border-slate-200/80 relative z-0 flex items-end justify-center p-2 sm:p-3">
+      <div className="relative w-full sm:w-[48%] lg:w-[50%] min-h-[280px] sm:min-h-[340px] lg:min-h-[380px] bg-[#f7f7f5] overflow-hidden shrink-0">
         <Image
           src={imageUrl}
           alt={company || "Client"}
-          className="w-full h-full object-contain object-bottom transition-transform duration-500 group-hover:scale-105"
-          style={{ objectPosition: "center bottom" }}
+          className="absolute inset-0 h-full w-full object-contain object-bottom"
           draggable={false}
         />
         {testimonial.logo && !imageUrl.includes("/assets/testimonials/") && (
@@ -203,7 +202,7 @@ export function ClientTestimonialCard({
         )}
       </div>
 
-      <div className="bg-white dark:bg-[#18181b] rounded-[26px] shadow-[0_15px_40px_-15px_rgba(0,0,0,0.1)] group-hover:shadow-[0_20px_50px_-12px_rgba(0,0,0,0.14)] p-6 sm:p-7 sm:-ml-4 md:-ml-5 mt-[-16px] sm:mt-0 z-10 flex-1 border border-slate-100 dark:border-neutral-800 flex flex-col justify-center transition-all duration-300">
+      <div className="flex flex-1 flex-col justify-center bg-white dark:bg-[#18181b] p-6 sm:p-8 border-t sm:border-t-0 sm:border-l border-slate-100 dark:border-neutral-800">
         {company && (
           <p className="text-xs font-semibold tracking-wide text-slate-500 mb-3">
             {company}
